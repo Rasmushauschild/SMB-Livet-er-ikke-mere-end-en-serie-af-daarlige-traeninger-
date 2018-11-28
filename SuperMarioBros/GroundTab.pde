@@ -1,3 +1,4 @@
+//JOACHIM
 class Ground{
     int posX;
     int posY;
