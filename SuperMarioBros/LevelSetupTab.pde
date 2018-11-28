@@ -13,14 +13,14 @@ class LevelSetup{
               //print(currentLevel.getInt(t/currentLevel.getRowCount(),t%currentLevel.getColumnCount()));
               //println(t/currentLevel.getRowCount(),t%currentLevel.getColumnCount());
               
-              switch (currentLevel.getInt(t/currentLevel.getRowCount(),t%currentLevel.getColumnCount())){
+              switch (currentLevel.getInt(t/currentLevel.getColumnCount(),t%currentLevel.getColumnCount())){
                 case 1:
                 fill(0,70,180);
-                rect((t%currentLevel.getColumnCount())*32,t/currentLevel.getRowCount()*32,32,32);
+                rect((t%currentLevel.getColumnCount())*32,t/currentLevel.getColumnCount()*32,32,32);
                 break;
                 
                 case 2:
-                Ground = new Ground(t%currentLevel.getColumnCount()*32,t/currentLevel.getRowCount()*32);
+                Ground = new Ground(t%currentLevel.getColumnCount()*32,t/currentLevel.getColumnCount()*32);
                 break;
                 
               }
