@@ -19,6 +19,6 @@ void draw(){
   if(keyPressed && key == 'b'){
   background(0);
   LevelSetup.loadScene(2);
-  println("tesst2");
+  println("Scene 2 Loaded");
   }
 }

@@ -1,32 +1,33 @@
 class LevelSetup{
-    int levelCount=1;
-    Table currentLevel;
+    public int currentLevel=1;
+    Table currentLevelTable;
      
     LevelSetup(){
     }
     
     void loadScene (int inputScene){
-            currentLevel = loadTable("scene"+inputScene+".csv");
-            //println(currentLevel.getInt(13, 1));
+      currentLevel = inputScene;
+      currentLevelTable = loadTable("scene"+inputScene+".csv");
+            //println(currentLevelTable.getInt(13, 1));
             
-            for (int t=0; t<(currentLevel.getColumnCount()*currentLevel.getRowCount()); t++){ 
-              //print(currentLevel.getInt(t/currentLevel.getRowCount(),t%currentLevel.getColumnCount()));
-              //println(t/currentLevel.getRowCount(),t%currentLevel.getColumnCount());
+            for (int t=0; t<(currentLevelTable.getColumnCount()*currentLevelTable.getRowCount()); t++){ 
+              //print(currentLevelTable.getInt(t/currentLevelTable.getRowCount(),t%currentLevelTable.getColumnCount()));
+              //println(t/currentLevelTable.getRowCount(),t%currentLevelTable.getColumnCount());
               
-              switch (currentLevel.getInt(t/currentLevel.getColumnCount(),t%currentLevel.getColumnCount())){
+              switch (currentLevelTable.getInt(t/currentLevelTable.getColumnCount(),t%currentLevelTable.getColumnCount())){
                 case 1:
                 fill(0,70,180);
-                rect((t%currentLevel.getColumnCount())*32,t/currentLevel.getColumnCount()*32,32,32);
+                rect((t%currentLevelTable.getColumnCount())*32,t/currentLevelTable.getColumnCount()*32,32,32);
                 break;
                 
                 case 2:
-                Ground = new Ground(t%currentLevel.getColumnCount()*32,t/currentLevel.getColumnCount()*32);
+                Ground = new Ground(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32);
                 break;
                 
               }
               
-              //println(currentLevel.getColumnCount()*currentLevel.getRowCount());
-              //println(currentLevel.getInt(13,1));
+              //println(currentLevelTable.getColumnCount()*currentLevelTable.getRowCount());
+              //println(currentLevelTable.getInt(13,1));
             }
             
     }
