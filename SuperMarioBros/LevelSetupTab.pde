@@ -1,5 +1,6 @@
 class LevelSetup{
     public int currentLevel=1;
+    public int currentTableCellCount;
     Table currentLevelTable;
      
     LevelSetup(){
@@ -8,6 +9,9 @@ class LevelSetup{
     void loadScene (int inputScene){
       currentLevel = inputScene;
       currentLevelTable = loadTable("scene"+inputScene+".csv");
+      currentTableCellCount = currentLevelTable.getColumnCount()*currentLevelTable.getRowCount();
+      groundInstances = new Ground[currentTableCellCount]; //Initiliasizes array and sets length to amount of cells in current level
+
             //println(currentLevelTable.getInt(13, 1));
             
             for (int t=0; t<(currentLevelTable.getColumnCount()*currentLevelTable.getRowCount()); t++){ 
