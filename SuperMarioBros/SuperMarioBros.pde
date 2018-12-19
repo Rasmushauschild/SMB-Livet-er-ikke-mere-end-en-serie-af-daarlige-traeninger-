@@ -4,6 +4,7 @@ Ground Ground; //Declare object Ground
 Ground[] groundInstances; //Create a array of name groundInstances, containing instances of the Ground class.
 
 Player Player;
+BackgroundColor BackgroundColor;
 
 void setup(){
   
