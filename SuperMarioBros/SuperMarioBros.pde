@@ -6,7 +6,7 @@ Ground[] groundInstances; //Create a array of name groundInstances, containing i
 Player Player;
 
 void setup(){
-    groundInstances = new Ground[1000]; //Initiliasizes array and sets length to 1000
+    groundInstances = new Ground[10000]; //Initiliasizes array and sets length to 1000
   
     //60 FPS
     //Level size in pixels: 7042,448
@@ -40,7 +40,9 @@ void draw(){
   
   Player.Display();
   
-  for (int i = 0; i<1000;i++){
-  groundInstances[i].Display();
+  for (int i = 0; i<10000;i++){
+    if(groundInstances[i]!=null){
+      groundInstances[i].Display();
+    }
   }
 }
