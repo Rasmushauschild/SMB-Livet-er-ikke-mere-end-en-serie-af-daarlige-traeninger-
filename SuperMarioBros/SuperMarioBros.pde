@@ -36,8 +36,8 @@ void draw(){
   Player.MoveRight();
   }
   
-  for (int i = 0; i<LevelSetup.currentTableCellCount;i++){
-    if(groundInstances[i]!=null){
+  for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every groundInstance. Checks every possible tablecell. 
+    if(groundInstances[i]!=null){ 
       groundInstances[i].Display();
     }
   }
