@@ -4,8 +4,14 @@ class Ground{
     int posY;
      
     Ground(int tempX, int tempY){
+      posX=tempX;
+      posY=tempY;
+      
+    }
+    
+    void Display(){
       fill(100,155,30);
-      rect(tempX,tempY,32,32);
+      rect(posX,posY,32,32);
     }
     
 }

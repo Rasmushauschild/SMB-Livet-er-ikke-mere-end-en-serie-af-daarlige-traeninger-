@@ -21,7 +21,8 @@ class LevelSetup{
                 break;
                 
                 case 2:
-                Ground = new Ground(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32);
+                
+                groundInstances[t] = new Ground(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32);
                 break;
                 
               }
