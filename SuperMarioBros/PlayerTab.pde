@@ -3,6 +3,8 @@ class Player{
   float posY;
   float velocityX;
   float velocityY;
+  public boolean rightPressed;
+  public boolean leftPressed;
 
   Player(float tempX,float tempY){
     posX = tempX;
@@ -13,18 +15,20 @@ class Player{
   void Display(){
     posX += velocityX;
     posY += velocityY;
+
     fill(255,30,30);
     rect(posX+velocityX,posY,26,32);
     println(velocityX);
   }
   
-  void MoveRight(){
-  velocityX += 0.1;
+  void Movement(){
+    
+    if (rightPressed){
+    velocityX += 0.1;
+    }
+    
+    if (leftPressed){
+    velocityX -= 0.1;
+    }
   }
-  
-  void MoveLeft(){
-  velocityX -= 0.1;
-  }
-
-
 }
