@@ -14,6 +14,8 @@ void setup(){
     //Window size in pixels (2x original): 512, 448
     //Window size in blocks: 16, 14
     
+    //Blocks Mario can move before screen moves with him: 7
+    
     size(512,448);
     frameRate(60);
     noStroke();

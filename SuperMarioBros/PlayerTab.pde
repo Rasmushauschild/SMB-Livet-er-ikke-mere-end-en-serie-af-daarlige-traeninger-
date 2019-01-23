@@ -11,17 +11,19 @@ class Player{
     }
     
   void Display(){
+    posX += velocityX;
+    posY += velocityY;
     fill(255,30,30);
     rect(posX+velocityX,posY,26,32);
     println(velocityX);
   }
   
   void MoveRight(){
-  velocityX += 5;
+  velocityX += 0.1;
   }
   
   void MoveLeft(){
-  velocityX -= 5;
+  velocityX -= 0.1;
   }
 
 
