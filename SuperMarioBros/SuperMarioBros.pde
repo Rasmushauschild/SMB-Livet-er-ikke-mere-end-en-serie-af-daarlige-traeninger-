@@ -35,10 +35,13 @@ void draw(){
     delay(100);
   }
   
-  Background.Display(1,1,1);
+  Background.Display(100,100,255);
   
   if(keyPressed && keyCode == RIGHT){
   Player.MoveRight();
+  }
+  if(keyPressed && keyCode == LEFT){
+  Player.MoveLeft();
   }
   
   for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every groundInstance. Checks every possible tablecell. 
