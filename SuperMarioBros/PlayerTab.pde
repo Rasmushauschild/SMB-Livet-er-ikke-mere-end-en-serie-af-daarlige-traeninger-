@@ -18,14 +18,14 @@ class Player{
 
     fill(255,30,30);
     rect(posX+velocityX,posY,26,32);
-    println(velocityX);
+    //println(velocityX);
   }
   
   void Movement(){
     
     if (velocityX > 0) velocityX -= 0.1;
     if (velocityX < 0) velocityX += 0.1;
-    if(velocityX > -0.1 && velocityX < 0.01) velocityX = 0;
+    if(velocityX > -0.11 && velocityX < 0.011) velocityX = 0;
  
     if (!(Player.rightPressed && Player.leftPressed)){ //Dis no works #fuckkk!!
     if (rightPressed){

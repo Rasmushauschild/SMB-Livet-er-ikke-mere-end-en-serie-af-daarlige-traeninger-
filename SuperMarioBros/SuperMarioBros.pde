@@ -37,6 +37,7 @@ void draw(){
     delay(100);
   }
   
+  println(frameRate);
   Background.Display(100,100,255);
   
   if(keyPressed && keyCode == RIGHT){
