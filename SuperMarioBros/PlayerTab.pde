@@ -23,12 +23,28 @@ class Player{
   
   void Movement(){
     
+    if (velocityX > 0) velocityX -= 0.1;
+    if (velocityX < 0) velocityX += 0.1;
+    if(velocityX > -0.1 && velocityX < 0.01) velocityX = 0;
+ 
+    if (!(Player.rightPressed && Player.leftPressed)){ //Dis no works #fuckkk!!
     if (rightPressed){
-    velocityX += 0.1;
+    velocityX += 0.2;
     }
     
     if (leftPressed){
-    velocityX -= 0.1;
+    velocityX -= 0.2;
+    }
     }
   }
+}
+
+void KeyReleased(){
+if (keyCode == RIGHT) Player.rightPressed = false;
+if (keyCode == LEFT) Player.leftPressed = false;
+}
+
+void KeyPressed(){
+if (keyCode == RIGHT) Player.rightPressed = true;
+if (keyCode == LEFT) Player.leftPressed = true;
 }
