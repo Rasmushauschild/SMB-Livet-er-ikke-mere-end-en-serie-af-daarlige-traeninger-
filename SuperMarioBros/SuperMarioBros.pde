@@ -29,8 +29,10 @@ void setup(){
 }
 void draw(){
   if(keyPressed && key == 'b'){
-  LevelSetup.loadScene(2);
-  println("Scene 2 Loaded");
+    LevelSetup.currentLevel++;
+    LevelSetup.loadScene(LevelSetup.currentLevel);
+    println("Scene" + LevelSetup.currentLevel + "Loaded");
+    delay(100);
   }
   
   Background.Display(1,1,1);
