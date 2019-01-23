@@ -1,10 +1,9 @@
 //Alsing4
-LevelSetup LevelSetup;
+LevelSetup LevelSetup;;
 Ground Ground; //Declare object Ground
 Ground[] groundInstances; //Create a array of name groundInstances, containing instances of the Ground class.
-
 Player Player;
-BackgroundColor BackgroundColor;
+Background Background;
 
 void setup(){
   
@@ -24,23 +23,24 @@ void setup(){
     //Spawn Player
     Player = new Player(100,100);
     
+    Background = new Background();
+    
 
 }
 void draw(){
   if(keyPressed && key == 'b'){
-  background(0);
   LevelSetup.loadScene(2);
   println("Scene 2 Loaded");
   }
+  
+  Background.Display(1,1,1);
   
   if(keyPressed && keyCode == RIGHT){
   Player.MoveRight();
   }
   
   for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every groundInstance. Checks every possible tablecell. 
-    if(groundInstances[i]!=null){ 
-      groundInstances[i].Display();
-    }
+    if(groundInstances[i]!=null) groundInstances[i].Display();
   }
   Player.Display();
 }

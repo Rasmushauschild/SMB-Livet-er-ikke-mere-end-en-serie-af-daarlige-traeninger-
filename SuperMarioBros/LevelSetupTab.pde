@@ -20,8 +20,7 @@ class LevelSetup{
               
               switch (currentLevelTable.getInt(t/currentLevelTable.getColumnCount(),t%currentLevelTable.getColumnCount())){
                 case 1:
-                fill(0,70,180);
-                rect((t%currentLevelTable.getColumnCount())*32,t/currentLevelTable.getColumnCount()*32,32,32);
+
                 break;
                 
                 case 2:
