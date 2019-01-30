@@ -45,22 +45,15 @@ void draw(){
   }
   Player.Movement();
   Player.Display();
-  
-  //if(keyPressed && keyCode == RIGHT){
-  //Player.rightPressed = true;
-  //} 
-  //if(keyPressed && keyCode == LEFT){
-  //Player.leftPressed = true;
-  //} 
 }
 
-void KeyReleased(){
+void keyReleased(){
   println("Key Released");
   if (keyCode == RIGHT) Player.rightPressed = false;
   if (keyCode == LEFT) Player.leftPressed = false;
 }
 
-void KeyPressed(){
+void keyPressed(){
   println("Key Pressed");
   if (keyCode == RIGHT) Player.rightPressed = true;
   if (keyCode == LEFT) Player.leftPressed = true;
