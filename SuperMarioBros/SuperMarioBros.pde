@@ -4,8 +4,12 @@ Ground Ground; //Declare object Ground
 Ground[] groundInstances; //Create a array of name groundInstances, containing instances of the Ground class.
 Player Player;
 Background Background;
+float currentTime;
+float prevTime;
+float deltaTime;
 
 void setup(){
+  
   
     //60 FPS
     //Level size in pixels: 7042,448
@@ -30,6 +34,8 @@ void setup(){
 
 }
 void draw(){
+  deltaTimeCalculation();
+  
   if(keyPressed && key == 'b'){
     LevelSetup.currentLevel++;
     LevelSetup.loadScene(LevelSetup.currentLevel);
@@ -47,14 +53,8 @@ void draw(){
   Player.Display();
 }
 
-void keyReleased(){
-  println("Key Released");
-  if (keyCode == RIGHT) Player.rightPressed = false;
-  if (keyCode == LEFT) Player.leftPressed = false;
-}
-
-void keyPressed(){
-  println("Key Pressed");
-  if (keyCode == RIGHT) Player.rightPressed = true;
-  if (keyCode == LEFT) Player.leftPressed = true;
+void deltaTimeCalculation(){
+  prevTime = currentTime;
+  currentTime = millis();
+  deltaTime = (currentTime - prevTime)/50;
 }
