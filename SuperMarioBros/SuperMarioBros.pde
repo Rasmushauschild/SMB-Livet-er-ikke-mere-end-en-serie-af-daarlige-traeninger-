@@ -37,24 +37,31 @@ void draw(){
     delay(100);
   }
   
-  println(frameRate);
+  
   Background.Display(100,100,255);
-  
-  if(keyPressed && keyCode == RIGHT){
-  Player.rightPressed = true;
-  } else {
-  Player.rightPressed = false;
-  }
-  if(keyPressed && keyCode == LEFT){
-  Player.leftPressed = true;
-  } else {
-  Player.leftPressed = false;
-  }
-  
+    
   for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every groundInstance. Checks every possible tablecell. 
     if(groundInstances[i]!=null) groundInstances[i].Display();
   }
   Player.Movement();
   Player.Display();
   
+  //if(keyPressed && keyCode == RIGHT){
+  //Player.rightPressed = true;
+  //} 
+  //if(keyPressed && keyCode == LEFT){
+  //Player.leftPressed = true;
+  //} 
+}
+
+void KeyReleased(){
+  println("Key Released");
+  if (keyCode == RIGHT) Player.rightPressed = false;
+  if (keyCode == LEFT) Player.leftPressed = false;
+}
+
+void KeyPressed(){
+  println("Key Pressed");
+  if (keyCode == RIGHT) Player.rightPressed = true;
+  if (keyCode == LEFT) Player.leftPressed = true;
 }
