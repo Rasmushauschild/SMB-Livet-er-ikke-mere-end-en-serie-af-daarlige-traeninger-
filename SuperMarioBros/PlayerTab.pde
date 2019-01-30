@@ -26,13 +26,15 @@ class Player{
     if (velocityX < 0) velocityX += 0.1;
     if(velocityX > -0.011 && velocityX < 0.011) velocityX = 0;
  
-    if (!(leftPressed && rightPressed))
+    if (!(leftPressed && rightPressed)){
+    print("heyo!");
     if (rightPressed){
     velocityX += 0.2;
     }
     
     if (leftPressed){
     velocityX -= 0.2;
+      }
     }
   }
 }
