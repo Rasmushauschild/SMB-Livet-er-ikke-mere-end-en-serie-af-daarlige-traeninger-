@@ -18,24 +18,28 @@ class Player{
 
     fill(255,30,30);
     rect(posX+velocityX,posY,26,32);
-    println(deltaTime);
+    println(velocityX);
   }
   
   void Movement(){
-    if (velocityX > 0) velocityX -= 0.1*deltaTime;
-    if (velocityX < 0) velocityX += 0.1*deltaTime;
-    if(velocityX > -0.011 && velocityX < 0.011) velocityX = 0;
- 
-    if (!(leftPressed && rightPressed)){
-    if (rightPressed){
+
+    
+    
+    if (rightPressed && !leftPressed){
+      velocityX += 0.2*deltaTime;
+    } else if (leftPressed && !rightPressed){
+        velocityX -= 0.2*deltaTime;
+    } else if(velocityX > 0){
+      velocityX -= 0.2*deltaTime;
+    } else if(velocityX < 0){
       velocityX += 0.2*deltaTime;
     }
     
-    if (leftPressed){
-      velocityX -= 0.2*deltaTime;
-    }
+    if(velocityX > 4) velocityX = 4;
+    if(velocityX < -4) velocityX = -4;
     
-    }
+    if(velocityX > -0.011 && velocityX < 0.011) velocityX = 0;
+
   }
 }
 

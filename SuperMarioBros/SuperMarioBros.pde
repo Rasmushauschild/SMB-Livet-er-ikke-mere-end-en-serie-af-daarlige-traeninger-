@@ -56,5 +56,5 @@ void draw(){
 void deltaTimeCalculation(){
   prevTime = currentTime;
   currentTime = millis();
-  deltaTime = (currentTime - prevTime)/50;
+  deltaTime = (currentTime - prevTime)/20;
 }
