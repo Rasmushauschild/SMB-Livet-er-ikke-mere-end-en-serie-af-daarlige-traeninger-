@@ -22,9 +22,6 @@ class Player{
   }
   
   void Movement(){
-
-    
-    
     if (rightPressed && !leftPressed){
       velocityX += 0.2*deltaTime;
     } else if (leftPressed && !rightPressed){
@@ -34,10 +31,8 @@ class Player{
     } else if(velocityX < 0){
       velocityX += 0.2*deltaTime;
     }
-    
     if(velocityX > 4) velocityX = 4;
     if(velocityX < -4) velocityX = -4;
-    
     if(velocityX > -0.011 && velocityX < 0.011) velocityX = 0;
 
   }
