@@ -12,16 +12,10 @@ class Player{
     
     }
     
-  void Display(){
-    posX += velocityX;
-    posY += velocityY;
 
-    fill(255,30,30);
-    rect(posX+velocityX,posY,26,32);
-    println(velocityX);
-  }
   
   void Movement(){
+    //Left-right movement
     if (rightPressed && !leftPressed){
       velocityX += 0.2*deltaTime;
     } else if (leftPressed && !rightPressed){
@@ -34,7 +28,18 @@ class Player{
     if(velocityX > 4) velocityX = 4;
     if(velocityX < -4) velocityX = -4;
     if(velocityX > -0.011 && velocityX < 0.011) velocityX = 0;
-
+    posX += velocityX;
+    posY += velocityY;
+    
+    //Snap to grid
+    posX = round(posX/2)*2;
+    posY = round(posY/2)*2;
+  }
+  
+    void Display(){
+    fill(255,30,30);
+    rect(posX,posY,26,32);
+    println(posX+" "+ posY);
   }
 }
 
