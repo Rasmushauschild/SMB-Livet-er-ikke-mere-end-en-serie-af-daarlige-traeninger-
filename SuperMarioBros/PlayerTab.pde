@@ -3,17 +3,16 @@ class Player{
   float posY;
   float velocityX;
   float velocityY;
+  float frontEndPosX;
+  float frontEndPosY;
   public boolean rightPressed;
   public boolean leftPressed;
 
   Player(float tempX,float tempY){
     posX = tempX;
     posY = tempY;
-    
     }
     
-
-  
   void Movement(){
     //Left-right movement
     if (rightPressed && !leftPressed){
@@ -32,13 +31,13 @@ class Player{
     posY += velocityY;
     
     //Snap to grid
-    posX = round(posX/2)*2;
-    posY = round(posY/2)*2;
+    frontEndPosX = round(posX/2)*2;
+    frontEndPosY = round(posY/2)*2;
   }
   
     void Display(){
     fill(255,30,30);
-    rect(posX,posY,26,32);
+    rect(frontEndPosX,frontEndPosY,26,32);
     println(posX+" "+ posY);
   }
 }
