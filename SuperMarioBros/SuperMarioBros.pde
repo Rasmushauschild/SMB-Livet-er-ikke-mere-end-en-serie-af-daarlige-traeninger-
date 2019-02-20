@@ -27,7 +27,7 @@ void setup(){
     LevelSetup.loadScene(1);
     
     //Spawn Player
-    Player = new Player(100,100);
+    Player = new Player(230,250);
     
     Background = new Background();
     

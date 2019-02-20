@@ -1,10 +1,14 @@
 class Player{
   float posX;
   float posY;
+  float playerWidth = 26;
+  float playerHeight = 32;
   float velocityX;
   float velocityY;
   float frontEndPosX;
   float frontEndPosY;
+  boolean movementPossible;
+  boolean gravity;
   public boolean rightPressed;
   public boolean leftPressed;
 
@@ -14,6 +18,7 @@ class Player{
     }
     
   void Movement(){
+
     //Left-right movement
     if (rightPressed && !leftPressed){
       velocityX += 0.2*deltaTime;
@@ -27,18 +32,53 @@ class Player{
     if(velocityX > 4) velocityX = 4;
     if(velocityX < -4) velocityX = -4;
     if(velocityX > -0.011 && velocityX < 0.011) velocityX = 0;
-    posX += velocityX;
-    posY += velocityY;
     
-    //Snap to grid
+          for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //For-loop for displaying every groundInstance. Checks every possible tablecell. 
+      if (groundInstances[i]!=null){ 
+      if ((((frontEndPosX + velocityX > groundInstances[i].posX && frontEndPosX + velocityX < groundInstances[i].posX +32) ||
+      (frontEndPosX + playerWidth + velocityX > groundInstances[i].posX && frontEndPosX + velocityX + playerWidth < groundInstances[i].posX +32)) && //↑X Y↓
+      ((posY + velocityY + playerHeight + 0.45 > groundInstances[i].posY)))){
+          gravity = false;
+        }
+      }
+    }
+
+    if (gravity){
+        velocityY += 0.2*deltaTime;
+    }
+    else velocityY = 0;
+    println(gravity);
+    
+    gravity = true;
+    
+      for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //For-loop for displaying every groundInstance. Checks every possible tablecell. 
+      if (groundInstances[i]!=null){ 
+      if ((((frontEndPosX + velocityX > groundInstances[i].posX && frontEndPosX + velocityX < groundInstances[i].posX +32) ||
+      (frontEndPosX + playerWidth + velocityX > groundInstances[i].posX && frontEndPosX + velocityX + playerWidth < groundInstances[i].posX +32)) && //↑X Y↓
+      ((frontEndPosY + velocityY > groundInstances[i].posY && frontEndPosY + velocityY < groundInstances[i].posY +32) ||
+      (frontEndPosY+ playerHeight + velocityY > groundInstances[i].posY && frontEndPosY + velocityY + playerHeight < groundInstances[i].posY +32)))){
+          movementPossible = false;
+        }
+      }
+    }
+    
+    if (movementPossible){
+      posX += velocityX;
+      posY += velocityY;
+    }
+    
+    movementPossible = true;
+    
+            //Snap to grid
     frontEndPosX = round(posX/2)*2;
     frontEndPosY = round(posY/2)*2;
+    
   }
   
     void Display(){
     fill(255,30,30);
-    rect(frontEndPosX,frontEndPosY,26,32);
-    println(posX+" "+ posY);
+    rect(frontEndPosX,frontEndPosY,playerWidth ,playerHeight);
+    //println(posX+" "+ posY);
   }
 }
 
