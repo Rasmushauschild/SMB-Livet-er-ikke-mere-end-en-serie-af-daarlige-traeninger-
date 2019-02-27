@@ -1,6 +1,7 @@
 class Ground{
     int posX;
     int posY;
+    PImage img = loadImage("Sprite_Brick.png");
      
     Ground(int tempX, int tempY){
       posX = tempX;
@@ -9,8 +10,7 @@ class Ground{
     }
     
     void Display(){
-      fill(#CA8F61);
-      rect(posX,posY,32,32);
+      image(img, posX, posY);
     }
     
 }
