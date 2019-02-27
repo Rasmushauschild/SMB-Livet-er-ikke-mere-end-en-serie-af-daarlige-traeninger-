@@ -25,6 +25,7 @@ void setup(){
     size(512,448);
     frameRate(60);
     noStroke();
+    stroke(2);
     LevelSetup = new LevelSetup();
     LevelSetup.loadScene(1);
     
