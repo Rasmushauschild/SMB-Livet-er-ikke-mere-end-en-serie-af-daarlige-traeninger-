@@ -12,7 +12,6 @@ class Player{
   public boolean rightPressed;
   public boolean leftPressed;
   public boolean spacePressed;
-  PImage img = loadImage("Sprite_Mario01.png");
 
   Player(float tempX,float tempY){
     posX = tempX;
@@ -64,7 +63,6 @@ class Player{
       ((frontEndPosY + velocityY > groundInstances[i].posY && frontEndPosY + velocityY < groundInstances[i].posY +32) ||
       (frontEndPosY+ playerHeight + velocityY > groundInstances[i].posY && frontEndPosY + velocityY + playerHeight <= groundInstances[i].posY +32)))){ //<= is for pixel perfect BS
           movementPossible = false;
-          if (velocityY==0) velocityX=0;
         }
       }
     }
@@ -82,9 +80,8 @@ class Player{
   }
   
     void Display(){
-    image(img, frontEndPosX,frontEndPosY);
-    //fill(#D45756);
-    //rect(frontEndPosX,frontEndPosY,playerWidth ,playerHeight);
+    fill(#D45756);
+    rect(frontEndPosX,frontEndPosY,playerWidth ,playerHeight);
     //println(posX+" "+ posY);
   }
 }
