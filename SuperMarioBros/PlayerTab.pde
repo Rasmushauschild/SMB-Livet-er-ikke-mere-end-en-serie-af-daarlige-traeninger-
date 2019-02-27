@@ -35,6 +35,9 @@ class Player{
     if(velocityX < -4) velocityX = -4;
     if(velocityX > -0.011 && velocityX < 0.011) velocityX = 0;
     
+    if(spacePressed){
+      velocityY=-6;
+    }
     
     
           for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //For-loop for displaying every groundInstance. Checks every possible tablecell. 
