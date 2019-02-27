@@ -37,8 +37,8 @@ class Player{
       if (groundInstances[i]!=null){ 
       if ((((frontEndPosX + velocityX > groundInstances[i].posX && frontEndPosX + velocityX < groundInstances[i].posX +32) ||
       (frontEndPosX + playerWidth + velocityX > groundInstances[i].posX && frontEndPosX + velocityX + playerWidth < groundInstances[i].posX +32)) && //↑X Y↓
-      ((frontEndPosY + velocityY > groundInstances[i].posY && frontEndPosY + velocityY < groundInstances[i].posY +32) ||
-      (frontEndPosY + playerHeight + velocityY > groundInstances[i].posY && frontEndPosY + velocityY + playerHeight < groundInstances[i].posY +32)))){
+      (
+      (frontEndPosY + playerHeight + velocityY > groundInstances[i].posY-1 && frontEndPosY + velocityY + playerHeight < groundInstances[i].posY +1)))){
           gravity = false;
         }
       }
