@@ -37,17 +37,18 @@ class Player{
       if (groundInstances[i]!=null){ 
       if ((((frontEndPosX + velocityX > groundInstances[i].posX && frontEndPosX + velocityX < groundInstances[i].posX +32) ||
       (frontEndPosX + playerWidth + velocityX > groundInstances[i].posX && frontEndPosX + velocityX + playerWidth < groundInstances[i].posX +32)) && //↑X Y↓
-      ((posY + velocityY + playerHeight + 0.45 > groundInstances[i].posY)))){
+      ((posY + velocityY + playerHeight + 0.55 > groundInstances[i].posY)))){
           gravity = false;
         }
       }
     }
 
+    println(gravity);
     if (gravity){
         velocityY += 0.2*deltaTime;
     }
     else velocityY = 0;
-    println(gravity);
+    
     
     gravity = true;
     
@@ -66,7 +67,6 @@ class Player{
       posX += velocityX;
       posY += velocityY;
     }
-    
     movementPossible = true;
     
             //Snap to grid
