@@ -1,4 +1,6 @@
-//Alsing4
+//Yellow #FFEA6C
+//Green #83FF71
+
 LevelSetup LevelSetup;;
 Ground Ground; //Declare object Ground
 Ground[] groundInstances; //Create a array of name groundInstances, containing instances of the Ground class.
