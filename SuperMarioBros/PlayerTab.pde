@@ -12,6 +12,7 @@ class Player{
   public boolean rightPressed;
   public boolean leftPressed;
   public boolean spacePressed;
+  PImage img = loadImage("Sprite_Mario01.png");
 
   Player(float tempX,float tempY){
     posX = tempX;
@@ -80,8 +81,9 @@ class Player{
   }
   
     void Display(){
-    fill(#D45756);
-    rect(frontEndPosX,frontEndPosY,playerWidth ,playerHeight);
+    image(img, frontEndPosX,frontEndPosY);
+    //fill(#D45756);
+    //rect(frontEndPosX,frontEndPosY,playerWidth ,playerHeight);
     //println(posX+" "+ posY);
   }
 }
