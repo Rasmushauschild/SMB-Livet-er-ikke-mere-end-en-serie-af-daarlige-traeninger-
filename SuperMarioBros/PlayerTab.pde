@@ -33,12 +33,12 @@ class Player{
     if(velocityX < -4) velocityX = -4;
     if(velocityX > -0.011 && velocityX < 0.011) velocityX = 0;
     
-       /*   for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //For-loop for displaying every groundInstance. Checks every possible tablecell. 
+          for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //For-loop for displaying every groundInstance. Checks every possible tablecell. 
       if (groundInstances[i]!=null){ 
       if ((((frontEndPosX + velocityX > groundInstances[i].posX && frontEndPosX + velocityX < groundInstances[i].posX +32) ||
       (frontEndPosX + playerWidth + velocityX > groundInstances[i].posX && frontEndPosX + velocityX + playerWidth < groundInstances[i].posX +32)) && //↑X Y↓
       (
-      (frontEndPosY + playerHeight + velocityY > groundInstances[i].posY-1 && frontEndPosY + velocityY + playerHeight < groundInstances[i].posY +1)))){
+      (frontEndPosY + playerHeight + velocityY > groundInstances[i].posY -1 && frontEndPosY + velocityY + playerHeight < groundInstances[i].posY +32)))){
           gravity = false;
         }
       }
@@ -51,14 +51,14 @@ class Player{
     else velocityY = 0;
     
     
-    gravity = true;*/
+    gravity = true;
     
       for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //For-loop for displaying every groundInstance. Checks every possible tablecell. 
       if (groundInstances[i]!=null){ 
       if ((((frontEndPosX + velocityX > groundInstances[i].posX && frontEndPosX + velocityX < groundInstances[i].posX +32) ||
       (frontEndPosX + playerWidth + velocityX > groundInstances[i].posX && frontEndPosX + velocityX + playerWidth < groundInstances[i].posX +32)) && //↑X Y↓
-      ((frontEndPosY + velocityY > groundInstances[i].posY && frontEndPosY + velocityY < groundInstances[i].posY +32) ||
-      (frontEndPosY+ playerHeight + velocityY > groundInstances[i].posY && frontEndPosY + velocityY + playerHeight < groundInstances[i].posY +32)))){
+      ((frontEndPosY + velocityY > groundInstances[i].posY && frontEndPosY + velocityY < groundInstances[i].posY +32) /*||
+      (frontEndPosY+ playerHeight + velocityY > groundInstances[i].posY && frontEndPosY + velocityY + playerHeight < groundInstances[i].posY +32)*/))){
           movementPossible = false;
         }
       }
