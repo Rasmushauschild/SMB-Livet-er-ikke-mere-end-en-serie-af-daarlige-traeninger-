@@ -9,7 +9,7 @@ class Ground{
     }
     
     void Display(){
-      fill(100, 155, 30);
+      fill(#CA8F61);
       rect(posX,posY,32,32);
     }
     

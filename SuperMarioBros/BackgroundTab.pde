@@ -1,17 +1,13 @@
 class Background{
-    int red;
-    int green;
-    int blue;
+    color HEX;
      
     Background(){ 
     }
     
-    void Display(int tempRed, int tempGreen, int tempBlue){
-      red = tempRed;
-      green = tempGreen;
-      blue = tempBlue;
+    void Display(color tempHEX){
+      HEX = tempHEX;
       
-      background(red, green, blue);
+      background(HEX);
     }
     
 }

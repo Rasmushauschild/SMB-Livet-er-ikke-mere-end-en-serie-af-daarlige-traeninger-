@@ -44,7 +44,7 @@ void draw(){
   }
   
   
-  Background.Display(100,100,255);
+  Background.Display(#AED1EE);
     
   for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every groundInstance. Checks every possible tablecell. 
     if(groundInstances[i]!=null) groundInstances[i].Display();
