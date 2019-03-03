@@ -26,6 +26,7 @@ void setup(){
     frameRate(60);
     noStroke();
     stroke(2);
+    rectMode(CORNER);
     LevelSetup = new LevelSetup();
     LevelSetup.loadScene(1);
     

@@ -7,7 +7,7 @@ class Player{
   float velocityY;
   float frontEndPosX;
   float frontEndPosY;
-  boolean movementPossible;
+  boolean jumpPossible;
   boolean gravity;
   public boolean rightPressed;
   public boolean leftPressed;
@@ -35,48 +35,58 @@ class Player{
     if(velocityX < -4) velocityX = -4;
     if(velocityX > -0.011 && velocityX < 0.011) velocityX = 0;
     
-    if(spacePressed){
+    for (int i = 0; i<LevelSetup.currentTableCellCount; i++){
+      if (groundInstances[i]!=null){
+        if(frontEndPosX + playerWidth > groundInstances[i].posX && //player right edge past ground left-side
+        frontEndPosX < groundInstances[i].posX + 32 && //player left edge past ground right-side
+        frontEndPosY + playerHeight >= groundInstances[i].posY && //player bottom edge past ground top
+        frontEndPosY+32 <= groundInstances[i].posY){ //player top edge past ground bottom 
+          jumpPossible = true;
+        }
+      }
+    }  
+    
+    
+    
+    if(spacePressed && jumpPossible){
       velocityY=-6;
     }
     
+    jumpPossible = false;
     
-          for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //For-loop for displaying every groundInstance. Checks every possible tablecell. 
-      if (groundInstances[i]!=null){ 
-      if ((((frontEndPosX + velocityX > groundInstances[i].posX && frontEndPosX + velocityX < groundInstances[i].posX +32) ||
-      (frontEndPosX + playerWidth + velocityX > groundInstances[i].posX && frontEndPosX + velocityX + playerWidth < groundInstances[i].posX +32)) && //↑X Y↓
-      (
-      (frontEndPosY + playerHeight + velocityY > groundInstances[i].posY -1 && frontEndPosY + velocityY + playerHeight <= groundInstances[i].posY +32)))){
-          gravity = false;
+    velocityY += 0.2*deltaTime;
+    
+    
+    //rect(frontEndPosX + velocityX*10, frontEndPosY+velocityY*10 , 26,32);
+    
+    //println(frontEndPosY);
+    for (int i = 0; i<LevelSetup.currentTableCellCount; i++){
+      if (groundInstances[i]!=null){
+        if(frontEndPosX + playerWidth + velocityX > groundInstances[i].posX && //player right edge past ground left-side
+        frontEndPosX + velocityX < groundInstances[i].posX + 32 && //player left edge past ground right-side
+        frontEndPosY + playerHeight > groundInstances[i].posY && //player bottom edge past ground top
+        frontEndPosY < groundInstances[i].posY + 32){ //player top edge past ground bottom 
+          velocityX = 0;
+        }
+        if(frontEndPosX + playerWidth > groundInstances[i].posX && //player right edge past ground left-side
+        frontEndPosX < groundInstances[i].posX + 32 && //player left edge past ground right-side
+        frontEndPosY + playerHeight + velocityY > groundInstances[i].posY && //player bottom edge past ground top
+        frontEndPosY + velocityY < groundInstances[i].posY + 32){ //player top edge past ground bottom 
+          velocityY = 0;
+        }
+        if(frontEndPosX + playerWidth > groundInstances[i].posX && //player right edge past ground left-side
+        frontEndPosX < groundInstances[i].posX + 32 && //player left edge past ground right-side
+        frontEndPosY + playerHeight > groundInstances[i].posY && //player bottom edge past ground top
+        frontEndPosY < groundInstances[i].posY + 32){ //player top edge past ground bottom 
+          println("DOOR STUCK! DOOR STUCK!");
+          posY=groundInstances[i].posY+32; //ensures Mario doesn't get stuck in one of the bottom corners of blocks
         }
       }
     }
-
-    println(velocityY);
-    if (gravity){
-        velocityY += 0.2*deltaTime;
-    }
-    else velocityY = 0;
+    //rect(frontEndPosX, frontEndPosY, 26,32);
     
-    
-    gravity = true;
-    
-      for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //For-loop for displaying every groundInstance. Checks every possible tablecell. 
-      if (groundInstances[i]!=null){ 
-      if ((((frontEndPosX + velocityX > groundInstances[i].posX && frontEndPosX + velocityX < groundInstances[i].posX +32) ||
-      (frontEndPosX + playerWidth + velocityX > groundInstances[i].posX && frontEndPosX + velocityX + playerWidth < groundInstances[i].posX +32)) && //↑X Y↓
-      ((frontEndPosY + velocityY > groundInstances[i].posY && frontEndPosY + velocityY < groundInstances[i].posY +32) ||
-      (frontEndPosY+ playerHeight + velocityY > groundInstances[i].posY && frontEndPosY + velocityY + playerHeight <= groundInstances[i].posY +32)))){ //<= is for pixel perfect BS
-          movementPossible = false;
-          if (velocityY==0) velocityX=0;
-        }
-      }
-    }
-    
-    if (movementPossible){
-      posX += velocityX;
-      posY += velocityY;
-    }
-    movementPossible = true;
+    posX += velocityX;
+    posY += velocityY;
     
             //Snap to grid
     frontEndPosX = round(posX/2)*2;
@@ -89,18 +99,20 @@ class Player{
     //fill(#D45756);
     //rect(frontEndPosX,frontEndPosY,playerWidth ,playerHeight);
     //println(posX+" "+ posY);
+    //println("player:  " + frontEndPosX + "  " + (frontEndPosY+playerHeight));
+    println(jumpPossible);
   }
 }
 
 void keyReleased(){
-  println("Key Released");
+  //println("Key Released");
   if (keyCode == RIGHT) Player.rightPressed = false;
   if (keyCode == LEFT) Player.leftPressed = false;
   if (keyCode == 32) Player.spacePressed = false;
 }
 
 void keyPressed(){
-  println("Key Pressed");
+  //println("Key Pressed");
   if (keyCode == RIGHT) Player.rightPressed = true;
   if (keyCode == LEFT) Player.leftPressed = true;
   if (keyCode == 32) Player.spacePressed = true;
