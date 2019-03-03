@@ -39,13 +39,12 @@ class Player{
       if (groundInstances[i]!=null){
         if(frontEndPosX + playerWidth > groundInstances[i].posX && //player right edge past ground left-side
         frontEndPosX < groundInstances[i].posX + 32 && //player left edge past ground right-side
-        frontEndPosY + playerHeight >= groundInstances[i].posY && //player bottom edge past ground top
-        frontEndPosY+32 <= groundInstances[i].posY){ //player top edge past ground bottom 
+        frontEndPosY+playerHeight == groundInstances[i].posY){ //player top edge past ground bottom 
           jumpPossible = true;
         }
       }
     }  
-    
+    //println(jumpPossible);
     
     
     if(spacePressed && jumpPossible){
@@ -78,8 +77,14 @@ class Player{
         frontEndPosX < groundInstances[i].posX + 32 && //player left edge past ground right-side
         frontEndPosY + playerHeight > groundInstances[i].posY && //player bottom edge past ground top
         frontEndPosY < groundInstances[i].posY + 32){ //player top edge past ground bottom 
-          println("DOOR STUCK! DOOR STUCK!");
-          posY=groundInstances[i].posY+32; //ensures Mario doesn't get stuck in one of the bottom corners of blocks
+          
+          if (posY<(groundInstances[i].posY+16)){ //If Mario clips in the top half, tp to top
+            posY = groundInstances[i].posY-playerHeight; 
+            println("DOOR STUCK! DOOR STUCK! 1");
+          } else if (posY>(groundInstances[i].posY+16)){ //If Mario clips in the bottom half, tp to the bottom
+            posY = groundInstances[i].posY+32; 
+            println("DOOR STUCK! DOOR STUCK! 2");
+          }
         }
       }
     }
@@ -100,7 +105,7 @@ class Player{
     //rect(frontEndPosX,frontEndPosY,playerWidth ,playerHeight);
     //println(posX+" "+ posY);
     //println("player:  " + frontEndPosX + "  " + (frontEndPosY+playerHeight));
-    println(jumpPossible);
+    
   }
 }
 
