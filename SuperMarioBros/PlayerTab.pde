@@ -62,10 +62,11 @@ class Player{
     //println(frontEndPosY);
     for (int i = 0; i<LevelSetup.currentTableCellCount; i++){
       if (groundInstances[i]!=null){
-        if(frontEndPosX + playerWidth + velocityX > groundInstances[i].posX && //player right edge past ground left-side
+        if((frontEndPosX + playerWidth + velocityX > groundInstances[i].posX && //player right edge past ground left-side
         frontEndPosX + velocityX < groundInstances[i].posX + 32 && //player left edge past ground right-side
         frontEndPosY + playerHeight > groundInstances[i].posY && //player bottom edge past ground top
-        frontEndPosY < groundInstances[i].posY + 32){ //player top edge past ground bottom 
+        frontEndPosY < groundInstances[i].posY + 32) //player top edge past ground bottom 
+        || posX+velocityX<0){ //for scrolling: stops Mario from going past the left edge
           velocityX = 0;
         }
         if(frontEndPosX + playerWidth > groundInstances[i].posX && //player right edge past ground left-side
@@ -91,7 +92,7 @@ class Player{
     }
     //rect(frontEndPosX, frontEndPosY, 26,32);
     
-    println(posX);
+    println(frameRate);
     if(posX>=224 && velocityX>0){
       scroll=true;
     } else {
