@@ -7,16 +7,13 @@ class Player{
   float velocityY;
   float frontEndPosX;
   float frontEndPosY;
-  int animMode;
-  int currentFrame;
+  int imageCount;
   boolean jumpPossible;
   boolean gravity;
-  boolean scroll;
   public boolean rightPressed;
   public boolean leftPressed;
   public boolean spacePressed;
-
-  
+  PImage img = loadImage("Sprite_Mario01.png");
 
   Player(float tempX,float tempY){
     posX = tempX;
@@ -24,25 +21,10 @@ class Player{
     }
     
   void Movement(){
-    animMode = 0;
-        for (int i = 0; i<LevelSetup.currentTableCellCount; i++){
-      if (groundInstances[i]!=null){
-        if(frontEndPosX + playerWidth > groundInstances[i].posX && //player right edge past ground left-side
-        frontEndPosX < groundInstances[i].posX + 32 && //player left edge past ground right-side
-        frontEndPosY+playerHeight == groundInstances[i].posY){ //player top edge past ground bottom 
-          jumpPossible = true;
-        }
-      }
-    }  
 
-    if(spacePressed && jumpPossible){
-      velocityY=-6;
-    }
-    
     //Left-right movement
     if (rightPressed && !leftPressed){
       velocityX += 0.2*deltaTime;
-      if(jumpPossible) animMode = 1;
     } else if (leftPressed && !rightPressed){
         velocityX -= 0.2*deltaTime;
     } else if(velocityX > 0){
@@ -54,9 +36,24 @@ class Player{
     if(velocityX < -4) velocityX = -4;
     if(velocityX > -0.011 && velocityX < 0.011) velocityX = 0;
     
+    for (int i = 0; i<LevelSetup.currentTableCellCount; i++){
+      if (groundInstances[i]!=null){
+        if(frontEndPosX + playerWidth > groundInstances[i].posX && //player right edge past ground left-side
+        frontEndPosX < groundInstances[i].posX + 32 && //player left edge past ground right-side
+        frontEndPosY+playerHeight == groundInstances[i].posY){ //player top edge past ground bottom 
+          jumpPossible = true;
+        }
+      }
+    }  
+    //println(jumpPossible);
+    
+    
+    if(spacePressed && jumpPossible){
+      velocityY=-6;
+    }
+    
     jumpPossible = false;
-
-    //Gravity
+    
     velocityY += 0.2*deltaTime;
     
     
@@ -65,11 +62,10 @@ class Player{
     //println(frontEndPosY);
     for (int i = 0; i<LevelSetup.currentTableCellCount; i++){
       if (groundInstances[i]!=null){
-        if((frontEndPosX + playerWidth + velocityX > groundInstances[i].posX && //player right edge past ground left-side
+        if(frontEndPosX + playerWidth + velocityX > groundInstances[i].posX && //player right edge past ground left-side
         frontEndPosX + velocityX < groundInstances[i].posX + 32 && //player left edge past ground right-side
         frontEndPosY + playerHeight > groundInstances[i].posY && //player bottom edge past ground top
-        frontEndPosY < groundInstances[i].posY + 32) //player top edge past ground bottom 
-        || posX+velocityX<0){ //for scrolling: stops Mario from going past the left edge
+        frontEndPosY < groundInstances[i].posY + 32){ //player top edge past ground bottom 
           velocityX = 0;
         }
         if(frontEndPosX + playerWidth > groundInstances[i].posX && //player right edge past ground left-side
@@ -95,41 +91,19 @@ class Player{
     }
     //rect(frontEndPosX, frontEndPosY, 26,32);
     
-    println(frameRate);
-    if(posX>=224 && velocityX>0){
-      scroll=true;
-    } else {
-      scroll=false;
-    }
-    
-    if (!scroll){
-      posX += velocityX;
-      
-    }
+    posX += velocityX;
     posY += velocityY;
     
             //Snap to grid
     frontEndPosX = round(posX/2)*2;
     frontEndPosY = round(posY/2)*2;
     
+    
+    
   }
   
     void Display(){
-      println(currentFrame);
-    switch (animMode){
-                case 0:
-                image(spritesSmallMario[0], frontEndPosX,frontEndPosY);
-                break;
-                
-                case 1:
-                if(frameCount%round(6-velocityX)==0 && currentFrame <3){
-                currentFrame++;
-                } else if(frameCount%round(6-velocityX)==0) currentFrame = 1;
-                image(spritesSmallMario[currentFrame], frontEndPosX,frontEndPosY);
-                break;
-                
-              }
-    
+    image(img, frontEndPosX,frontEndPosY);
     //fill(#D45756);
     //rect(frontEndPosX,frontEndPosY,playerWidth ,playerHeight);
     //println(posX+" "+ posY);

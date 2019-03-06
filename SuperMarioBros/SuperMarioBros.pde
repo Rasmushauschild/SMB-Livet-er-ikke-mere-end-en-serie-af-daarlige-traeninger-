@@ -9,6 +9,9 @@ Background Background;
 float currentTime;
 float prevTime;
 float deltaTime;
+int animCount;
+PImage spriteSheetSmallMario;
+PImage[] spritesSmallMario = new PImage[13]; //Creates an empty PImage array with the correct length
 
 void setup(){
     //60 FPS
@@ -25,8 +28,18 @@ void setup(){
     noStroke();
     stroke(2);
     rectMode(CORNER);
+    imageMode(CENTER);
     LevelSetup = new LevelSetup();
     LevelSetup.loadScene(1);
+    animCount = 14;
+    spriteSheetSmallMario = loadImage("SpriteSheet_SmallMario.png"); //Loads the spritesheet
+    
+    int W = spriteSheetSmallMario.width/animCount;
+    
+    for(int i = 0; i<spritesSmallMario.length; i++){
+    int x = i%animCount*W;
+    spritesSmallMario[i]=spriteSheetSmallMario.get(x,0,W,spriteSheetSmallMario.height);
+    }
     
     //Spawn Player
     Player = new Player(230, 0);
