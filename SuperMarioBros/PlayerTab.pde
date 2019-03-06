@@ -9,6 +9,7 @@ class Player{
   float frontEndPosY;
   boolean jumpPossible;
   boolean gravity;
+  boolean scroll;
   public boolean rightPressed;
   public boolean leftPressed;
   public boolean spacePressed;
@@ -50,9 +51,9 @@ class Player{
     if(spacePressed && jumpPossible){
       velocityY=-6;
     }
-    
     jumpPossible = false;
     
+    //Gravity
     velocityY += 0.2*deltaTime;
     
     
@@ -90,7 +91,17 @@ class Player{
     }
     //rect(frontEndPosX, frontEndPosY, 26,32);
     
-    posX += velocityX;
+    println(posX);
+    if(posX>=224 && velocityX>0){
+      scroll=true;
+    } else {
+      scroll=false;
+    }
+    
+    if (!scroll){
+      posX += velocityX;
+      
+    }
     posY += velocityY;
     
             //Snap to grid

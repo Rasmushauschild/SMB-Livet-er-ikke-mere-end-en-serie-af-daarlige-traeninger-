@@ -11,8 +11,6 @@ float prevTime;
 float deltaTime;
 
 void setup(){
-  
-  
     //60 FPS
     //Level size in pixels: 7042,448
     //Level size in blocks: 221, 14
@@ -49,12 +47,13 @@ void draw(){
   
   
   Background.Display(#AED1EE);
-    
+    Player.Movement();
+  Player.Display();
   for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every groundInstance. Checks every possible tablecell. 
+    if(groundInstances[i]!=null && Player.scroll) groundInstances[i].Scroll();
     if(groundInstances[i]!=null) groundInstances[i].Display();
   }
-  Player.Movement();
-  Player.Display();
+
 }
 
 void deltaTimeCalculation(){
