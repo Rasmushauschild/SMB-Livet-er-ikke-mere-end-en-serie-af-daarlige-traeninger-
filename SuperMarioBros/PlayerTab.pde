@@ -25,7 +25,7 @@ class Player{
     
   void Movement(){
     animMode = 0;
-        for (int i = 0; i<LevelSetup.currentTableCellCount; i++){
+    for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //Checks whether or not player is touching ground, determines if player can jump
       if (groundInstances[i]!=null){
         if(frontEndPosX + playerWidth > groundInstances[i].posX && //player right edge past ground left-side
         frontEndPosX < groundInstances[i].posX + 32 && //player left edge past ground right-side
@@ -34,20 +34,38 @@ class Player{
         }
       }
     }  
-
-    if(spacePressed && jumpPossible){
+    
+    //UP-DOWN MOVEMENT ------------------------------------------------------
+    //Jump
+    if(spacePressed && jumpPossible){ //Jump when space is pressed and player is on ground.
       velocityY=-6;
     }
     
-    //Left-right movement
-    if (rightPressed && !leftPressed){
+    //Increases jump height if space is held in longer
+    if(!spacePressed && !jumpPossible && velocityY<0){ //If the player is going upwards, isn't touching ground and isn't pressing space, then increase gravity
+      velocityY += 0.2*deltaTime;
+    } else if(!jumpPossible && velocityY>0){ //If the player is going downwards and isn't touching ground, increase gravity
+      velocityY += 0.2*deltaTime;
+    }
+    
+    
+    //Gravity
+    velocityY += 0.2*deltaTime;
+    
+    
+    if(velocityY > 6) velocityY = 6; //Max-fallspeed
+    
+    
+    //LEFT-RIGHT MOVEMENT ---------------------------------------------------
+    
+    if (rightPressed && !leftPressed){ //Run right
       velocityX += 0.2*deltaTime;
       if(jumpPossible) animMode = 1;
-    } else if (leftPressed && !rightPressed){
+    } else if (leftPressed && !rightPressed){ //Run left
         velocityX -= 0.2*deltaTime;
-    } else if(velocityX > 0){
+    } else if(velocityX > 0){ //Stop running right when button isn't held down
       velocityX -= 0.2*deltaTime;
-    } else if(velocityX < 0){
+    } else if(velocityX < 0){ //Stop running left when button isn't held down
       velocityX += 0.2*deltaTime;
     }
     if(velocityX > 4) velocityX = 4;
@@ -56,8 +74,7 @@ class Player{
     
     jumpPossible = false;
 
-    //Gravity
-    velocityY += 0.2*deltaTime;
+
     
     
     //rect(frontEndPosX + velocityX*10, frontEndPosY+velocityY*10 , 26,32);
@@ -95,7 +112,7 @@ class Player{
     }
     //rect(frontEndPosX, frontEndPosY, 26,32);
     
-    println(frameRate);
+    println(velocityY);
     if(posX>=224 && velocityX>0){
       scroll=true;
     } else {
