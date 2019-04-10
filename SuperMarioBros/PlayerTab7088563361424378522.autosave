@@ -12,10 +12,11 @@ class Player{
   boolean jumpPossible;
   boolean gravity;
   boolean scroll;
-  boolean rightLeft;
   public boolean rightPressed;
   public boolean leftPressed;
   public boolean spacePressed;
+
+  
 
   Player(float tempX,float tempY){
     posX = tempX;
@@ -23,7 +24,7 @@ class Player{
     }
     
   void Movement(){
-    //Resets animMode
+    animMode = 0;
     for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //Checks whether or not player is touching ground, determines if player can jump
       if (groundInstances[i]!=null){
         if(frontEndPosX + playerWidth > groundInstances[i].posX && //player right edge past ground left-side
@@ -59,24 +60,17 @@ class Player{
     
     if (rightPressed && !leftPressed){ //Run right
       velocityX += 0.2*deltaTime;
-      rightLeft = false;
       if(jumpPossible) animMode = 1;
     } else if (leftPressed && !rightPressed){ //Run left
         velocityX -= 0.2*deltaTime;
-        rightLeft = true;
-        if(jumpPossible) animMode = 2;
     } else if(velocityX > 0){ //Stop running right when button isn't held down
       velocityX -= 0.2*deltaTime;
     } else if(velocityX < 0){ //Stop running left when button isn't held down
       velocityX += 0.2*deltaTime;
     }
-    
     if(velocityX > 4) velocityX = 4;
     if(velocityX < -4) velocityX = -4;
-    if(velocityX > -0.1 && velocityX < 0.1) {
-    animMode = 0;
-    velocityX = 0;
-  }
+    if(velocityX > -0.011 && velocityX < 0.011) velocityX = 0;
     
     jumpPossible = false;
 
@@ -118,7 +112,7 @@ class Player{
     }
     //rect(frontEndPosX, frontEndPosY, 26,32);
     
-    println(velocityX);
+    println(velocityY);
     if(posX>=224 && velocityX>0){
       scroll=true;
     } else {
@@ -138,17 +132,10 @@ class Player{
   }
   
     void Display(){
-      //println(currentFrame);
+      println(currentFrame);
     switch (animMode){
                 case 0:
-                if(!rightLeft){
                 image(spritesSmallMario[0], frontEndPosX,frontEndPosY);
-                } else {
-                pushMatrix();
-                scale(-1,1);
-                image(spritesSmallMario[0], -frontEndPosX,frontEndPosY);
-                popMatrix();
-                }
                 break;
                 
                 case 1:
@@ -159,14 +146,7 @@ class Player{
                 break;
                 
                 case 2:
-                pushMatrix();
-                scale(-1,1);
-                if(frameCount%round(6-velocityX)==0 && currentFrame <3){
-                currentFrame++;
-                } else if(frameCount%round(6-velocityX)==0) currentFrame = 1;
-                image(spritesSmallMario[currentFrame], -frontEndPosX,frontEndPosY);
-                popMatrix();
-                break;
+                
                 
               }
     
