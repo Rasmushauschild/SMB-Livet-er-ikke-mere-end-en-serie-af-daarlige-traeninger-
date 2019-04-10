@@ -62,12 +62,12 @@ class Player{
       velocityX += 0.2*deltaTime;
       rightLeft = false;
       if(jumpPossible) animMode = 1;
-      if (velocityX < 0) animMode = 3;
+      if (velocityX < 0 && jumpPossible) animMode = 3;
     } else if (leftPressed && !rightPressed){ //Run left
       velocityX -= 0.2*deltaTime;
       rightLeft = true;
       if(jumpPossible) animMode = 1;
-      if (velocityX > 0) animMode = 3;
+      if (velocityX > 0 && jumpPossible) animMode = 3;
     } else if(velocityX > 0){ //Stop running right when button isn't held down
       velocityX -= 0.2*deltaTime;
     } else if(velocityX < 0){ //Stop running left when button isn't held down
