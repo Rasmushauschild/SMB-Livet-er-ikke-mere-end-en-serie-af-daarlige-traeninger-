@@ -64,7 +64,7 @@ class Player{
     } else if (leftPressed && !rightPressed){ //Run left
         velocityX -= 0.2*deltaTime;
         rightLeft = true;
-        if(jumpPossible) animMode = 2;
+        if(jumpPossible) animMode = 1;
     } else if(velocityX > 0){ //Stop running right when button isn't held down
       velocityX -= 0.2*deltaTime;
     } else if(velocityX < 0){ //Stop running left when button isn't held down
@@ -138,7 +138,7 @@ class Player{
   }
   
     void Display(){
-      //println(currentFrame);
+      println(animMode);
     switch (animMode){
                 case 0:
                 if(!rightLeft){
@@ -152,20 +152,20 @@ class Player{
                 break;
                 
                 case 1:
+                if(!rightLeft){
                 if(frameCount%round(6-velocityX)==0 && currentFrame <3){
                 currentFrame++;
                 } else if(frameCount%round(6-velocityX)==0) currentFrame = 1;
                 image(spritesSmallMario[currentFrame], frontEndPosX,frontEndPosY);
-                break;
-                
-                case 2:
+                } else {
                 pushMatrix();
                 scale(-1,1);
-                if(frameCount%round(6-velocityX)==0 && currentFrame <3){
+                if(frameCount%round(6+velocityX)==0 && currentFrame <3){
                 currentFrame++;
-                } else if(frameCount%round(6-velocityX)==0) currentFrame = 1;
+                } else if(frameCount%round(6+velocityX)==0) currentFrame = 1;
                 image(spritesSmallMario[currentFrame], -frontEndPosX,frontEndPosY);
                 popMatrix();
+                }
                 break;
                 
               }
