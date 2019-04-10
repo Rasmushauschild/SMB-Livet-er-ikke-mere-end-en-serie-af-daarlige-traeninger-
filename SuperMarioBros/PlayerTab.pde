@@ -62,10 +62,12 @@ class Player{
       velocityX += 0.2*deltaTime;
       rightLeft = false;
       if(jumpPossible) animMode = 1;
+      if (velocityX < 0) animMode = 3;
     } else if (leftPressed && !rightPressed){ //Run left
-        velocityX -= 0.2*deltaTime;
-        rightLeft = true;
-        if(jumpPossible) animMode = 1;
+      velocityX -= 0.2*deltaTime;
+      rightLeft = true;
+      if(jumpPossible) animMode = 1;
+      if (velocityX > 0) animMode = 3;
     } else if(velocityX > 0){ //Stop running right when button isn't held down
       velocityX -= 0.2*deltaTime;
     } else if(velocityX < 0){ //Stop running left when button isn't held down
@@ -141,7 +143,7 @@ class Player{
     
   }
   
-    void Display(){
+    void Display(){ //FIX MARIO SPRITESHEET - FRAMES NOT CENTERED
       println(animMode);
     switch (animMode){
                 case 0: //Standing still Right/Left
@@ -181,7 +183,17 @@ class Player{
                 image(spritesSmallMario[5], -frontEndPosX,frontEndPosY);
                 popMatrix();
                 }
+                break;
                 
+                case 3:
+                if(!rightLeft){
+                image(spritesSmallMario[4], frontEndPosX,frontEndPosY);
+                } else {
+                pushMatrix();
+                scale(-1,1);
+                image(spritesSmallMario[4], -frontEndPosX,frontEndPosY);
+                popMatrix();
+                }
                 break;
                 
               }
