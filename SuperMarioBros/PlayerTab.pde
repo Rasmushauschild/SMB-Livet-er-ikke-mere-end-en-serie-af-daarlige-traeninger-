@@ -37,14 +37,15 @@ class Player{
     //UP-DOWN MOVEMENT ------------------------------------------------------
     //Jump
     if(spacePressed && jumpPossible){ //Jump when space is pressed and player is on ground.
-      velocityY=-6;
+      velocityY=-7;
+      animMode = 2;
     }
     
     //Increases jump height if space is held in longer
     if(!spacePressed && !jumpPossible && velocityY<0){ //If the player is going upwards, isn't touching ground and isn't pressing space, then increase gravity
-      velocityY += 0.2*deltaTime;
+      velocityY += 0.6*deltaTime;
     } else if(!jumpPossible && velocityY>0){ //If the player is going downwards and isn't touching ground, increase gravity
-      velocityY += 0.2*deltaTime;
+      velocityY += 0.6*deltaTime;
     }
     
     
@@ -74,10 +75,13 @@ class Player{
     if(velocityX > 4) velocityX = 4;
     if(velocityX < -4) velocityX = -4;
     if(velocityX > -0.1 && velocityX < 0.1) {
-    animMode = 0;
     velocityX = 0;
+    if(jumpPossible) animMode = 0;
   }
-    
+    if(spacePressed && jumpPossible){ //Jump when space is pressed and player is on ground.
+    animMode = 2;
+    }
+    println(jumpPossible);
     jumpPossible = false;
 
 
@@ -140,7 +144,7 @@ class Player{
     void Display(){
       println(animMode);
     switch (animMode){
-                case 0:
+                case 0: //Standing still Right/Left
                 if(!rightLeft){
                 image(spritesSmallMario[0], frontEndPosX,frontEndPosY);
                 } else {
@@ -151,7 +155,7 @@ class Player{
                 }
                 break;
                 
-                case 1:
+                case 1: //Running Right/Left
                 if(!rightLeft){
                 if(frameCount%round(6-velocityX)==0 && currentFrame <3){
                 currentFrame++;
@@ -166,6 +170,18 @@ class Player{
                 image(spritesSmallMario[currentFrame], -frontEndPosX,frontEndPosY);
                 popMatrix();
                 }
+                break;
+                
+                case 2: //Jumping Right/Left
+                if(!rightLeft){
+                image(spritesSmallMario[5], frontEndPosX,frontEndPosY);
+                } else {
+                pushMatrix();
+                scale(-1,1);
+                image(spritesSmallMario[5], -frontEndPosX,frontEndPosY);
+                popMatrix();
+                }
+                
                 break;
                 
               }
