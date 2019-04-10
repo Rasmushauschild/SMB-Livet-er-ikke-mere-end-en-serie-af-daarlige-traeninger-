@@ -16,14 +16,13 @@ class Player{
   public boolean leftPressed;
   public boolean spacePressed;
 
-  
-
   Player(float tempX,float tempY){
     posX = tempX;
     posY = tempY;
     }
     
   void Movement(){
+    //Resets animMode
     animMode = 0;
     for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //Checks whether or not player is touching ground, determines if player can jump
       if (groundInstances[i]!=null){
