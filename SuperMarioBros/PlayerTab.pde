@@ -12,7 +12,7 @@ class Player{
   boolean jumpPossible;
   boolean gravity;
   boolean scroll;
-  boolean rightLeft;
+  boolean facingRight=true;
   public boolean rightPressed;
   public boolean leftPressed;
   public boolean spacePressed;
@@ -25,10 +25,10 @@ class Player{
   void Movement(){
     //Resets animMode
     for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //Checks whether or not player is touching ground, determines if player can jump
-      if (groundInstances[i]!=null){
-        if(frontEndPosX + playerWidth > groundInstances[i].posX && //player right edge past ground left-side
-        frontEndPosX < groundInstances[i].posX + 32 && //player left edge past ground right-side
-        frontEndPosY+playerHeight == groundInstances[i].posY){ //player top edge past ground bottom 
+      if (blockInstances[i]!=null){
+        if(frontEndPosX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
+        frontEndPosX < blockInstances[i].posX + 32 && //player left edge past ground right-side
+        frontEndPosY+playerHeight == blockInstances[i].posY){ //player top edge past ground bottom 
           jumpPossible = true;
         }
       }
@@ -43,9 +43,9 @@ class Player{
     
     //Increases jump height if space is held in longer
     if(!spacePressed && !jumpPossible && velocityY<0){ //If the player is going upwards, isn't touching ground and isn't pressing space, then increase gravity
-      velocityY += 0.6*deltaTime;
+      velocityY += 2.8*deltaTime;
     } else if(!jumpPossible && velocityY>0){ //If the player is going downwards and isn't touching ground, increase gravity
-      velocityY += 0.6*deltaTime;
+      velocityY += 1.0*deltaTime;
     }
     
     
@@ -60,12 +60,12 @@ class Player{
     
     if (rightPressed && !leftPressed){ //Run right
       velocityX += 0.2*deltaTime;
-      rightLeft = false;
+      facingRight = true;
       if(jumpPossible) animMode = 1;
       if (velocityX < 0 && jumpPossible) animMode = 3;
     } else if (leftPressed && !rightPressed){ //Run left
       velocityX -= 0.2*deltaTime;
-      rightLeft = true;
+      facingRight = false;
       if(jumpPossible) animMode = 1;
       if (velocityX > 0 && jumpPossible) animMode = 3;
     } else if(velocityX > 0){ //Stop running right when button isn't held down
@@ -93,30 +93,30 @@ class Player{
     
     //println(frontEndPosY);
     for (int i = 0; i<LevelSetup.currentTableCellCount; i++){
-      if (groundInstances[i]!=null){
-        if((frontEndPosX + playerWidth + velocityX > groundInstances[i].posX && //player right edge past ground left-side
-        frontEndPosX + velocityX < groundInstances[i].posX + 32 && //player left edge past ground right-side
-        frontEndPosY + playerHeight > groundInstances[i].posY && //player bottom edge past ground top
-        frontEndPosY < groundInstances[i].posY + 32) //player top edge past ground bottom 
-        || posX+velocityX<0){ //for scrolling: stops Mario from going past the left edge
+      if (blockInstances[i]!=null){
+        if((frontEndPosX + playerWidth + velocityX > blockInstances[i].posX && //player right edge past ground left-side
+        frontEndPosX + velocityX < blockInstances[i].posX + 32 && //player left edge past ground right-side
+        frontEndPosY + playerHeight > blockInstances[i].posY && //player bottom edge past ground top
+        frontEndPosY < blockInstances[i].posY + 32) //player top edge past ground bottom 
+        || posX+velocityX-playerWidth/2<0){ //for scrolling: stops Mario from going past the left edge
           velocityX = 0;
         }
-        if(frontEndPosX + playerWidth > groundInstances[i].posX && //player right edge past ground left-side
-        frontEndPosX < groundInstances[i].posX + 32 && //player left edge past ground right-side
-        frontEndPosY + playerHeight + velocityY > groundInstances[i].posY && //player bottom edge past ground top
-        frontEndPosY + velocityY < groundInstances[i].posY + 32){ //player top edge past ground bottom 
+        if(frontEndPosX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
+        frontEndPosX < blockInstances[i].posX + 32 && //player left edge past ground right-side
+        frontEndPosY + playerHeight + velocityY > blockInstances[i].posY && //player bottom edge past ground top
+        frontEndPosY + velocityY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
           velocityY = 0;
         }
-        if(frontEndPosX + playerWidth > groundInstances[i].posX && //player right edge past ground left-side
-        frontEndPosX < groundInstances[i].posX + 32 && //player left edge past ground right-side
-        frontEndPosY + playerHeight > groundInstances[i].posY && //player bottom edge past ground top
-        frontEndPosY < groundInstances[i].posY + 32){ //player top edge past ground bottom 
+        if(frontEndPosX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
+        frontEndPosX < blockInstances[i].posX + 32 && //player left edge past ground right-side
+        frontEndPosY + playerHeight > blockInstances[i].posY && //player bottom edge past ground top
+        frontEndPosY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
           
-          if (posY<(groundInstances[i].posY+16)){ //If Mario clips in the top half, tp to top
-            posY = groundInstances[i].posY-playerHeight; 
+          if (posY<(blockInstances[i].posY+16)){ //If Mario clips in the top half, tp to top
+            posY = blockInstances[i].posY-playerHeight; 
             println("DOOR STUCK! DOOR STUCK! 1");
-          } else if (posY>(groundInstances[i].posY+16)){ //If Mario clips in the bottom half, tp to the bottom
-            posY = groundInstances[i].posY+32; 
+          } else if (posY>(blockInstances[i].posY+16)){ //If Mario clips in the bottom half, tp to the bottom
+            posY = blockInstances[i].posY+32; 
             println("DOOR STUCK! DOOR STUCK! 2");
           }
         }
@@ -147,7 +147,7 @@ class Player{
       println(animMode);
     switch (animMode){
                 case 0: //Standing still Right/Left
-                if(!rightLeft){
+                if(facingRight){
                 image(spritesSmallMario[0], frontEndPosX,frontEndPosY);
                 } else {
                 pushMatrix();
@@ -158,7 +158,7 @@ class Player{
                 break;
                 
                 case 1: //Running Right/Left
-                if(!rightLeft){
+                if(facingRight){
                 if(frameCount%round(6-velocityX)==0 && currentFrame <3){
                 currentFrame++;
                 } else if(frameCount%round(6-velocityX)==0) currentFrame = 1;
@@ -175,7 +175,7 @@ class Player{
                 break;
                 
                 case 2: //Jumping Right/Left
-                if(!rightLeft){
+                if(facingRight){
                 image(spritesSmallMario[5], frontEndPosX,frontEndPosY);
                 } else {
                 pushMatrix();
@@ -186,7 +186,7 @@ class Player{
                 break;
                 
                 case 3:
-                if(!rightLeft){
+                if(facingRight){
                 image(spritesSmallMario[4], frontEndPosX,frontEndPosY);
                 } else {
                 pushMatrix();

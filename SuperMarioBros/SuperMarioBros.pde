@@ -2,8 +2,8 @@
 //Green #83FF71
 
 LevelSetup LevelSetup;;
-Ground Ground; //Declare object Ground
-Ground[] groundInstances; //Create a array of name groundInstances, containing instances of the Ground class.
+Block Ground; //Declare object Block
+Block[] blockInstances; //Create a array of name blockInstances, containing instances of the Block class.
 Player Player;
 Background Background;
 float currentTime;
@@ -30,7 +30,7 @@ void setup(){
     rectMode(CORNER);
     imageMode(CENTER);
     LevelSetup = new LevelSetup();
-    LevelSetup.loadScene(1);
+    LevelSetup.loadScene(3);
     animCount = 14;
     spriteSheetSmallMario = loadImage("SpriteSheet_SmallMario.png"); //Loads the spritesheet
     
@@ -62,9 +62,9 @@ void draw(){
   Background.Display(#AED1EE);
     Player.Movement();
   Player.Display();
-  for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every groundInstance. Checks every possible tablecell. 
-    if(groundInstances[i]!=null && Player.scroll) groundInstances[i].Scroll();
-    if(groundInstances[i]!=null) groundInstances[i].Display();
+  for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
+    if(blockInstances[i]!=null && Player.scroll) blockInstances[i].Scroll();
+    if(blockInstances[i]!=null) blockInstances[i].Display();
   }
 
 }

@@ -1,16 +1,25 @@
-class Ground{
+class Block{
     float posX;
     float posY;
+    int identifier;
     PImage img = loadImage("Sprite_Brick.png");
      
-    Ground(float tempX, float tempY){
+    Block(float tempX, float tempY, int tempIdentifier){
       posX = tempX;
       posY = tempY;
+      identifier = tempIdentifier;
       
     }
     
     void Display(){
-      image(img, posX, posY);
+      switch (identifier){
+        case 2: //Ground Block
+        image(img, posX, posY);
+        break;
+      }
+      
+      
+      
     }
     
     void Scroll(){

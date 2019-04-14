@@ -10,28 +10,12 @@ class LevelSetup{
       currentLevel = inputScene;
       currentLevelTable = loadTable("scene"+inputScene+".csv");
       currentTableCellCount = currentLevelTable.getColumnCount()*currentLevelTable.getRowCount();
-      groundInstances = new Ground[currentTableCellCount]; //Initiliasizes array and sets length to amount of cells in current level
+      blockInstances = new Block[currentTableCellCount]; //Initiliasizes array and sets length to amount of cells in current level
 
-            //println(currentLevelTable.getInt(13, 1));
-            
             for (int t=0; t<(currentLevelTable.getColumnCount()*currentLevelTable.getRowCount()); t++){ 
-              //print(currentLevelTable.getInt(t/currentLevelTable.getRowCount(),t%currentLevelTable.getColumnCount()));
-              //println(t/currentLevelTable.getRowCount(),t%currentLevelTable.getColumnCount());
-              
-              switch (currentLevelTable.getInt(t/currentLevelTable.getColumnCount(),t%currentLevelTable.getColumnCount())){
-                case 1:
-
-                break;
-                
-                case 2:
-                
-                groundInstances[t] = new Ground(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32);
-                break;
-                
+              if(currentLevelTable.getInt(t/currentLevelTable.getColumnCount(),t%currentLevelTable.getColumnCount())!=0){ //If there is a block in the cell which the for-loop has reached, then spawn a new block
+              blockInstances[t] = new Block(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32,currentLevelTable.getInt(t/currentLevelTable.getColumnCount(),t%currentLevelTable.getColumnCount()));
               }
-              
-              //println(currentLevelTable.getColumnCount()*currentLevelTable.getRowCount());
-              //println(currentLevelTable.getInt(13,1));
             }
             
     }
