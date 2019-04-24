@@ -9,9 +9,6 @@ Background Background;
 float currentTime;
 float prevTime;
 float deltaTime;
-int animCount;
-PImage spriteSheetSmallMario;
-PImage[] spritesSmallMario = new PImage[13]; //Creates an empty PImage array with the correct length
 
 void setup(){
     //60 FPS

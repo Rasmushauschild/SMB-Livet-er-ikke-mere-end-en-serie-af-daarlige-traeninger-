@@ -16,6 +16,10 @@ class Player{
   public boolean rightPressed;
   public boolean leftPressed;
   public boolean spacePressed;
+  
+  int animCount;
+  PImage spriteSheetSmallMario;
+  PImage[] spritesSmallMario = new PImage[13]; //Creates an empty PImage array with the correct length
 
   Player(float tempX,float tempY){
     posX = tempX;
