@@ -22,6 +22,18 @@ class Player{
     posY = tempY;
     }
     
+  void animationSetup(){
+    animCount = 14;
+    spriteSheetSmallMario = loadImage("SpriteSheet_SmallMario.png"); //Loads the spritesheet
+    
+    int W = spriteSheetSmallMario.width/animCount;
+    
+    for(int i = 0; i<spritesSmallMario.length; i++){
+    int x = i%animCount*W;
+    spritesSmallMario[i]=spriteSheetSmallMario.get(x,0,W,spriteSheetSmallMario.height);
+    }
+  }
+    
   void Movement(){
     //Resets animMode
     for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //Checks whether or not player is touching ground, determines if player can jump

@@ -31,18 +31,10 @@ void setup(){
     imageMode(CENTER);
     LevelSetup = new LevelSetup();
     LevelSetup.loadScene(3);
-    animCount = 14;
-    spriteSheetSmallMario = loadImage("SpriteSheet_SmallMario.png"); //Loads the spritesheet
-    
-    int W = spriteSheetSmallMario.width/animCount;
-    
-    for(int i = 0; i<spritesSmallMario.length; i++){
-    int x = i%animCount*W;
-    spritesSmallMario[i]=spriteSheetSmallMario.get(x,0,W,spriteSheetSmallMario.height);
-    }
     
     //Spawn Player
     Player = new Player(230, 0);
+    Player.animationSetup();
     
     Background = new Background();
     
