@@ -12,6 +12,7 @@ class LevelSetup{
       currentLevelTable = loadTable("scene"+inputScene+".csv");
       currentTableCellCount = currentLevelTable.getColumnCount()*currentLevelTable.getRowCount();
       blockInstances = new Block[currentTableCellCount]; //Initiliasizes array and sets length to amount of cells in current level
+      goombaInstances = new Goomba[currentTableCellCount]; //Initiliasizes array and sets length to amount of cells in current level
 
             for (int t=0; t<(currentLevelTable.getColumnCount()*currentLevelTable.getRowCount()); t++){ 
               currentIdentifier = currentLevelTable.getInt(t/currentLevelTable.getColumnCount(),t%currentLevelTable.getColumnCount());
@@ -20,7 +21,7 @@ class LevelSetup{
               } else { //Spawn Enemy
                 switch (currentIdentifier){
                   case 20:
-                  //Gomba
+                  goombaInstances[t] = new Goomba(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32);
                   break;
                   
                   case 21:

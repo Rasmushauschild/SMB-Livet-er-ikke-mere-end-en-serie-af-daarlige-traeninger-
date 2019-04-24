@@ -4,6 +4,8 @@
 LevelSetup LevelSetup;;
 Block Ground; //Declare object Block
 Block[] blockInstances; //Create a array of name blockInstances, containing instances of the Block class.
+Goomba Goomba;
+Goomba[] goombaInstances;
 Player Player;
 Background Background;
 float currentTime;
@@ -49,11 +51,18 @@ void draw(){
   
   
   Background.Display(#AED1EE);
-    Player.Movement();
+  Player.Movement();
   Player.Display();
   for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
     if(blockInstances[i]!=null && Player.scroll) blockInstances[i].Scroll();
     if(blockInstances[i]!=null) blockInstances[i].Display();
+    
+    if(goombaInstances[i]!=null && Player.scroll) goombaInstances[i].Scroll();
+    if(goombaInstances[i]!=null) {
+      goombaInstances[i].animationSetup();
+      goombaInstances[i].Display();
+      goombaInstances[i].Movement();
+    }
   }
 
 }
