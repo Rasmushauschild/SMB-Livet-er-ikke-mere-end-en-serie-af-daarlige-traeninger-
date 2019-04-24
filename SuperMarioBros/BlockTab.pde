@@ -8,8 +8,10 @@ class Block{
     PImage itemSprite = loadImage("Sprite_Item.png");
     PImage brickSprite = loadImage("Sprite_Brick.png");
     PImage goombaSprite = loadImage("Sprite_Goomba.png");
-    PImage pipe = loadImage("Sprite_Pipe.png");
-    PImage pipeTop = loadImage("Sprite_PipeTop.png");
+    PImage pipeL = loadImage("Sprite_PipeL.png");
+    PImage pipeR = loadImage("Sprite_PipeR.png");
+    PImage pipeTopL = loadImage("Sprite_PipeTopL.png");
+    PImage pipeTopR = loadImage("Sprite_PipeTopR.png");
      
     Block(float tempX, float tempY, int tempIdentifier){
       posX = tempX;
@@ -32,14 +34,22 @@ class Block{
         image(itemSprite, posX, posY);
         break;
         
-        case 5:
-        image(pipe, posX, posY);
+        case 93:
+        image(pipeL, posX, posY);
         break;
-        
-        case 6:
-        image(pipeTop, posX, posY);
+
+        case 94:
+        image(pipeR, posX, posY);
         break;
-        
+
+        case 91:
+        image(pipeTopL, posX, posY);
+        break;
+
+        case 92:
+        image(pipeTopR, posX, posY);
+        break;
+
         case 20:
         image(goombaSprite, posX, posY);
         break;
