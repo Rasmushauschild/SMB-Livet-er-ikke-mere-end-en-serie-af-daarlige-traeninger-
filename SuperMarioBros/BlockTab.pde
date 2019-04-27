@@ -26,12 +26,13 @@ class Block{
         image(groundSprite, posX, posY);
         break;
         
-        case 3:
+        case 3: //Brick Block
         image(brickSprite, posX, posY);
         break;
         
         case 4: //Item Block
         image(itemSprite, posX, posY);
+        
         break;
         
         case 93:

@@ -20,7 +20,22 @@ void setup(){
     //Window size in pixels (2x original): 512, 448
     //Window size in blocks: 16, 14
     
-    //Blocks Mario can move before screen moves with him: 7
+    //Blocks Mario can move before screen moves with him:7
+    
+    /* TO DO LIST:
+    - Item block
+    - Brick block
+    - Mushroom
+    - Stor mario
+    - Koopa Trooper
+    - Mario death
+    - Menu
+    - Flag pole
+    - Pipes
+    - Have underground i slutningen af banen
+    - Musik
+    - Background Polish
+    */
     
     size(512,448);
     frameRate(60);

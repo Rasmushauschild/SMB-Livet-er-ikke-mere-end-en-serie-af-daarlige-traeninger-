@@ -133,6 +133,11 @@ class Goomba{
         Player.velocityY = -12;
         Player.animMode = 2;
       }
+    } else if(frontEndPosX + goombaWidth > Player.frontEndPosX && //player right edge past ground left-side
+    frontEndPosX < Player.frontEndPosX + 32 && //player left edge past ground right-side
+    frontEndPosY + goombaHeight > Player.frontEndPosY && //player bottom edge past ground top
+    frontEndPosY < Player.frontEndPosY + 32 && !dead){
+      println("Mario Killed");
     }
     if(frameCount - 50 > deathTime && dead) posX = -10000;
   }
