@@ -6,8 +6,10 @@ class Goomba{
   float baseSpeed = -1;
   float velocityX;
   float velocityY;
+  float deathTime;
   int goombaWidth = 32;
   int goombaHeight = 32;
+  boolean dead;
   
   
   int animCount;
@@ -36,9 +38,10 @@ class Goomba{
   }
   
   void Alive(){
-  if(!((posX - Player.posX)/32 > 11 || (posX - Player.posX)/32 < -8)){
+  if(!((posX - Player.posX)/32 > 20 || (posX - Player.posX)/32 < -8)){
   Display();
-  Movement();
+  Death();
+  if(!dead) Movement();
   }
   else if(Player.scroll){
     posX = posX-Player.velocityX;
@@ -51,26 +54,26 @@ class Goomba{
     frontEndPosY = round(posY/2)*2;
     
     switch (animMode){
-      case 0: //Moving Right/Left
-      if(frameCount%10 == 0 && currentFrame == 0) currentFrame = 1;
-      else if(frameCount%10 == 0 && currentFrame == 1) currentFrame = 0;
-      if (currentFrame == 1) image(spritesGoomba[0], frontEndPosX, frontEndPosY);
-      else if(currentFrame == 0) {
-      pushMatrix();
-      scale(-1,1);
-      image(spritesGoomba[0], -frontEndPosX, frontEndPosY);
-      popMatrix();
+        case 0: //Moving Right/Left
+        if(frameCount%10 == 0 && currentFrame == 0) currentFrame = 1;
+        else if(frameCount%10 == 0 && currentFrame == 1) currentFrame = 0;
+        if (currentFrame == 1) image(spritesGoomba[0], frontEndPosX, frontEndPosY);
+        else if(currentFrame == 0) {
+        pushMatrix();
+        scale(-1,1);
+        image(spritesGoomba[0], -frontEndPosX, frontEndPosY);
+        popMatrix();
+        }
+        break;
+        
+        case 1: //Standing still Right/Left
+        image(spritesGoomba[1], frontEndPosX, frontEndPosY);
+        break;
       }
-      break;
-      
-      case 1: //Standing still Right/Left
-      image(spritesGoomba[1], frontEndPosX, frontEndPosY);
-      break;
-    }
+    if(Player.scroll) posX = posX-Player.velocityX;
   }
   
   void Movement(){
-    if(Player.scroll) posX = posX-Player.velocityX;
     velocityX = baseSpeed * deltaTime;
     velocityY += 0.2 * deltaTime;
     
@@ -99,7 +102,7 @@ class Goomba{
           frontEndPosY + goombaHeight > blockInstances[i].posY && //player bottom edge past ground top
           frontEndPosY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
             
-            if (posY<(blockInstances[i].posY+16)){ //If Mario clips in the top half, tp to top
+            if(posY<(blockInstances[i].posY+16)){ //If Mario clips in the top half, tp to top
               posY = blockInstances[i].posY-goombaHeight; 
               println("DOOR STUCK! DOOR STUCK! 1");
             } else if (posY>(blockInstances[i].posY+16)){ //If Mario clips in the bottom half, tp to the bottom
@@ -110,7 +113,6 @@ class Goomba{
         }
       }
     }
-    //rect(frontEndPosX, frontEndPosY, 26,32);
     
     posX += velocityX;
     posY += velocityY;
@@ -118,5 +120,20 @@ class Goomba{
             //Snap to grid
     frontEndPosX = round(posX/2)*2;
     frontEndPosY = round(posY/2)*2;
+  }
+  void Death(){
+    if(frontEndPosX + goombaWidth > Player.frontEndPosX && //player right edge past ground left-side
+    frontEndPosX < Player.frontEndPosX + 32 && //player left edge past ground right-side
+    frontEndPosY + goombaHeight-10 > Player.frontEndPosY && //player bottom edge past ground top
+    frontEndPosY < Player.frontEndPosY + 32 && Player.velocityY > 0){
+      if(!dead){
+        dead = true;
+        animMode = 1;
+        deathTime = frameCount;
+        Player.velocityY = -12;
+        Player.animMode = 2;
+      }
+    }
+    if(frameCount - 50 > deathTime && dead) posX = -10000;
   }
 }
