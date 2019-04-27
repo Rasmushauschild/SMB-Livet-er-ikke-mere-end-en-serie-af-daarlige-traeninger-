@@ -7,6 +7,7 @@ class Player{
   float velocityY;
   float frontEndPosX;
   float frontEndPosY;
+  float scrollAmount;
   int animMode;
   int currentFrame;
   boolean jumpPossible;
@@ -109,31 +110,40 @@ class Player{
     
     //println(frontEndPosY);
     for (int i = 0; i<LevelSetup.currentTableCellCount; i++){
-      if (blockInstances[i]!=null){
-        if((frontEndPosX + playerWidth + velocityX > blockInstances[i].posX && //player right edge past ground left-side
-        frontEndPosX + velocityX < blockInstances[i].posX + 32 && //player left edge past ground right-side
-        frontEndPosY + playerHeight > blockInstances[i].posY && //player bottom edge past ground top
-        frontEndPosY < blockInstances[i].posY + 32) //player top edge past ground bottom 
-        || posX+velocityX-playerWidth/2<0){ //for scrolling: stops Mario from going past the left edge
-          velocityX = 0;
-        }
-        if(frontEndPosX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
-        frontEndPosX < blockInstances[i].posX + 32 && //player left edge past ground right-side
-        frontEndPosY + playerHeight + velocityY > blockInstances[i].posY && //player bottom edge past ground top
-        frontEndPosY + velocityY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
-          velocityY = 0;
-        }
-        if(frontEndPosX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
-        frontEndPosX < blockInstances[i].posX + 32 && //player left edge past ground right-side
-        frontEndPosY + playerHeight > blockInstances[i].posY && //player bottom edge past ground top
-        frontEndPosY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
-          
-          if (posY<(blockInstances[i].posY+16)){ //If Mario clips in the top half, tp to top
-            posY = blockInstances[i].posY-playerHeight; 
-            println("DOOR STUCK! DOOR STUCK! 1");
-          } else if (posY>(blockInstances[i].posY+16)){ //If Mario clips in the bottom half, tp to the bottom
-            posY = blockInstances[i].posY+32; 
-            println("DOOR STUCK! DOOR STUCK! 2");
+      if ((i >= (int(posY)/32+1)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32+1)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) || 
+          (i >= (int(posY)/32-0)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32-0)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) ||
+          (i >= (int(posY)/32-1)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32-1)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) ||
+          (i >= (int(posY)/32-2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32-2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) ||
+          (i >= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount())){
+        println(posX + scrollAmount);
+        if (blockInstances[i]!=null){
+          if((frontEndPosX + playerWidth + velocityX > blockInstances[i].posX && //player right edge past ground left-side
+          frontEndPosX + velocityX < blockInstances[i].posX + 32 && //player left edge past ground right-side
+          frontEndPosY + playerHeight > blockInstances[i].posY && //player bottom edge past ground top
+          frontEndPosY < blockInstances[i].posY + 32) //player top edge past ground bottom 
+          || posX+velocityX-playerWidth/2<0){ //for scrolling: stops Mario from going past the left edge
+            velocityX = 0;
+            println("XXXXXXXXXXXX");
+          }
+          if(frontEndPosX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
+          frontEndPosX < blockInstances[i].posX + 32 && //player left edge past ground right-side
+          frontEndPosY + playerHeight + velocityY > blockInstances[i].posY && //player bottom edge past ground top
+          frontEndPosY + velocityY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
+            velocityY = 0;
+            println("YYYYYYYYYYYY");
+          }
+          if(frontEndPosX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
+          frontEndPosX < blockInstances[i].posX + 32 && //player left edge past ground right-side
+          frontEndPosY + playerHeight > blockInstances[i].posY && //player bottom edge past ground top
+          frontEndPosY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
+            
+            if (posY<(blockInstances[i].posY+16)){ //If Mario clips in the top half, tp to top
+              posY = blockInstances[i].posY-playerHeight; 
+              println("DOOR STUCK! DOOR STUCK! 1");
+            } else if (posY>(blockInstances[i].posY+16)){ //If Mario clips in the bottom half, tp to the bottom
+              posY = blockInstances[i].posY+32; 
+              println("DOOR STUCK! DOOR STUCK! 2");
+            }
           }
         }
       }
@@ -143,6 +153,7 @@ class Player{
     println(velocityX);
     if(posX>=224 && velocityX>0){
       scroll=true;
+      scrollAmount += velocityX;
     } else {
       scroll=false;
     }
