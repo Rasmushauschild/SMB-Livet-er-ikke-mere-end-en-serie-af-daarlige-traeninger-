@@ -37,6 +37,12 @@ void setup(){
     
     Background = new Background();
     
+    for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
+    if(goombaInstances[i]!=null) {
+      goombaInstances[i].animationSetup();
+    }
+  }
+    
 
 }
 void draw(){
@@ -57,11 +63,8 @@ void draw(){
     if(blockInstances[i]!=null && Player.scroll) blockInstances[i].Scroll();
     if(blockInstances[i]!=null) blockInstances[i].Display();
     
-    if(goombaInstances[i]!=null && Player.scroll) goombaInstances[i].Scroll();
     if(goombaInstances[i]!=null) {
-      goombaInstances[i].animationSetup();
-      goombaInstances[i].Display();
-      goombaInstances[i].Movement();
+      goombaInstances[i].Alive();
     }
   }
 

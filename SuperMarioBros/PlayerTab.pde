@@ -5,9 +5,8 @@ class Player{
   float playerHeight = 32;
   float velocityX;
   float velocityY;
-  float frontEndPosX;
-  float frontEndPosY;
-  float scrollAmount;
+  int frontEndPosX;
+  int frontEndPosY;
   int animMode;
   int currentFrame;
   boolean jumpPossible;
@@ -17,6 +16,7 @@ class Player{
   public boolean rightPressed;
   public boolean leftPressed;
   public boolean spacePressed;
+   float scrollAmount;
   
   int animCount;
   PImage spriteSheetSmallMario;
@@ -100,11 +100,7 @@ class Player{
     if(spacePressed && jumpPossible){ //Jump when space is pressed and player is on ground.
     animMode = 2;
     }
-    println(jumpPossible);
     jumpPossible = false;
-
-
-    
     
     //rect(frontEndPosX + velocityX*10, frontEndPosY+velocityY*10 , 26,32);
     
@@ -115,22 +111,18 @@ class Player{
           (i >= (int(posY)/32-1)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32-1)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) ||
           (i >= (int(posY)/32-2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32-2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) ||
           (i >= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount())){
-        println(posX + scrollAmount);
         if (blockInstances[i]!=null){
           if((frontEndPosX + playerWidth + velocityX > blockInstances[i].posX && //player right edge past ground left-side
           frontEndPosX + velocityX < blockInstances[i].posX + 32 && //player left edge past ground right-side
           frontEndPosY + playerHeight > blockInstances[i].posY && //player bottom edge past ground top
-          frontEndPosY < blockInstances[i].posY + 32) //player top edge past ground bottom 
-          || posX+velocityX-playerWidth/2<0){ //for scrolling: stops Mario from going past the left edge
+          frontEndPosY < blockInstances[i].posY + 32)){ //player top edge past ground bottom 
             velocityX = 0;
-            println("XXXXXXXXXXXX");
           }
           if(frontEndPosX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
           frontEndPosX < blockInstances[i].posX + 32 && //player left edge past ground right-side
           frontEndPosY + playerHeight + velocityY > blockInstances[i].posY && //player bottom edge past ground top
           frontEndPosY + velocityY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
             velocityY = 0;
-            println("YYYYYYYYYYYY");
           }
           if(frontEndPosX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
           frontEndPosX < blockInstances[i].posX + 32 && //player left edge past ground right-side
@@ -148,9 +140,9 @@ class Player{
         }
       }
     }
-    //rect(frontEndPosX, frontEndPosY, 26,32);
     
-    println(velocityX);
+    if(posX+velocityX-playerWidth/2<0) velocityX = 0; // Makes sure mario can't pass the left side of the screen.
+    
     if(posX>=224 && velocityX>0){
       scroll=true;
       scrollAmount += velocityX;
@@ -163,15 +155,14 @@ class Player{
       
     }
     posY += velocityY;
-    
-            //Snap to grid
-    frontEndPosX = round(posX/2)*2;
-    frontEndPosY = round(posY/2)*2;
-    
   }
   
     void Display(){ //FIX MARIO SPRITESHEET - FRAMES NOT CENTERED
-      println(animMode);
+    
+                //Snap to grid
+    frontEndPosX = round(posX/2)*2;
+    frontEndPosY = round(posY/2)*2;
+    
     switch (animMode){
                 case 0: //Standing still Right/Left
                 if(facingRight){
