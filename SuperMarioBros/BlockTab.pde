@@ -1,10 +1,10 @@
 class Block{
+    boolean animationInProgress = false;
     float posX;
     float posY;
     float sizeX;
     float sizeY;
     int identifier;
-    int mushroomIdentifier = 1; //For creating mushrooms with seperate names
     PImage groundSprite = loadImage("Sprite_Ground.png");
     PImage itemSprite = loadImage("Sprite_Item.png");
     PImage brickSprite = loadImage("Sprite_Brick.png");
@@ -14,6 +14,10 @@ class Block{
     PImage pipeTopL = loadImage("Sprite_PipeTopL.png");
     PImage pipeTopR = loadImage("Sprite_PipeTopR.png");
     
+    //Values specifically for mushroom
+    int frameCountWhenHit;
+    int frameCountSinceBeingHit;
+    int mushroomIdentifier = 1; //For creating mushrooms with seperate names
      
     Block(float tempX, float tempY, int tempIdentifier){
       posX = tempX;
@@ -33,9 +37,19 @@ class Block{
         break;
         
         case 4: //Item Block
-        image(itemSprite, posX, posY);
-        
-        break;
+        //println(animationInProgress);
+        if (animationInProgress && round(posY+pow(frameCountSinceBeingHit,2)-10*frameCountSinceBeingHit-1)>=posY){ //Stop animation after 30 frames
+          animationInProgress = false;
+          println("AnimationStopped"+frameCount);
+          frameCountSinceBeingHit =0;
+        } else if (animationInProgress){
+          image(itemSprite, posX, round(posY+pow(frameCountSinceBeingHit,2)-10*frameCountSinceBeingHit-1));
+          frameCountSinceBeingHit = frameCount - frameCountWhenHit;
+          println(frameCountSinceBeingHit);
+        } else {
+          image(itemSprite, posX, posY);
+        }
+                break;
         
         case 93:
         image(pipeL, posX, posY);
@@ -69,6 +83,8 @@ class Block{
         
         mushroomInstances[mushroomIdentifier] = new Mushroom(posX, posY-32);
         mushroomInstances[mushroomIdentifier].animationSetup();
+        animationInProgress = true;
+        frameCountWhenHit = frameCount;
         mushroomIdentifier++;
         break;     
       
