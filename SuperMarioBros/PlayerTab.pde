@@ -12,6 +12,7 @@ class Player{
   boolean jumpPossible;
   boolean gravity;
   boolean scroll;
+  boolean dead;
   boolean facingRight = true;
   public boolean rightPressed;
   public boolean leftPressed;
@@ -156,6 +157,15 @@ class Player{
     posY += velocityY;
   }
   
+    void Death(){
+      dead = true;
+      animMode = -1;
+      
+      
+    
+    
+    }
+    
     void Display(){ //FIX MARIO SPRITESHEET - FRAMES NOT CENTERED
     
                 //Snap to grid
