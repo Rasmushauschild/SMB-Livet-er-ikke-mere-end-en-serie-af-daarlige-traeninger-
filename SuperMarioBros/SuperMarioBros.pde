@@ -84,6 +84,12 @@ void draw(){
     if(goombaInstances[i]!=null) {
       goombaInstances[i].Alive();
     }
+    
+    if(mushroomInstances[i]!=null){
+      mushroomInstances[i].Alive();
+    
+    
+    }
   }
 
 }

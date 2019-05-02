@@ -4,6 +4,7 @@ class Block{
     float sizeX;
     float sizeY;
     int identifier;
+    int mushroomIdentifier = 1; //For creating mushrooms with seperate names
     PImage groundSprite = loadImage("Sprite_Ground.png");
     PImage itemSprite = loadImage("Sprite_Item.png");
     PImage brickSprite = loadImage("Sprite_Brick.png");
@@ -12,6 +13,7 @@ class Block{
     PImage pipeR = loadImage("Sprite_PipeR.png");
     PImage pipeTopL = loadImage("Sprite_PipeTopL.png");
     PImage pipeTopR = loadImage("Sprite_PipeTopR.png");
+    
      
     Block(float tempX, float tempY, int tempIdentifier){
       posX = tempX;
@@ -65,8 +67,9 @@ class Block{
         case 4: //Item block
         println("Hit Item Block" + frameCount);
         
-        break;
-      
+        mushroomInstances[0] = new Mushroom(posX, posY+32);
+        mushroomIdentifier++;
+        break;     
       
       }
     
