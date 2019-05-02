@@ -60,6 +60,20 @@ class Block{
       
     }
     
+    void ActivatedBelow (){
+      switch(identifier){
+        case 4: //Item block
+        println("Hit Item Block" + frameCount);
+        
+        break;
+      
+      
+      }
+    
+    
+    }
+    
+    
     void Scroll(){
       posX = posX-Player.velocityX;
       posX = round(posX/2)*2;

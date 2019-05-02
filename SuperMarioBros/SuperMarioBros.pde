@@ -8,6 +8,8 @@ Goomba Goomba;
 Goomba[] goombaInstances;
 Player Player;
 Background Background;
+Mushroom Mushroom;
+Mushroom[] mushroomInstances;
 float scrollAmount;
 float currentTime;
 float prevTime;
@@ -43,7 +45,7 @@ void setup(){
     noStroke();
     stroke(2);
     rectMode(CORNER);
-    imageMode(CENTER);
+    imageMode(CORNER);
     LevelSetup = new LevelSetup();
     LevelSetup.loadScene(3);
     

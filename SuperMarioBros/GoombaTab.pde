@@ -138,7 +138,7 @@ class Goomba{
     frontEndPosY + goombaHeight > Player.frontEndPosY && //player bottom edge past ground top
     frontEndPosY < Player.frontEndPosY + 32 && !dead){
       println("Mario Killed" + frameCount);
-      player.Death();
+      Player.Death();
     }
     if(frameCount - 50 > deathTime && dead) posX = -10000;
   }

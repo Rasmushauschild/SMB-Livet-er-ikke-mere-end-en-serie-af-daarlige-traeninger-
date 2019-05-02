@@ -122,6 +122,7 @@ class Player{
           frontEndPosX < blockInstances[i].posX + 32 && //player left edge past ground right-side
           frontEndPosY + playerHeight + velocityY > blockInstances[i].posY && //player bottom edge past ground top
           frontEndPosY + velocityY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
+            if (velocityY < 0) blockInstances[i].ActivatedBelow();
             velocityY = 0;
           }
           if(frontEndPosX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
@@ -167,7 +168,7 @@ class Player{
     }
     
     void Display(){ //FIX MARIO SPRITESHEET - FRAMES NOT CENTERED
-    
+    imageMode(CENTER);
                 //Snap to grid
     frontEndPosX = round(posX/2)*2;
     frontEndPosY = round(posY/2)*2;
