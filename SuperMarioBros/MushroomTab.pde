@@ -35,7 +35,7 @@ class Mushroom{
   void Alive(){
   if(!((posX - Player.posX)/32 > 20 || (posX - Player.posX)/32 < -8)){
   Display();
-  Death();
+  Hit();
   if(!dead) Movement();
   }
   else if(Player.scroll){
@@ -108,7 +108,14 @@ class Mushroom{
     frontEndPosX = round(posX/2)*2;
     frontEndPosY = round(posY/2)*2;
   }
-  void Death(){
-  
+  void Hit(){
+    if(frontEndPosX + mushroomWidth > Player.frontEndPosX && //player right edge past ground left-side
+    frontEndPosX < Player.frontEndPosX + 32 && //player left edge past ground right-side
+    frontEndPosY + mushroomHeight > Player.frontEndPosY && //player bottom edge past ground top
+    frontEndPosY < Player.frontEndPosY + 32){
+      println("ELLO!");
+    Player.big = true;
+    posX = -10000;
+    }
   }
 }

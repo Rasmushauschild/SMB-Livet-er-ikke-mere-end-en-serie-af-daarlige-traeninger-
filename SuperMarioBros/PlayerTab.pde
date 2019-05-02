@@ -15,7 +15,7 @@ class Player{
   boolean dead; //Should players code fire
   boolean facingRight = true; //Determines the orientation og players sprites
   boolean big; //Determines players size
-  int bigAnimation = 0;
+  int bigAnimation = 0; //7
   //Keyboard input controlls
   public boolean rightPressed; 
   public boolean leftPressed;
@@ -165,62 +165,69 @@ class Player{
     
     void Display(){ //FIX MARIO SPRITESHEET - FRAMES NOT CENTERED
     
-      if(big) bigAnimation = 10;
-      else bigAnimation = 0;
-    
       frontEndPosX = round(posX/2)*2; //Snap to grid
-      frontEndPosY = round((posY)/2)*2;
+      frontEndPosY = round(posY/2)*2;
+      
+      if(big){
+        bigAnimation = 7;
+        playerHeight = 64;
+        playerWidth = 32;
+      }else{
+        bigAnimation = 0;
+        playerHeight = 32;
+        playerWidth = 26;
+      }
       
       switch (animMode){ //A 1d blendtree responsible for controlling the player animations
-                  case 0: //Standing still Right/Left
-                  if(facingRight){ //If player is facing right, set the default standing sprite
-                  image(spritesMario[0 + bigAnimation], frontEndPosX,frontEndPosY-16);
-                  } else { //If the player is facing left, mirror the standing sprite using a push matrix
-                  pushMatrix();
-                  scale(-1,1);
-                  image(spritesMario[0 + bigAnimation], -frontEndPosX,frontEndPosY-16);
-                  popMatrix();
-                  }
-                  break;
-                  
-                  case 1: //Running Right/Left
-                  if(facingRight){//If player is facing right, set the default running animation
-                  if(frameCount%round(6-velocityX)==0 && currentFrame <3){ //if statement responsible for quickly flipping through the running sprites at a specific rate to create an animation
-                  currentFrame++;
-                  } else if(frameCount%round(6-velocityX)==0) currentFrame = 1;
-                  image(spritesMario[currentFrame], frontEndPosX,frontEndPosY-16);
-                  } else {
-                  pushMatrix();
-                  scale(-1,1);
-                  if(frameCount%round(6+velocityX)==0 && currentFrame <3){
-                  currentFrame++;
-                  } else if(frameCount%round(6+velocityX)==0) currentFrame = 1;
-                  image(spritesMario[currentFrame], -frontEndPosX,frontEndPosY-16);
-                  popMatrix();
-                  }
-                  break;
-                  
-                  case 2: //Jumping Right/Left
-                  if(facingRight){
-                  image(spritesMario[5 + bigAnimation], frontEndPosX,frontEndPosY-16);
-                  } else {
-                  pushMatrix();
-                  scale(-1,1);
-                  image(spritesMario[5 + bigAnimation], -frontEndPosX,frontEndPosY-16);
-                  popMatrix();
-                  }
-                  break;
-                  
-                  case 3:
-                  if(facingRight){
-                  image(spritesMario[4 + bigAnimation], frontEndPosX,frontEndPosY-16);
-                  } else {
-                  pushMatrix();
-                  scale(-1,1);
-                  image(spritesMario[4 + bigAnimation], -frontEndPosX,frontEndPosY-16);
-                  popMatrix();
-                  }
-                  break;
+        case 0: //Standing still Right/Left
+        if(facingRight){ //If player is facing right, set the default standing sprite
+        image(spritesMario[0 + bigAnimation], frontEndPosX,frontEndPosY);
+        } else { //If the player is facing left, mirror the standing sprite using a push matrix
+        pushMatrix();
+        scale(-1,1);
+        image(spritesMario[0 + bigAnimation], -frontEndPosX,frontEndPosY-16);
+        popMatrix();
+        }
+        break;
+        
+        case 1: //Running Right/Left
+        if(facingRight){//If player is facing right, set the default running animation
+        if(frameCount%round(6-velocityX)==0 && currentFrame <3){ //if statement responsible for quickly flipping through the running sprites at a specific rate to create an animation
+        currentFrame++;
+        } else if(frameCount%round(6-velocityX)==0) currentFrame = 1;
+        image(spritesMario[currentFrame + bigAnimation], frontEndPosX,frontEndPosY-16);
+        } else {
+        pushMatrix();
+        scale(-1,1);
+        if(frameCount%round(6+velocityX)==0 && currentFrame <3){
+        currentFrame++;
+        } else if(frameCount%round(6+velocityX)==0) currentFrame = 1;
+        image(spritesMario[currentFrame + bigAnimation], -frontEndPosX,frontEndPosY-16);
+        popMatrix();
+        }
+        break;
+        
+        case 2: //Jumping Right/Left
+        if(facingRight){
+        image(spritesMario[5 + bigAnimation], frontEndPosX,frontEndPosY-16);
+        } else {
+        pushMatrix();
+        scale(-1,1);
+        image(spritesMario[5 + bigAnimation], -frontEndPosX,frontEndPosY-16);
+        popMatrix();
+        }
+        break;
+        
+        case 3:
+        if(facingRight){
+        image(spritesMario[4 + bigAnimation], frontEndPosX,frontEndPosY-16);
+        } else {
+        pushMatrix();
+        scale(-1,1);
+        image(spritesMario[4 + bigAnimation], -frontEndPosX,frontEndPosY-16);
+        popMatrix();
+        }
+        break;
                   
       }
   }
