@@ -11,9 +11,9 @@ class Mushroom{
   int mushroomHeight = 32;
   boolean dead;
   
-  int animCount;
+  int animCount = 2;
   PImage spriteSheetMushroom;
-  PImage[] spritesMushroom = new PImage[2]; //Creates an empty PImage array with the correct length
+  PImage[] spritesMushroom = new PImage[animCount]; //Creates an empty PImage array with the correct length
   int animMode;
   
   Mushroom(float tempX, float tempY){
@@ -21,9 +21,8 @@ class Mushroom{
     posY = tempY;
   }
   
-    void animationSetup(){
-    animCount = 2;
-    spriteSheetMushroom = loadImage("SpriteSheet_Mushroom"); //Loads the spritesheet
+  void animationSetup(){
+    spriteSheetMushroom = loadImage("SpriteSheet_Mushroom.png"); //Loads the spritesheet
     
     int W = spriteSheetMushroom.width/animCount;
     
@@ -31,7 +30,7 @@ class Mushroom{
     int x = i%animCount*W;
     spritesMushroom[i]=spriteSheetMushroom.get(x,0,W,spriteSheetMushroom.height);
     }
-  }
+}
   
   void Alive(){
   if(!((posX - Player.posX)/32 > 20 || (posX - Player.posX)/32 < -8)){
@@ -42,7 +41,7 @@ class Mushroom{
   else if(Player.scroll){
     posX = posX-Player.velocityX;
     posX = round(posX/2)*2;
-  }    
+  }
 }
   
   void Display(){
