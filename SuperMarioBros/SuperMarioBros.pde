@@ -28,7 +28,7 @@ void setup(){
     /* TO DO LIST:
     - Item block
     - Brick block
-    - Mushroom
+    √ Mushroom
     - Stor mario
     - Koopa Trooper
     - Mario death
@@ -45,7 +45,7 @@ void setup(){
     noStroke();
     stroke(2);
     rectMode(CORNER);
-    imageMode(CORNER);
+    imageMode(CENTER);
     LevelSetup = new LevelSetup();
     LevelSetup.loadScene(3);
     

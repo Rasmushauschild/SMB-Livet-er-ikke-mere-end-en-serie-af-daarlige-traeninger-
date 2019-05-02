@@ -67,7 +67,7 @@ class Block{
         case 4: //Item block
         println("Hit Item Block" + frameCount);
         
-        mushroomInstances[mushroomIdentifier] = new Mushroom(posX, posY+32);
+        mushroomInstances[mushroomIdentifier] = new Mushroom(posX, posY-32);
         mushroomInstances[mushroomIdentifier].animationSetup();
         mushroomIdentifier++;
         break;     
