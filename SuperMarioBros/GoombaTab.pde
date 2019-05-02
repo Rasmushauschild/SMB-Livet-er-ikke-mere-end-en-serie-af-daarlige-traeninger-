@@ -24,8 +24,7 @@ class Goomba{
     posX = tempX;
     posY = tempY;
   }
-  
-    void animationSetup(){
+      void animationSetup(){
     animCount = 2;
     spriteSheetGoomba = loadImage("SpriteSheet_Goomba.png"); //Loads the spritesheet
     
