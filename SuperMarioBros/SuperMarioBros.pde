@@ -8,6 +8,7 @@ Goomba Goomba;
 Goomba[] goombaInstances;
 Player Player;
 Background Background;
+float scrollAmount;
 float currentTime;
 float prevTime;
 float deltaTime;

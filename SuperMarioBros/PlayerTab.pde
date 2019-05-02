@@ -12,11 +12,10 @@ class Player{
   boolean jumpPossible;
   boolean gravity;
   boolean scroll;
-  boolean facingRight=true;
+  boolean facingRight = true;
   public boolean rightPressed;
   public boolean leftPressed;
   public boolean spacePressed;
-   float scrollAmount;
   
   int animCount;
   PImage spriteSheetSmallMario;
