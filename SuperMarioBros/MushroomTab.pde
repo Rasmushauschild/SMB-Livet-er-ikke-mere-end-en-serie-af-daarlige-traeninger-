@@ -13,9 +13,8 @@ class Mushroom{
   
   int animCount;
   PImage spriteSheetMushroom;
-  PImage[] spritesGoomba = new PImage[2]; //Creates an empty PImage array with the correct length
+  PImage[] spritesMushroom = new PImage[2]; //Creates an empty PImage array with the correct length
   int animMode;
-  int currentFrame;
   
   Mushroom(float tempX, float tempY){
     posX = tempX;
@@ -24,13 +23,13 @@ class Mushroom{
   
     void animationSetup(){
     animCount = 2;
-    spriteSheetMushroom = loadImage("SpriteSheet_Goomba.png"); //Loads the spritesheet
+    spriteSheetMushroom = loadImage("SpriteSheet_Mushroom"); //Loads the spritesheet
     
     int W = spriteSheetMushroom.width/animCount;
     
-    for(int i = 0; i<spritesGoomba.length; i++){
+    for(int i = 0; i<spritesMushroom.length; i++){
     int x = i%animCount*W;
-    spritesGoomba[i]=spriteSheetMushroom.get(x,0,W,spriteSheetMushroom.height);
+    spritesMushroom[i]=spriteSheetMushroom.get(x,0,W,spriteSheetMushroom.height);
     }
   }
   
@@ -52,19 +51,11 @@ class Mushroom{
     
     switch (animMode){
         case 0: //Moving Right/Left
-        if(frameCount%10 == 0 && currentFrame == 0) currentFrame = 1;
-        else if(frameCount%10 == 0 && currentFrame == 1) currentFrame = 0;
-        if (currentFrame == 1) image(spritesGoomba[0], frontEndPosX, frontEndPosY);
-        else if(currentFrame == 0) {
-        pushMatrix();
-        scale(-1,1);
-        image(spritesGoomba[0], -frontEndPosX, frontEndPosY);
-        popMatrix();
-        }
+        image(spritesMushroom[0], frontEndPosX, frontEndPosY);
         break;
         
         case 1: //Standing still Right/Left
-        image(spritesGoomba[1], frontEndPosX, frontEndPosY);
+        image(spritesMushroom[1], frontEndPosX, frontEndPosY);
         break;
       }
     if(Player.scroll) posX = posX-Player.velocityX;
