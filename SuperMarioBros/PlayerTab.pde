@@ -20,6 +20,7 @@ class Player{
   public boolean rightPressed; 
   public boolean leftPressed;
   public boolean spacePressed;
+  public boolean downPressed;
   
   int animCount; //Number of frames in spritesheet
   PImage spriteSheetMario; //Container for Players spritesheet
@@ -109,23 +110,24 @@ class Player{
           (i >= (int(posY)/32-2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32-2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) ||
           (i >= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount())){
         if (blockInstances[i]!=null){
-          if((frontEndPosX + playerWidth + velocityX > blockInstances[i].posX && //player collision right edge past ground left-side
-          frontEndPosX + velocityX < blockInstances[i].posX + 32 && //player collision left edge past ground right-side
-          frontEndPosY + playerHeight > blockInstances[i].posY && //player collision bottom edge past ground top
-          frontEndPosY < blockInstances[i].posY + 32)){ //player collision top edge past ground bottom 
+          if((posX + playerWidth + velocityX > blockInstances[i].posX && //player collision right edge past ground left-side
+          posX + velocityX < blockInstances[i].posX + 32 && //player collision left edge past ground right-side
+          posY + playerHeight > blockInstances[i].posY && //player collision bottom edge past ground top
+          posY < blockInstances[i].posY + 32)){ //player collision top edge past ground bottom 
             velocityX = 0;
           }
-          if(frontEndPosX + playerWidth > blockInstances[i].posX && //player collision right edge past ground left-side
-          frontEndPosX < blockInstances[i].posX + 32 && //player collision left edge past ground right-side
-          frontEndPosY + playerHeight + velocityY > blockInstances[i].posY && //player collision bottom edge past ground top
-          frontEndPosY + velocityY < blockInstances[i].posY + 32){ //player collision top edge past ground bottom 
+          if(posX + playerWidth > blockInstances[i].posX && //player collision right edge past ground left-side
+          posX < blockInstances[i].posX + 32 && //player collision left edge past ground right-side
+          posY + playerHeight + velocityY > blockInstances[i].posY && //player collision bottom edge past ground top
+          posY + velocityY < blockInstances[i].posY + 32){ //player collision top edge past ground bottom 
             if (velocityY < 0) blockInstances[i].ActivatedBelow(); //Calling the ActivatedBelow fuction on the hit instance
+            if (downPressed && (blockInstances[i].identifier == 91 || blockInstances[i].identifier == 92)) println("Going down under"); //If down-button is pressed on top of pipe, go down pipe.
             velocityY = 0;
           }
-          if(frontEndPosX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
-          frontEndPosX < blockInstances[i].posX + 32 && //player left edge past ground right-side
-          frontEndPosY + playerHeight > blockInstances[i].posY && //player bottom edge past ground top
-          frontEndPosY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
+          if(posX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
+          posX < blockInstances[i].posX + 32 && //player left edge past ground right-side
+          posY + playerHeight > blockInstances[i].posY && //player bottom edge past ground top
+          posY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
             
             if (posY<(blockInstances[i].posY+16)){ //If player clips in the top half, tp to top
               posY = blockInstances[i].posY-playerHeight; 
@@ -141,7 +143,7 @@ class Player{
     
     if(posX+velocityX-playerWidth/2<0) velocityX = 0; // Makes sure player can't pass the left side of the screen.
     
-    if(posX>=224 && velocityX>0){ //Starts scrolling the entire level and all its contents if the player reaches the 224th horisontal pixel
+    if(posX>=224 && velocityX>0){ //Starts scrolling the entire level and all its contents if the player reaches the 224th horizontal pixel
       scroll=true;
       scrollAmount += velocityX;
     } else {
@@ -157,10 +159,6 @@ class Player{
     void Death(){
       dead = true;
       animMode = -1;
-      
-      
-    
-    
     }
     
     void Display(){ //FIX MARIO SPRITESHEET - FRAMES NOT CENTERED
@@ -181,7 +179,7 @@ class Player{
       switch (animMode){ //A 1d blendtree responsible for controlling the player animations
         case 0: //Standing still Right/Left
         if(facingRight){ //If player is facing right, set the default standing sprite
-        image(spritesMario[0 + bigAnimation], frontEndPosX,frontEndPosY);
+        image(spritesMario[0 + bigAnimation], frontEndPosX,frontEndPosY-16);
         } else { //If the player is facing left, mirror the standing sprite using a push matrix
         pushMatrix();
         scale(-1,1);
@@ -237,6 +235,7 @@ void keyReleased(){
   //println("Key Released");
   if (keyCode == RIGHT) Player.rightPressed = false;
   if (keyCode == LEFT) Player.leftPressed = false;
+  if (keyCode == DOWN) Player.downPressed = false;
   if (keyCode == 32) Player.spacePressed = false;
 }
 
@@ -244,5 +243,6 @@ void keyPressed(){
   //println("Key Pressed");
   if (keyCode == RIGHT) Player.rightPressed = true;
   if (keyCode == LEFT) Player.leftPressed = true;
+  if (keyCode == DOWN) Player.downPressed = true;
   if (keyCode == 32) Player.spacePressed = true;
 }

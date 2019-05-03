@@ -14,6 +14,8 @@ float scrollAmount;
 float currentTime;
 float prevTime;
 float deltaTime;
+int mushroomIdentifier = 0; //For creating mushrooms with seperate names
+
 
 void setup(){
     //60 FPS
@@ -64,6 +66,7 @@ void setup(){
 
 }
 void draw(){
+
   deltaTimeCalculation();
   
   if(keyPressed && key == 'b'){
@@ -71,6 +74,9 @@ void draw(){
     LevelSetup.loadScene(LevelSetup.currentLevel);
     println("Scene" + LevelSetup.currentLevel + "Loaded");
     delay(100);
+  }
+  if(keyPressed && key == 'a'){
+    scrollAmount += 50;
   }
   
   
@@ -87,8 +93,6 @@ void draw(){
     
     if(mushroomInstances[i]!=null){
       mushroomInstances[i].Alive();
-    
-    
     }
   }
 

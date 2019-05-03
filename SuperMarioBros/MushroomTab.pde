@@ -1,4 +1,7 @@
 class Mushroom{
+  float startPosX;
+  float startScrollAmount;
+  float totalMovementX = 0;
   float posX;
   float posY;
   int frontEndPosX;
@@ -9,7 +12,7 @@ class Mushroom{
   float deathTime;
   int mushroomWidth = 32;
   int mushroomHeight = 32;
-  boolean dead;
+  boolean dead = false;
   
   int animCount = 2;
   PImage spriteSheetMushroom;
@@ -17,8 +20,10 @@ class Mushroom{
   int animMode;
   
   Mushroom(float tempX, float tempY){
+    startPosX = tempX;
     posX = tempX;
     posY = tempY;
+    startScrollAmount = scrollAmount;
   }
   
   void animationSetup(){
@@ -32,17 +37,16 @@ class Mushroom{
     }
 }
   
-  void Alive(){
-  if(!((posX - Player.posX)/32 > 20 || (posX - Player.posX)/32 < -8)){
-  Display();
-  Hit();
-  if(!dead) Movement();
+  void Alive(){ //Main Function for the Mushroom: Calls all other functions. 
+    posX = startPosX - scrollAmount + startScrollAmount + totalMovementX; //Makes the Goombas scroll with the player, no matter whether they are active or not. A start scroll amount value is required, as the mushroom can be spawned after the screen has already been scrolled a bit.
+
+    if((posX - Player.posX)/32 < 16 && (posX - Player.posX)/32 > -8){ //The Gomba is only active when in view of the player.
+      Movement(); //Movement shouldn't happen when the Goomba is in its "corpse" state
+      Display();
+      CheckForHit();
+      println(posX);
+    }
   }
-  else if(Player.scroll){
-    posX = posX-Player.velocityX;
-    posX = round(posX/2)*2;
-  }
-}
   
   void Display(){
     frontEndPosX = round(posX/2)*2;
@@ -57,7 +61,6 @@ class Mushroom{
         image(spritesMushroom[1], frontEndPosX, frontEndPosY);
         break;
       }
-    if(Player.scroll) posX = posX-Player.velocityX;
   }
   
   void Movement(){
@@ -71,23 +74,23 @@ class Mushroom{
           (i >= (int(posY)/32-2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32-2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) ||
           (i >= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount())){
         if (blockInstances[i]!=null){
-          if((frontEndPosX + mushroomWidth + velocityX > blockInstances[i].posX && //player right edge past ground left-side
-          frontEndPosX + velocityX < blockInstances[i].posX + 32 && //player left edge past ground right-side
-          frontEndPosY + mushroomHeight > blockInstances[i].posY && //player bottom edge past ground top
-          frontEndPosY < blockInstances[i].posY + 32)){
+          if((posX + mushroomWidth + velocityX > blockInstances[i].posX && //player right edge past ground left-side
+          posX + velocityX < blockInstances[i].posX + 32 && //player left edge past ground right-side
+          posY + mushroomHeight > blockInstances[i].posY && //player bottom edge past ground top
+          posY < blockInstances[i].posY + 32)){
             velocityX *= -1;
             baseSpeed *= -1;
           }
-          if(frontEndPosX + mushroomWidth > blockInstances[i].posX && //player right edge past ground left-side
-          frontEndPosX < blockInstances[i].posX + 32 && //player left edge past ground right-side
-          frontEndPosY + mushroomHeight + velocityY > blockInstances[i].posY && //player bottom edge past ground top
-          frontEndPosY + velocityY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
+          if(posX + mushroomWidth > blockInstances[i].posX && //player right edge past ground left-side
+          posX < blockInstances[i].posX + 32 && //player left edge past ground right-side
+          posY + mushroomHeight + velocityY > blockInstances[i].posY && //player bottom edge past ground top
+          posY + velocityY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
             velocityY = 0;
           }
-          if(frontEndPosX + mushroomWidth > blockInstances[i].posX && //player right edge past ground left-side
-          frontEndPosX < blockInstances[i].posX + 32 && //player left edge past ground right-side
-          frontEndPosY + mushroomHeight > blockInstances[i].posY && //player bottom edge past ground top
-          frontEndPosY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
+          if(posX + mushroomWidth > blockInstances[i].posX && //player right edge past ground left-side
+          posX < blockInstances[i].posX + 32 && //player left edge past ground right-side
+          posY + mushroomHeight > blockInstances[i].posY && //player bottom edge past ground top
+          posY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
             
             if(posY<(blockInstances[i].posY+16)){ //If Mario clips in the top half, tp to top
               posY = blockInstances[i].posY-mushroomHeight; 
@@ -101,21 +104,18 @@ class Mushroom{
       }
     }
     
-    posX += velocityX;
+    totalMovementX += velocityX;
     posY += velocityY;
     
-            //Snap to grid
-    frontEndPosX = round(posX/2)*2;
-    frontEndPosY = round(posY/2)*2;
   }
-  void Hit(){
+  void CheckForHit(){
     if(frontEndPosX + mushroomWidth > Player.frontEndPosX && //player right edge past ground left-side
     frontEndPosX < Player.frontEndPosX + 32 && //player left edge past ground right-side
     frontEndPosY + mushroomHeight > Player.frontEndPosY && //player bottom edge past ground top
     frontEndPosY < Player.frontEndPosY + 32){
       println("ELLO!");
     Player.big = true;
-    posX = -10000;
+    totalMovementX = -10000;
     }
   }
 }

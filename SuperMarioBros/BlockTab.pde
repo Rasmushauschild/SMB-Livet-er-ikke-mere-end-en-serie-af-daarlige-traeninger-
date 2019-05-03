@@ -2,6 +2,7 @@ class Block{
     boolean animationInProgress = false;
     float posX;
     float posY;
+    float startPosX;
     float sizeX;
     float sizeY;
     int identifier;
@@ -17,16 +18,27 @@ class Block{
     //Values specifically for mushroom
     int frameCountWhenHit;
     int frameCountSinceBeingHit;
-    int mushroomIdentifier = 1; //For creating mushrooms with seperate names
-     
+    
+    //Values specifically for pipes
+    int pipeID = 0;
+    
     Block(float tempX, float tempY, int tempIdentifier){
+      startPosX = tempX;
       posX = tempX;
       posY = tempY;
       identifier = tempIdentifier;
       
+      if (identifier == 91 || identifier == 92){
+      
+      
+      }
+      
     }
     
     void Display(){
+      posX = startPosX-scrollAmount;
+
+      
       switch (identifier){
         case 2: //Ground Block
         image(groundSprite, posX, posY);
@@ -40,12 +52,10 @@ class Block{
         //println(animationInProgress);
         if (animationInProgress && round(posY+pow(frameCountSinceBeingHit,2)-10*frameCountSinceBeingHit-1)>=posY){ //Stop animation after 30 frames
           animationInProgress = false;
-          println("AnimationStopped"+frameCount);
           frameCountSinceBeingHit =0;
         } else if (animationInProgress){
           image(itemSprite, posX, round(posY+pow(frameCountSinceBeingHit,2)-10*frameCountSinceBeingHit-1));
           frameCountSinceBeingHit = frameCount - frameCountWhenHit;
-          println(frameCountSinceBeingHit);
         } else {
           image(itemSprite, posX, posY);
         }
@@ -76,12 +86,11 @@ class Block{
       
     }
     
-    void ActivatedBelow (){
+    void ActivatedBelow (){ //Player has jumped up into this block from below
       switch(identifier){
-        case 4: //Item block
-        println("Hit Item Block" + frameCount);
-        
-        mushroomInstances[mushroomIdentifier] = new Mushroom(posX, posY-32);
+        case 4: //Item block        
+        mushroomInstances[mushroomIdentifier] = new Mushroom(posX, posY-64);
+        rect(posX,posY-32,400,400);
         mushroomInstances[mushroomIdentifier].animationSetup();
         animationInProgress = true;
         frameCountWhenHit = frameCount;
@@ -90,13 +99,29 @@ class Block{
       
       }
     
+    }
+    
+    void ActivatedAbove(){ //Player has hit the downbutton while standing on this block.
+      switch (identifier){
+        case 91: //pipeTopL
+        
+        break;
+        
+        
+        case 92: //pipeTopR
+        
+        break;
+      
+      
+      }
+    
     
     }
     
     
     void Scroll(){
-      posX = posX-Player.velocityX;
-      posX = round(posX/2)*2;
+      //posX = posX-Player.velocityX;
+      //posX = round(posX/2)*2;
     }
     
 }

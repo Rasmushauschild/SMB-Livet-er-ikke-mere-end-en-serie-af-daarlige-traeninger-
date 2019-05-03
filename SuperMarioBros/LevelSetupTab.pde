@@ -23,6 +23,7 @@ class LevelSetup{
                 switch (currentIdentifier){
                   case 20:
                   goombaInstances[t] = new Goomba(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32);
+                  
                   break;
                   
                   case 21:
