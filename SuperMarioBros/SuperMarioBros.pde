@@ -80,7 +80,7 @@ void draw(){
   }
   
   
-  Background.Display(#AED1EE);
+  //Background.Display(#AED1EE);
   Player.Movement();
   Player.Display();
   for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 

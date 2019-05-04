@@ -19,6 +19,7 @@ class LevelSetup{
               currentIdentifier = currentLevelTable.getInt(t/currentLevelTable.getColumnCount(),t%currentLevelTable.getColumnCount());
               if(currentIdentifier!=0 && (currentIdentifier<20 || currentIdentifier>29)){ //If there is a block in the cell which the for-loop has reached, which also isn't an enemy, then spawn a new block
               blockInstances[t] = new Block(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32,currentLevelTable.getInt(t/currentLevelTable.getColumnCount(),t%currentLevelTable.getColumnCount()));
+              println(t + "POS: " + t%currentLevelTable.getColumnCount() + " " + t/currentLevelTable.getColumnCount());
               } else { //Spawn Enemy
                 switch (currentIdentifier){
                   case 20:

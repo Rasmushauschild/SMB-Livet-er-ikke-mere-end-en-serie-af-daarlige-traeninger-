@@ -104,7 +104,7 @@ class Block{
     void ActivatedAbove(){ //Player has hit the downbutton while standing on this block.
       switch (identifier){
         case 91: //pipeTopL
-        
+        scrollAmount += 500;
         break;
         
         

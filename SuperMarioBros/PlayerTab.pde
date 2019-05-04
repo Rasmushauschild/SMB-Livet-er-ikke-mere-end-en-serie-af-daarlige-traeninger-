@@ -121,7 +121,7 @@ class Player{
           posY + playerHeight + velocityY > blockInstances[i].posY && //player collision bottom edge past ground top
           posY + velocityY < blockInstances[i].posY + 32){ //player collision top edge past ground bottom 
             if (velocityY < 0) blockInstances[i].ActivatedBelow(); //Calling the ActivatedBelow fuction on the hit instance
-            if (downPressed && (blockInstances[i].identifier == 91 || blockInstances[i].identifier == 92)) println("Going down under"); //If down-button is pressed on top of pipe, go down pipe.
+            if (downPressed && (blockInstances[i].identifier == 91 || blockInstances[i].identifier == 92)) blockInstances[i].ActivatedAbove(); //If down-button is pressed on top of pipe, go down pipe.
             velocityY = 0;
           }
           if(posX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
