@@ -188,6 +188,7 @@ class Player{
     }
     
     void Display(){ 
+      println(pipeAction);
     
       frontEndPosX = round(posX/2)*2; //Snap to grid
       frontEndPosY = round(posY/2)*2;
@@ -268,15 +269,16 @@ class Player{
         case 4:
         if(pipeAction > 0){
           if(posY < pipeStartY + playerHeight){
-          posY += pipeAction;
-          println("up");
+          posY++;
         } else {
-        posY = pipeDestinationY; scrollAmount = pipeDestinationScrollAmount; pipeAction = -1;
+        pipeAction = -1;
+        posY = pipeDestinationY;
+        scrollAmount = pipeDestinationScrollAmount;
       }
         } else if (pipeAction < 0){
         if(frontEndPosY > pipeDestinationY - playerHeight){
-          posY -= pipeAction;
-         }
+          posY--;
+         } else pipeAction = 0;
         }
         if(facingRight){ //If player is facing right, set the default standing sprite
         image(spritesMario[0 + bigAnimation], frontEndPosX,frontEndPosY-16);
