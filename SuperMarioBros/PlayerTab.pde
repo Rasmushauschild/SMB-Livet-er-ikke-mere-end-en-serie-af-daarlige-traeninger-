@@ -188,8 +188,6 @@ class Player{
     }
     
     void Display(){ 
-      println(pipeAction);
-    
       frontEndPosX = round(posX/2)*2; //Snap to grid
       frontEndPosY = round(posY/2)*2;
       
