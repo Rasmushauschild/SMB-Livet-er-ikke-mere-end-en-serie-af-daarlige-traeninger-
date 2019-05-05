@@ -16,7 +16,7 @@ float prevTime;
 float deltaTime;
 int mushroomIdentifier = 0; //For creating mushrooms with seperate names
 int publicPipeIdentifier = 0; //For creating ID for pipes which can be used by Mario. 
-int[] pipeArray = new int[8]; //Initiliasizes array and sets length 0 - length is increased in the constructor when it becomes neccessary
+int[] pipeArray = new int[100]; //Initiliasizes array and sets length to 100 - setting a max of 50 pipes per level
 
 
 void setup(){
@@ -86,7 +86,6 @@ void draw(){
   Background.Display(#AED1EE);
   Player.PlayerActive();
   for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
-    if(blockInstances[i]!=null && Player.scroll) blockInstances[i].Scroll();
     if(blockInstances[i]!=null) blockInstances[i].Display();
     
     if(goombaInstances[i]!=null) {

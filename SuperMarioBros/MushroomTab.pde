@@ -44,7 +44,6 @@ class Mushroom{
       Movement(); //Movement shouldn't happen when the Goomba is in its "corpse" state
       Display();
       CheckForHit();
-      println(posX);
     }
   }
   

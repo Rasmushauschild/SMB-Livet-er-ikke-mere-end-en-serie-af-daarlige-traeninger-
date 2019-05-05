@@ -32,7 +32,7 @@ class Block{
       tvalue = temptvalue;
       
       
-      if (identifier == 91 || identifier == 92){
+      if (identifier >= 95 && identifier <= 102){
         localPipeIdentifier = publicPipeIdentifier;
         //int[] pipeArray = new int[localPipeIdentifier]; 
         pipeArray[localPipeIdentifier] = tvalue;
@@ -69,20 +69,84 @@ class Block{
         }
         break;
         
-        case 93:
+        case 91: //left vertical pipe
         image(pipeL, posX, posY);
         break;
 
-        case 94:
+        case 92: //right vertical pipe
         image(pipeR, posX, posY);
         break;
+        
+        case 93: //top horizontal pipe
+        pushMatrix();
+        translate(posX,posY); //move origin to pivot point
+        rotate(radians(90)); //pivot grid 90 degrees
+        image(pipeL, 0, 0);
+        popMatrix();
+        break;
 
-        case 91:
+        case 94: //bottom horizontal pipe
+        pushMatrix();
+        translate(posX,posY); //move origin to pivot point
+        rotate(radians(90)); //pivot grid 90 degrees
+        image(pipeR, 0, 0);
+        popMatrix();
+        break;
+        
+        case 95: //leftGoingUpwardsPipe
         image(pipeTopL, posX, posY);
         break;
 
-        case 92:
+        case 96: //rightGoingUpwardsPipe
         image(pipeTopR, posX, posY);
+        break;
+        
+        case 97: //topGoingLeftPipe
+        pushMatrix();
+        translate(posX,posY); //move origin to pivot point
+        rotate(radians(90)); //pivot grid 90 degrees
+        image(pipeTopL, 0, 0);
+        popMatrix();
+        break;
+        
+        case 98: //bottomGoingLeftPipe
+        pushMatrix();
+        translate(posX,posY); //move origin to pivot point
+        rotate(radians(90)); //pivot grid 90 degrees
+        image(pipeTopR, 0, 0);
+        popMatrix();
+        break;
+        
+        case 99: //topGoingRightPipe
+        pushMatrix();
+        translate(posX,posY); //move origin to pivot point
+        rotate(radians(90)); //pivot grid 90 degrees
+        image(pipeTopL, 0, 0);
+        popMatrix();
+        break;
+        
+        case 100: //bottomGoingRightPipe
+        pushMatrix();
+        translate(posX,posY); //move origin to pivot point
+        rotate(radians(90)); //pivot grid 90 degrees
+        image(pipeTopR, 0, 0);
+        popMatrix();
+        break;
+        
+        case 101: //leftGoingDownwardsPipe
+        pushMatrix();
+        translate(posX,posY); //move origin to pivot point
+        rotate(radians(180)); //pivot grid 90 degrees
+        image(pipeTopR, 0, 0);
+        popMatrix();
+        break;
+        
+        case 102: //rightGoingDownwardsPipe
+        pushMatrix();
+        translate(posX,posY); //move origin to pivot point
+        rotate(radians(180)); //pivot grid 90 degrees
+        image(pipeTopL, 0, 0);
+        popMatrix();
         break;
 
         case 20:
@@ -108,44 +172,81 @@ class Block{
     
     }
     
-    void ActivatedAbove(){ //Player has hit the downbutton while standing on this block.
-      switch (identifier){
-        case 91: //pipeTopL
-        case 92: //pipeTopR
-        
+    void ActivatedVerticalPipe(){ //Player has activated a block by clicking right/left or up/down in it its direction while directly touching it
+      if (identifier == 95 || identifier == 96 || identifier == 101 || identifier == 102){ //Makes sure the activated block is a pipe with a vertical orientation
         for(int i=0;i<pipeTable.getColumnCount();i++){ //Go through the pipeData for this level
           int currentPipeID = pipeTable.getInt(0,i); //Get the pipeID's from the pipeTable. Rows start at 0. 0 should be replaced with currentLevelInt         
-          if (currentPipeID == localPipeIdentifier){ //If the activated pipe is in the pipeData for this level
-            if (i%2==0){ //Pipes in SMB are one-way
-              int destinationPipeID = pipeTable.getInt(0,i+1); //Find the pipeID of the pipe Mario has to travel to
-              int destinationPipetvalue = pipeArray[destinationPipeID]; //Find the tvalue for for the destination pipe
-              Player.pipeDestinationY = blockInstances[destinationPipetvalue].posY;
-              Player.pipeDestinationScrollAmount = scrollAmount + (blockInstances[destinationPipetvalue].posX-blockInstances[tvalue].posX);
-              Player.pipeAction = 1;
-              Player.pipeStartY = Player.posY;
+          if (currentPipeID == localPipeIdentifier && i%2==0){ //If the activated pipe is in the pipeData for this level, and the pipe is an entry pipe
+            int destinationPipeID = pipeTable.getInt(0,i+1); //Find the pipeID of the pipe Mario has to travel to by using the pipeData.csv file
+            int destinationPipetvalue = pipeArray[destinationPipeID]; //Find the tvalue for for the destination pipe
+            int destinationPipeIdentifier = blockInstances[destinationPipetvalue].identifier;
+            
+            if (identifier == 95 || identifier == 96){ //If the entry pipe is pointing upwards, the entry pipe movement should be downwards
+              Player.entryPipeMovement = 0;
+              println("Entrypipemovent is set to 0");
+            } else if (identifier == 101 || identifier == 102){ //If the entry pipe is pointing downwards, the entry pipe movement should be upwards
+              Player.entryPipeMovement = 2;
+            } 
+            
+            println("destinationPipeID: " + destinationPipeID);
+            if (destinationPipeIdentifier == 95 || destinationPipeIdentifier == 96){ //If the destination pipe points upwards, the exit pipe movement should be upwards
+              Player.exitPipeMovement = 2;
+            } else if (destinationPipeIdentifier == 101 || destinationPipeIdentifier == 102){ //If the destination pipe points downwards, the exit pipe movement should be downwards
+              Player.exitPipeMovement = 0;
+              println("Exitpipemovent is set to 0");
+            } else if (destinationPipeIdentifier == 97 || destinationPipeIdentifier == 98){ //If the exit pipe points leftwards, the exit pipe movement should be leftwards
+              Player.exitPipeMovement = 3;
+            } else if (destinationPipeIdentifier == 99 || destinationPipeIdentifier == 100){ //If the exit pipe points rightwards, the exit pipe movement should be rightwards
+              Player.exitPipeMovement = 1;
+            }
+            
+            Player.pipeDestinationY = blockInstances[destinationPipetvalue].posY;
+            Player.pipeDestinationScrollAmount = scrollAmount + (blockInstances[destinationPipetvalue].posX-blockInstances[tvalue].posX);
+            Player.pipeAction = 1;
+            Player.pipeStartX = Player.posX;
+            Player.pipeStartY = Player.posY;
+          }
+        }
+      }
+    }
+    
+    void ActivatedHorizontalPipe(){ //Player has activated a block by clicking right/left or up/down in it its direction while directly touching it
+      if (identifier >= 97 && identifier <= 100){ //Makes sure the activated block is a pipe with a horizontal orientation
+        for(int i=0;i<pipeTable.getColumnCount();i++){ //Go through the pipeData for this level
+          int currentPipeID = pipeTable.getInt(0,i); //Get the pipeID's from the pipeTable. Rows start at 0. 0 should be replaced with currentLevelInt         
+          if (currentPipeID == localPipeIdentifier && i%2==0){ //If the activated pipe is in the pipeData for this level, and the pipe is an entry pipe
+            int destinationPipeID = pipeTable.getInt(0,i+1); //Find the pipeID of the pipe Mario has to travel to by using the pipeData.csv file
+            int destinationPipetvalue = pipeArray[destinationPipeID]; //Find the tvalue for for the destination pipe
+            int destinationPipeIdentifier = blockInstances[destinationPipetvalue].identifier;
+            
+            if (identifier == 97 || identifier == 98){ //If the entry pipe points leftwards, the entry pipe movement should be rightwards
+              Player.entryPipeMovement = 1;
+            } else if (identifier == 99 || identifier == 100){ //If the entry pipe points rightwards, the entry pipe movement should be leftwards
+              Player.entryPipeMovement = 3;
+            }
+            
+            println("destinationPipeID: " + destinationPipeID);
+            if (destinationPipeIdentifier == 95 || destinationPipeIdentifier == 96){ //If the destination pipe points upwards, the exit pipe movement should be upwards
+              Player.exitPipeMovement = 2;
+            } else if (destinationPipeIdentifier == 101 || destinationPipeIdentifier == 102){ //If the destination pipe points downwards, the exit pipe movement should be downwards
+              Player.exitPipeMovement = 0;
+              println("Exitpipemovent is set to 0");
+            } else if (destinationPipeIdentifier == 97 || destinationPipeIdentifier == 98){ //If the exit pipe points leftwards, the exit pipe movement should be leftwards
+              Player.exitPipeMovement = 3;
+            } else if (destinationPipeIdentifier == 99 || destinationPipeIdentifier == 100){ //If the exit pipe points rightwards, the exit pipe movement should be rightwards
+              Player.exitPipeMovement = 1;
             }
             
             
-          
+            Player.pipeDestinationY = blockInstances[destinationPipetvalue].posY;
+            Player.pipeDestinationScrollAmount = scrollAmount + (blockInstances[destinationPipetvalue].posX-blockInstances[tvalue].posX);
+            Player.pipeAction = 1;
+            Player.pipeStartX = Player.posX;
+            Player.pipeStartY = Player.posY;
           }
-        
         }
-        
-        
-        
-        break;
-        
-      
-      
       }
-    
-    
     }
     
-    
-    void Scroll(){
-      //posX = posX-Player.velocityX;
-      //posX = round(posX/2)*2;
-    }
     
 }

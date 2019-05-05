@@ -20,22 +20,15 @@ class Player{
   int deathFrame;
   int framesSinceDeath;
   int deathPosY;
-  
-  //Variables related to pipes
-  int entryPipeMovement=-1; //0 is down, 1 is right, 2 is up, 3 is left
-  int exitPipeMovement= -1; //0 is down, 1 is right, 2 is up, 3 is left
-  int pipeAction; //0 is inactive pipe animation, 1 is an active entry pipe animation and -1 is an active exit pipe animation
+  int pipeAction;
   float pipeDestinationScrollAmount;
   float pipeDestinationY;
   float pipeStartY;
-  float pipeStartX;
-  
-  //Keyboard input controls
+  //Keyboard input controlls
   public boolean rightPressed; 
   public boolean leftPressed;
   public boolean spacePressed;
   public boolean downPressed;
-  public boolean upPressed;
   
   int animCount; //Number of frames in spritesheet
   PImage spriteSheetMario; //Container for Players spritesheet
@@ -140,19 +133,19 @@ class Player{
         if (blockInstances[i]!=null){
           if((posX + playerWidth + velocityX > blockInstances[i].posX && //player collision right edge past ground left-side
           posX + velocityX < blockInstances[i].posX + 32 && //player collision left edge past ground right-side
-          posY + playerHeight > blockInstances[i].posY && //player collision bottom edge past ground top
-          posY < blockInstances[i].posY + 32)){ //player collision top edge past ground bottom 
-            if (rightPressed || leftPressed) blockInstances[i].ActivatedHorizontalPipe(); 
-            velocityX = 0;            
+          posY + playerHeight/2 > blockInstances[i].posY && //player collision bottom edge past ground top
+          posY - playerHeight/2 < blockInstances[i].posY + 32)){ //player collision top edge past ground bottom 
+            velocityX = 0;
+            println("GROUND STUCK!!!!!!!!!!!");
           }
           if(posX + playerWidth > blockInstances[i].posX && //player collision right edge past ground left-side
           posX < blockInstances[i].posX + 32 && //player collision left edge past ground right-side
-          posY + playerHeight + velocityY +0.1> blockInstances[i].posY && //player collision bottom edge past ground top
+          posY + playerHeight + velocityY > blockInstances[i].posY && //player collision bottom edge past ground top
           posY + velocityY < blockInstances[i].posY + 32){ //player collision top edge past ground bottom 
             if (velocityY < 0) blockInstances[i].ActivatedBelow(); //Calling the ActivatedBelow fuction on the hit instance
-            if (downPressed || upPressed) blockInstances[i].ActivatedVerticalPipe(); //If down-button is pressed on top of pipe, go down pipe.            
+            if (downPressed) blockInstances[i].ActivatedAbove(); //If down-button is pressed on top of pipe, go down pipe.            
             velocityY = 0;
-
+            
           }
           if(posX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
           posX < blockInstances[i].posX + 32 && //player left edge past ground right-side
@@ -161,7 +154,7 @@ class Player{
             
             if (posY<(blockInstances[i].posY+16)){ //If player clips in the top half, tp to top
               posY = blockInstances[i].posY-playerHeight; 
-              println("DOOR STUCK! DOOR STUCK! 1" +frameCount);
+              println("DOOR STUCK! DOOR STUCK! 1");
             } else if (posY>(blockInstances[i].posY+16)){ //If player clips in the bottom half, to the bottom
               posY = blockInstances[i].posY+playerHeight; 
               println("DOOR STUCK! DOOR STUCK! 2");
@@ -194,12 +187,10 @@ class Player{
       }
     }
     
-    void Display(){     
+    void Display(){ 
+    
       frontEndPosX = round(posX/2)*2; //Snap to grid
       frontEndPosY = round(posY/2)*2;
-      
-      rect(posX,posY,playerWidth,playerHeight);
-      
       
       if(dead){
         framesSinceDeath = frameCount - deathFrame;
@@ -275,61 +266,18 @@ class Player{
         break;
         
         case 4:
-        println(" entryPipeMovement: " + entryPipeMovement + " exitPipeMovement: " + exitPipeMovement);
-        
-        if (pipeAction == 1){ //Entry pipe movement.
-          switch (entryPipeMovement){
-            case 0:
-            if (posY < pipeStartY + playerHeight){ posY++;
-            } else {pipeAction = 2;}
-            break;
-            case 1:
-            if (posX < pipeStartX + playerWidth){ posX++;
-            } else {pipeAction = 2;}
-            break;
-            case 2:
-            if (posY > pipeStartY - playerHeight){ posY--;
-            } else {pipeAction = 2;}
-            case 3:
-            if (posX > pipeStartX - playerWidth){ posX--;
-            } else {pipeAction = 2;}
-            break;
+        if(pipeAction > 0){
+          if(posY < pipeStartY + playerHeight){
+          posY += 1;
+          println("up");
+          } else {
+          posY = pipeDestinationY; scrollAmount = pipeDestinationScrollAmount; pipeAction = -1;
           }
+        } else if (pipeAction < 0){
+          if(frontEndPosY > pipeDestinationY - playerHeight){
+            posY -= 1;
+          } 
         }
-        
-        //Teleport player once entry pipe movement is finished and moves onto the exit pipe movement by setting pipeAction = -1
-        if (pipeAction == 2){
-          posY = pipeDestinationY; 
-          scrollAmount = pipeDestinationScrollAmount;
-          pipeStartY = posY; //Update pipeStartY to fit with exit pipe
-          pipeStartX = posX; //Update pipeStartX to fit with exit pipe
-          pipeAction = -1; //Move on to exit pipe movement
-        }
-        
-        if (pipeAction == -1){
-          switch (exitPipeMovement){
-            case 0:
-            println("0");
-            if (posY < pipeStartY + playerHeight){ posY++;
-            } else {pipeAction = 0;}
-            break;
-            case 1:
-            println("1");
-            if (posX < pipeStartX + playerWidth){ posX++;
-            } else {pipeAction = 0;}
-            break;
-            case 2:
-            println("2");
-            if (posY > pipeStartY - playerHeight){ posY--;
-            } else {pipeAction = 0;}
-            case 3:
-            println("3");
-            if (posX > pipeStartX - playerWidth){ posX--;
-            } else {pipeAction = 0;}
-            break;
-          }
-        }
-        
         if(facingRight){ //If player is facing right, set the default standing sprite
         image(spritesMario[0 + bigAnimation], frontEndPosX,frontEndPosY-16);
         } else { //If the player is facing left, mirror the standing sprite using a push matrix
@@ -339,6 +287,7 @@ class Player{
         popMatrix();
         }
         break;
+                  
       }
   }
 }
@@ -348,7 +297,6 @@ void keyReleased(){
   if (keyCode == RIGHT) Player.rightPressed = false;
   if (keyCode == LEFT) Player.leftPressed = false;
   if (keyCode == DOWN) Player.downPressed = false;
-  if (keyCode == UP) Player.upPressed = false;
   if (keyCode == 32) Player.spacePressed = false;
 }
 
@@ -357,6 +305,5 @@ void keyPressed(){
   if (keyCode == RIGHT) Player.rightPressed = true;
   if (keyCode == LEFT) Player.leftPressed = true;
   if (keyCode == DOWN) Player.downPressed = true;
-  if (keyCode == UP) Player.upPressed = true;
   if (keyCode == 32) Player.spacePressed = true;
 }
