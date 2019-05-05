@@ -109,16 +109,20 @@ class Block{
     }
     
     void ActivatedAbove(){ //Player has hit the downbutton while standing on this block.
-    println("something is happening");
       switch (identifier){
         case 91: //pipeTopL
         case 92: //pipeTopR
         
-        for(int i=0;i<pipeTable.getColumnCount();i++){ //Go through the pipeData for this level
-          int currentPipeID = pipeTable.getInt(1,i);
+        for(int i=0;i<pipeTable.getColumnCount();i++){ //Go through the pipeData for this level, check if the pipe that was activated is in pipeData for this level
+          int currentPipeID = pipeTable.getInt(0,i); //Rows start at 0. 0 is the level here
+          println(i + " " + currentPipeID);
           if (currentPipeID == localPipeIdentifier){
             if (i%2==0){
-              int g = pipeArray[localPipeIdentifier+1];
+              println(localPipeIdentifier);
+              int destinationPipeID = pipeTable.getInt(0,i+1);
+              println(destinationPipeID);
+              int g = pipeArray[destinationPipeID];
+              println(g);
               Player.posX = blockInstances[g].posX;
             }
             
