@@ -16,6 +16,8 @@ float prevTime;
 float deltaTime;
 int mushroomIdentifier = 0; //For creating mushrooms with seperate names
 int publicPipeIdentifier = 0; //For creating ID for pipes which can be used by Mario. 
+int[] pipeArray = new int[8]; //Initiliasizes array and sets length 0 - length is increased in the constructor when it becomes neccessary
+
 
 void setup(){
     //60 FPS
