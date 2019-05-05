@@ -21,6 +21,9 @@ class Player{
   int framesSinceDeath;
   int deathPosY;
   int pipeAction;
+  float pipeDestinationScrollAmount;
+  float pipeDestinationY;
+  int pipeStartY;
   //Keyboard input controlls
   public boolean rightPressed; 
   public boolean leftPressed;
@@ -195,7 +198,9 @@ class Player{
       }
       
       if(pipeAction != 0){
-      animMode = 4;
+        pipeStartY = frontEndPosY;
+        playerActive = false;
+        animMode = 4;
       }
       
       if(big){
@@ -263,7 +268,7 @@ class Player{
         break;
         
         case 4:
-        frontEndPosY += pipeAction;
+        if(frontEndPosY < pipeStartY + playerHeight) posY += pipeAction;
         if(facingRight){ //If player is facing right, set the default standing sprite
         image(spritesMario[0 + bigAnimation], frontEndPosX,frontEndPosY-16);
         } else { //If the player is facing left, mirror the standing sprite using a push matrix

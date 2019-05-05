@@ -119,8 +119,9 @@ class Block{
             if (i%2==0){ //Pipes in SMB are one-way
               int destinationPipeID = pipeTable.getInt(0,i+1); //Find the pipeID of the pipe Mario has to travel to
               int destinationPipetvalue = pipeArray[destinationPipeID]; //Find the tvalue for for the destination pipe
-              Player.posY = blockInstances[destinationPipetvalue].posY;
-              scrollAmount += (blockInstances[destinationPipetvalue].posX-blockInstances[tvalue].posX);
+              Player.pipeDestinationY = blockInstances[destinationPipetvalue].posY;
+              Player.pipeDestinationScrollAmount = scrollAmount + (blockInstances[destinationPipetvalue].posX-blockInstances[tvalue].posX);
+              Player.pipeAction = 1;
             }
             
             
