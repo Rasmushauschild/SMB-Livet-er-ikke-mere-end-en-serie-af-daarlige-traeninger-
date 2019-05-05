@@ -47,9 +47,13 @@ class Player{
     for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //Checks whether or not player is touching ground, determines if player can jump
       if (blockInstances[i]!=null){ //Checks if the curent blockinstance exists in the table
         if(frontEndPosX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
-        frontEndPosX < blockInstances[i].posX + 32 && //player left edge past ground right-side
-        frontEndPosY+playerHeight == blockInstances[i].posY){ //player top edge past ground bottom 
-          jumpPossible = true;
+        frontEndPosX < blockInstances[i].posX + 32){ //player left edge past ground right-side'
+          if (big){
+            if(frontEndPosY+playerHeight-32 == blockInstances[i].posY)
+            jumpPossible = true;
+          } else if(frontEndPosY+playerHeight == blockInstances[i].posY){
+            jumpPossible = true;
+          }
         }
       }
     }  
@@ -112,20 +116,19 @@ class Player{
         if (blockInstances[i]!=null){
           if((posX + playerWidth + velocityX > blockInstances[i].posX && //player collision right edge past ground left-side
           posX + velocityX < blockInstances[i].posX + 32 && //player collision left edge past ground right-side
-          posY + playerHeight > blockInstances[i].posY && //player collision bottom edge past ground top
-          posY < blockInstances[i].posY + 32)){ //player collision top edge past ground bottom 
+          posY + playerHeight/2 > blockInstances[i].posY && //player collision bottom edge past ground top
+          posY - playerHeight/2 < blockInstances[i].posY + 32)){ //player collision top edge past ground bottom 
             velocityX = 0;
+            println("GROUND STUCK!!!!!!!!!!!");
           }
           if(posX + playerWidth > blockInstances[i].posX && //player collision right edge past ground left-side
           posX < blockInstances[i].posX + 32 && //player collision left edge past ground right-side
           posY + playerHeight + velocityY > blockInstances[i].posY && //player collision bottom edge past ground top
           posY + velocityY < blockInstances[i].posY + 32){ //player collision top edge past ground bottom 
             if (velocityY < 0) blockInstances[i].ActivatedBelow(); //Calling the ActivatedBelow fuction on the hit instance
-            if (downPressed)blockInstances[i].ActivatedAbove(); //If down-button is pressed on top of pipe, go down pipe.            
-            
-           
-            
+            if (downPressed) blockInstances[i].ActivatedAbove(); //If down-button is pressed on top of pipe, go down pipe.            
             velocityY = 0;
+            
           }
           if(posX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
           posX < blockInstances[i].posX + 32 && //player left edge past ground right-side
@@ -136,7 +139,7 @@ class Player{
               posY = blockInstances[i].posY-playerHeight; 
               println("DOOR STUCK! DOOR STUCK! 1");
             } else if (posY>(blockInstances[i].posY+16)){ //If player clips in the bottom half, to the bottom
-              posY = blockInstances[i].posY+32; 
+              posY = blockInstances[i].posY+playerHeight; 
               println("DOOR STUCK! DOOR STUCK! 2");
             }
           }
@@ -172,11 +175,10 @@ class Player{
       if(big){
         bigAnimation = 7;
         playerHeight = 64;
-        playerWidth = 32;
+        frontEndPosY = round((posY/2)*2+32);
       }else{
         bigAnimation = 0;
         playerHeight = 32;
-        playerWidth = 26;
       }
       
       switch (animMode){ //A 1d blendtree responsible for controlling the player animations
