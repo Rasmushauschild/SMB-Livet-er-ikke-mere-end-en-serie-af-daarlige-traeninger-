@@ -15,11 +15,12 @@ class Player{
   boolean dead; //Should players code fire
   boolean facingRight = true; //Determines the orientation og players sprites
   boolean big; //Determines players size
+  boolean playerActive = true;
   int bigAnimation = 0; //7
   int deathFrame;
   int framesSinceDeath;
   int deathPosY;
-  boolean pipeAction;
+  int pipeAction;
   //Keyboard input controlls
   public boolean rightPressed; 
   public boolean leftPressed;
@@ -46,9 +47,17 @@ class Player{
     spritesMario[i]=spriteSheetMario.get(x,0,W,spriteSheetMario.height);
     }
   }
+  
+  void PlayerActive(){
+   if(playerActive){
+    if(pipeAction == 0 && !dead){
+  Movement();
+    }
+    Display();
+   }
+  }
     
   void Movement(){
-    if(!dead){
     for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //Checks whether or not player is touching ground, determines if player can jump
       if (blockInstances[i]!=null){ //Checks if the curent blockinstance exists in the table
         if(frontEndPosX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
@@ -165,7 +174,6 @@ class Player{
       posX += velocityX;
     }
     posY += velocityY;
-  }
  }
   
     void Death(){
@@ -186,7 +194,7 @@ class Player{
         animMode = -1;
       }
       
-      if(pipeAction){
+      if(pipeAction != 0){
       animMode = 4;
       }
       
@@ -255,7 +263,7 @@ class Player{
         break;
         
         case 4:
-        frontEndPosY--;
+        frontEndPosY += pipeAction;
         if(facingRight){ //If player is facing right, set the default standing sprite
         image(spritesMario[0 + bigAnimation], frontEndPosX,frontEndPosY-16);
         } else { //If the player is facing left, mirror the standing sprite using a push matrix

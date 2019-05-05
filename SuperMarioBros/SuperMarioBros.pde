@@ -84,8 +84,7 @@ void draw(){
   
   
   Background.Display(#AED1EE);
-  Player.Movement();
-  Player.Display();
+  Player.PlayerActive();
   for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
     if(blockInstances[i]!=null && Player.scroll) blockInstances[i].Scroll();
     if(blockInstances[i]!=null) blockInstances[i].Display();
