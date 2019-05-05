@@ -29,9 +29,10 @@ void setup(){
     
     /* TO DO LIST:
     - Item block
+      - Animation af item block
     - Brick block
     √ Mushroom
-    - Stor mario
+    √ Stor mario
     - Mario death
     - Menu
     - Flag pole
@@ -39,6 +40,7 @@ void setup(){
     - Have underground i slutningen af banen
     - Musik
     - Background Polish
+    - indsæt leveldesign
     */
     
     size(512,448);

@@ -16,6 +16,9 @@ class Player{
   boolean facingRight = true; //Determines the orientation og players sprites
   boolean big; //Determines players size
   int bigAnimation = 0; //7
+  int deathFrame;
+  int framesSinceDeath;
+  int deathPosY;
   //Keyboard input controlls
   public boolean rightPressed; 
   public boolean leftPressed;
@@ -24,7 +27,7 @@ class Player{
   
   int animCount; //Number of frames in spritesheet
   PImage spriteSheetMario; //Container for Players spritesheet
-  PImage[] spritesMario = new PImage[15]; //Creates an empty PImage array with the correct length
+  PImage[] spritesMario = new PImage[16]; //Creates an empty PImage array with the correct length
 
   Player(float tempX,float tempY){ // Sets players initial location
     posX = tempX;
@@ -164,13 +167,20 @@ class Player{
   
     void Death(){
       dead = true;
-      animMode = -1;
+      deathFrame = frameCount;
+      deathPosY = frontEndPosY;
     }
     
-    void Display(){ //FIX MARIO SPRITESHEET - FRAMES NOT CENTERED
+    void Display(){ 
+      println(frontEndPosY + pow(framesSinceDeath, 2) * pow(10, -2) + 1);
     
       frontEndPosX = round(posX/2)*2; //Snap to grid
       frontEndPosY = round(posY/2)*2;
+      
+      if(dead){
+        framesSinceDeath = frameCount - deathFrame-200;
+        animMode = -1;
+      }
       
       if(big){
         bigAnimation = 7;
@@ -182,6 +192,10 @@ class Player{
       }
       
       switch (animMode){ //A 1d blendtree responsible for controlling the player animations
+        case -1:
+        image(spritesMario[15], frontEndPosX,frontEndPosY + pow(framesSinceDeath, 2) * pow(10, -2) - deathPosY+playerHeight);
+        break;
+      
         case 0: //Standing still Right/Left
         if(facingRight){ //If player is facing right, set the default standing sprite
         image(spritesMario[0 + bigAnimation], frontEndPosX,frontEndPosY-16);
