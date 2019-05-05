@@ -199,7 +199,6 @@ class Player{
       
       if(pipeAction != 0){
         pipeStartY = frontEndPosY;
-        playerActive = false;
         animMode = 4;
       }
       
