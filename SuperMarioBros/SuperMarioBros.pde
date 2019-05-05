@@ -32,7 +32,6 @@ void setup(){
     - Brick block
     √ Mushroom
     - Stor mario
-    - Koopa Trooper
     - Mario death
     - Menu
     - Flag pole

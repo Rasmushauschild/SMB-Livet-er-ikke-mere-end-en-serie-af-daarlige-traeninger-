@@ -6,7 +6,7 @@ class Block{
     float sizeX;
     float sizeY;
     Table pipeTable = loadTable("pipeData.csv");
-    int[] pipeArray = new int[0]; //Initiliasizes array and sets length 0 - length is increased in the constructor when it becomes neccessary
+    int[] pipeArray = new int[100]; //Initiliasizes array and sets length 0 - length is increased in the constructor when it becomes neccessary
     int identifier;
     int localPipeIdentifier; //Local version of the pipeIdentifier value. Makes sure each pipe-top has it's own unique ID.
     int tvalue;
@@ -24,7 +24,6 @@ class Block{
     int frameCountSinceBeingHit;
     
     //Values specifically for pipes
-    int pipeID = 0;
     
     Block(float tempX, float tempY, int tempIdentifier, int temptvalue){
       startPosX = tempX;
@@ -36,9 +35,9 @@ class Block{
       
       if (identifier == 91 || identifier == 92){
         localPipeIdentifier = publicPipeIdentifier;
-        int[] pipeArray = new int[localPipeIdentifier]; 
-
-        
+        //int[] pipeArray = new int[localPipeIdentifier]; 
+        pipeArray[localPipeIdentifier] = tvalue;
+        println(publicPipeIdentifier + " " + tvalue);
         publicPipeIdentifier++;
       }
       
@@ -110,15 +109,20 @@ class Block{
     }
     
     void ActivatedAbove(){ //Player has hit the downbutton while standing on this block.
+    println("something is happening");
       switch (identifier){
         case 91: //pipeTopL
         case 92: //pipeTopR
-        for(int t=0;t<=pipeTable.getColumnCount();t++){
-          int currentPipeID = pipeTable.getInt(LevelSetup.currentLevel,t);
-          if (currentPipeID == pipeID){
-            if (t%2==0){
-              
+        
+        for(int i=0;i<pipeTable.getColumnCount();i++){ //Go through the pipeData for this level
+          int currentPipeID = pipeTable.getInt(1,i);
+          if (currentPipeID == localPipeIdentifier){
+            if (i%2==0){
+              int g = pipeArray[localPipeIdentifier+1];
+              Player.posX = blockInstances[g].posX;
             }
+            
+            
           
           }
         
