@@ -92,12 +92,12 @@ class Mushroom{
           posY + mushroomHeight > blockInstances[i].posY && //player bottom edge past ground top
           posY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
             
-            if(posY<(blockInstances[i].posY+16)){ //If Mario clips in the top half, tp to top
-              posY = blockInstances[i].posY-mushroomHeight; 
-              println("DOOR STUCK! DOOR STUCK! 1");
-            } else if (posY>(blockInstances[i].posY+16)){ //If Mario clips in the bottom half, tp to the bottom
-              posY = blockInstances[i].posY+32; 
-              println("DOOR STUCK! DOOR STUCK! 2");
+            if(posX<(blockInstances[i].posX+16)){ //If Goomba clips in left half, teleport to left-side
+              posX = blockInstances[i].posX-mushroomWidth; 
+              println("GOMBA STUCK! 1");
+            } else if (posX>(blockInstances[i].posX+16)){ //If Goomba clips in right half, teleport to right-side
+              posX = blockInstances[i].posX+32; 
+              println("GOMBA STUCK! 2");
             }
           }
         }

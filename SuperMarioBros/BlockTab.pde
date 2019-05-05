@@ -6,7 +6,7 @@ class Block{
     float sizeX;
     float sizeY;
     Table pipeTable = loadTable("pipeData.csv");
-    int[] pipeArray = new int[100]; //Initiliasizes array and sets length 0 - length is increased in the constructor when it becomes neccessary
+    int[] pipeArray = new int[8]; //Initiliasizes array and sets length 0 - length is increased in the constructor when it becomes neccessary
     int identifier;
     int localPipeIdentifier; //Local version of the pipeIdentifier value. Makes sure each pipe-top has it's own unique ID.
     int tvalue;
@@ -37,7 +37,8 @@ class Block{
         localPipeIdentifier = publicPipeIdentifier;
         //int[] pipeArray = new int[localPipeIdentifier]; 
         pipeArray[localPipeIdentifier] = tvalue;
-        println(publicPipeIdentifier + " " + tvalue);
+        
+        println(localPipeIdentifier + " " + tvalue);
         publicPipeIdentifier++;
       }
       
@@ -115,15 +116,20 @@ class Block{
         
         for(int i=0;i<pipeTable.getColumnCount();i++){ //Go through the pipeData for this level, check if the pipe that was activated is in pipeData for this level
           int currentPipeID = pipeTable.getInt(0,i); //Rows start at 0. 0 is the level here
-          println(i + " " + currentPipeID);
+          println(localPipeIdentifier + " " +pipeArray[localPipeIdentifier]);
+          
           if (currentPipeID == localPipeIdentifier){
             if (i%2==0){
-              println(localPipeIdentifier);
+              println("localID: "+localPipeIdentifier);
+              println("tvalue" +pipeArray[0]);
+              println("i: " + i);
               int destinationPipeID = pipeTable.getInt(0,i+1);
-              println(destinationPipeID);
-              int g = pipeArray[destinationPipeID];
-              println(g);
-              Player.posX = blockInstances[g].posX;
+              println("destinationPipeID: "+destinationPipeID);
+              int g = pipeArray[7];
+              println("destinationtvalue: "+g);
+
+              //Player.posY = blockInstances[1157].posY;
+              //scrollAmount += (blockInstances[1157].posX-blockInstances[tvalue].posX);
             }
             
             
