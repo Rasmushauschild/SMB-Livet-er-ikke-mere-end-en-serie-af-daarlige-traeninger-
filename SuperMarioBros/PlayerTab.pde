@@ -270,7 +270,9 @@ class Player{
           if(posY < pipeStartY + playerHeight){
           posY += pipeAction;
           println("up");
-        } else println("down");//posY = pipeDestinationY; scrollAmount = pipeDestinationScrollAmount; pipeAction = -1;
+        } else {
+        posY = pipeDestinationY; scrollAmount = pipeDestinationScrollAmount; pipeAction = -1;
+      }
         } else if (pipeAction < 0){
         if(frontEndPosY > pipeDestinationY - playerHeight){
           posY -= pipeAction;
