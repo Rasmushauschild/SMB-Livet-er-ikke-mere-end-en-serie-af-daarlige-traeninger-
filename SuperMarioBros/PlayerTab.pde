@@ -178,7 +178,7 @@ class Player{
       frontEndPosY = round(posY/2)*2;
       
       if(dead){
-        framesSinceDeath = frameCount - deathFrame-200;
+        framesSinceDeath = frameCount - deathFrame;
         animMode = -1;
       }
       
@@ -193,7 +193,7 @@ class Player{
       
       switch (animMode){ //A 1d blendtree responsible for controlling the player animations
         case -1:
-        image(spritesMario[15], frontEndPosX,frontEndPosY + pow(framesSinceDeath, 2) * pow(10, -2) - deathPosY+playerHeight);
+        image(spritesMario[15], frontEndPosX,frontEndPosY + ( pow(framesSinceDeath*4, 2) * pow(10, -2.5) - framesSinceDeath*4));
         break;
       
         case 0: //Standing still Right/Left
