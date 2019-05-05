@@ -166,9 +166,11 @@ class Player{
   }
   
     void Death(){
+      if(!dead){
       dead = true;
       deathFrame = frameCount;
       deathPosY = frontEndPosY;
+      }
     }
     
     void Display(){ 
