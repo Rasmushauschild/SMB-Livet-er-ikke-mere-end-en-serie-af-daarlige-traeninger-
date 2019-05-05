@@ -23,7 +23,7 @@ class Player{
   int pipeAction;
   float pipeDestinationScrollAmount;
   float pipeDestinationY;
-  int pipeStartY;
+  float pipeStartY;
   //Keyboard input controlls
   public boolean rightPressed; 
   public boolean leftPressed;
@@ -198,7 +198,6 @@ class Player{
       }
       
       if(pipeAction != 0){
-        pipeStartY = frontEndPosY;
         animMode = 4;
       }
       
@@ -268,9 +267,10 @@ class Player{
         
         case 4:
         if(pipeAction > 0){
-          if(frontEndPosY < pipeStartY + playerHeight){
+          if(posY < pipeStartY + playerHeight){
           posY += pipeAction;
-        } else posY = pipeDestinationY; scrollAmount = pipeDestinationScrollAmount; pipeAction = -1;
+          println("up");
+        } else println("down");//posY = pipeDestinationY; scrollAmount = pipeDestinationScrollAmount; pipeAction = -1;
         } else if (pipeAction < 0){
         if(frontEndPosY > pipeDestinationY - playerHeight){
           posY -= pipeAction;
