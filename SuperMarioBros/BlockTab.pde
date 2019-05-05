@@ -5,7 +5,11 @@ class Block{
     float startPosX;
     float sizeX;
     float sizeY;
+    Table pipeTable = loadTable("pipeData.csv");
+    int[] pipeArray = new int[0]; //Initiliasizes array and sets length 0 - length is increased in the constructor when it becomes neccessary
     int identifier;
+    int localPipeIdentifier; //Local version of the pipeIdentifier value. Makes sure each pipe-top has it's own unique ID.
+    int tvalue;
     PImage groundSprite = loadImage("Sprite_Ground.png");
     PImage itemSprite = loadImage("Sprite_Item.png");
     PImage brickSprite = loadImage("Sprite_Brick.png");
@@ -22,15 +26,20 @@ class Block{
     //Values specifically for pipes
     int pipeID = 0;
     
-    Block(float tempX, float tempY, int tempIdentifier){
+    Block(float tempX, float tempY, int tempIdentifier, int temptvalue){
       startPosX = tempX;
       posX = tempX;
       posY = tempY;
       identifier = tempIdentifier;
+      tvalue = temptvalue;
+      
       
       if (identifier == 91 || identifier == 92){
-      
-      
+        localPipeIdentifier = publicPipeIdentifier;
+        int[] pipeArray = new int[localPipeIdentifier]; 
+
+        
+        publicPipeIdentifier++;
       }
       
     }
@@ -59,7 +68,7 @@ class Block{
         } else {
           image(itemSprite, posX, posY);
         }
-                break;
+        break;
         
         case 93:
         image(pipeL, posX, posY);
@@ -90,7 +99,6 @@ class Block{
       switch(identifier){
         case 4: //Item block        
         mushroomInstances[mushroomIdentifier] = new Mushroom(posX, posY-64);
-        rect(posX,posY-32,400,400);
         mushroomInstances[mushroomIdentifier].animationSetup();
         animationInProgress = true;
         frameCountWhenHit = frameCount;
@@ -104,13 +112,22 @@ class Block{
     void ActivatedAbove(){ //Player has hit the downbutton while standing on this block.
       switch (identifier){
         case 91: //pipeTopL
-        scrollAmount += 500;
-        break;
-        
-        
         case 92: //pipeTopR
+        for(int t=0;t<=pipeTable.getColumnCount();t++){
+          int currentPipeID = pipeTable.getInt(LevelSetup.currentLevel,t);
+          if (currentPipeID == pipeID){
+            if (t%2==0){
+              
+            }
+          
+          }
+        
+        }
+        
+        
         
         break;
+        
       
       
       }

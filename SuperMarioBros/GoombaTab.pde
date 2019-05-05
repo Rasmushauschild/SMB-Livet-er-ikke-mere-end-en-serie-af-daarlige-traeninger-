@@ -102,11 +102,11 @@ class Goomba{
           posY + goombaHeight > blockInstances[i].posY && //player bottom edge past ground top
           posY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
             
-            if(posY<(blockInstances[i].posY+16)){ //If Mario clips in the top half, tp to top
-              posY = blockInstances[i].posY-goombaHeight; 
+            if(posX<(blockInstances[i].posX+16)){ //If Goomba clips in left half, teleport to left-side
+              posX = blockInstances[i].posX-goombaWidth; 
               println("GOMBA STUCK! 1");
-            } else if (posY>(blockInstances[i].posY+16)){ //If Mario clips in the bottom half, tp to the bottom
-              posY = blockInstances[i].posY+32; 
+            } else if (posX>(blockInstances[i].posX+16)){ //If Goomba clips in right half, teleport to right-side
+              posX = blockInstances[i].posX+32; 
               println("GOMBA STUCK! 2");
             }
           }
