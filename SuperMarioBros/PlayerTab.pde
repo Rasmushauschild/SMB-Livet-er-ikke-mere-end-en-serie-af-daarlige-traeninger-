@@ -267,7 +267,15 @@ class Player{
         break;
         
         case 4:
-        if(frontEndPosY < pipeStartY + playerHeight) posY += pipeAction;
+        if(pipeAction > 0){
+          if(frontEndPosY < pipeStartY + playerHeight){
+          posY += pipeAction;
+        } else posY = pipeDestinationY; scrollAmount = pipeDestinationScrollAmount; pipeAction = -1;
+        } else if (pipeAction < 0){
+        if(frontEndPosY > pipeDestinationY - playerHeight){
+          posY -= pipeAction;
+         }
+        }
         if(facingRight){ //If player is facing right, set the default standing sprite
         image(spritesMario[0 + bigAnimation], frontEndPosX,frontEndPosY-16);
         } else { //If the player is facing left, mirror the standing sprite using a push matrix
