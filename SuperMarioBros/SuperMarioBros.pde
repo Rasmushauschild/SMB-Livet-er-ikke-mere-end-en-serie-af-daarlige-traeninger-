@@ -57,7 +57,8 @@ void setup(){
     - Flag pole
     √ Pipes
     - Have underground i slutningen af banen
-    - Musik
+    √ Musik
+      √ Sound FX
     √ Background Polish
     √ indsæt leveldesign
     */
@@ -145,7 +146,10 @@ void draw(){
       background(#AED1EE);
       
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
-        if(backgroundInstances[i]!=null) backgroundInstances[i].Display();
+      if(backgroundInstances[i]!=null) backgroundInstances[i].Display();
+      }
+      
+      for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
         
         if(menuInstances[i]!=null) menuInstances[i].Alive();
         
