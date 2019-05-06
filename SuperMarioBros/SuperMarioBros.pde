@@ -14,6 +14,7 @@ float scrollAmount;
 float currentTime;
 float prevTime;
 float deltaTime;
+int gameState; //Responsible for the state of the game - 0: Main menu 1: LevelLoad 2: Gameplay 3:Paused Gameplay
 int mushroomIdentifier = 0; //For creating mushrooms with seperate names
 int publicPipeIdentifier = 0; //For creating ID for pipes which can be used by Mario. 
 int[] pipeArray = new int[100]; //Initiliasizes array and sets length to 100 - setting a max of 50 pipes per level
@@ -38,7 +39,7 @@ void setup(){
     - Mario death
     - Menu
     - Flag pole
-    - Pipes
+    √ Pipes
     - Have underground i slutningen af banen
     - Musik
     - Background Polish

@@ -198,7 +198,7 @@ class Player{
       frontEndPosX = round(posX/2)*2; //Snap to grid
       frontEndPosY = round(posY/2)*2;
       
-      rect(posX,posY,playerWidth,playerHeight);
+      //rect(posX,posY,playerWidth,playerHeight);
       
       
       if(dead){
