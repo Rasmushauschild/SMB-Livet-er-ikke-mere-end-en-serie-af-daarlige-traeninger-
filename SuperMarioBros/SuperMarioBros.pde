@@ -10,6 +10,8 @@ Player Player;
 Background Background;
 Mushroom Mushroom;
 Mushroom[] mushroomInstances;
+Menu Menu;
+Menu[] menuInstances;
 float scrollAmount;
 float currentTime;
 float prevTime;
