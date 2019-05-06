@@ -340,6 +340,7 @@ class Player{
         }
         break;
       }
+      println(gameState);
   }
 }
 
@@ -350,7 +351,7 @@ void keyReleased(){
     if(keyCode == DOWN) Player.downPressed = false;
     if(keyCode == UP) Player.upPressed = false;
     if(keyCode == 32) Player.spacePressed = false;
-  }
+  } else if (gameState == 0 && keyCode == ENTER) gameState = 1;
 }
 
 void keyPressed(){

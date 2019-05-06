@@ -17,6 +17,7 @@ class Menu{
   void Display(){
     switch(identifier){
       case 30: //The text displayed in the top of the screen.
+        Background.Display(#AED1EE);
         image(textMarioWorldTime, posX, posY);
       break;
     

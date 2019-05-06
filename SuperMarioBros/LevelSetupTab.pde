@@ -14,6 +14,7 @@ class LevelSetup{
       blockInstances = new Block[currentTableCellCount]; //Initiliasizes array and sets length to amount of cells in current level
       goombaInstances = new Goomba[currentTableCellCount]; //Initiliasizes array and sets length to amount of cells in current level
       mushroomInstances = new Mushroom[currentTableCellCount];
+      menuInstances = new Menu[currentTableCellCount];
 
             for (int t=0; t<(currentLevelTable.getColumnCount()*currentLevelTable.getRowCount()); t++){ 
               currentIdentifier = currentLevelTable.getInt(t/currentLevelTable.getColumnCount(),t%currentLevelTable.getColumnCount());
