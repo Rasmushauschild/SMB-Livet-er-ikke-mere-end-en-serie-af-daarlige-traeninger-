@@ -14,6 +14,7 @@ float scrollAmount;
 float currentTime;
 float prevTime;
 float deltaTime;
+float frameCountWhenLoadingStarted;
 int gameState; //Responsible for the state of the game - 0: Main menu 1: LevelLoad 2: Gameplay 3:Paused Gameplay
 int mushroomIdentifier = 0; //For creating mushrooms with seperate names
 int publicPipeIdentifier = 0; //For creating ID for pipes which can be used by Mario. 
@@ -95,6 +96,26 @@ void draw(){
       }
     break;
     
+    case 1:
+    println("case 1");
+      Background.Display(#AED1EE);
+    if(frameCountWhenLoadingStarted < frameCount +200){
+      for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell.   
+        if(menuInstances[i]!=null){
+          menuInstances[i].Alive();
+        }
+      }
+    } else {
+      LevelSetup.loadScene(LevelSetup.currentLevel); //Load the level
+      gameState = 2; //Change the game state accordingly, so that the player has control over the player
+    }
+      
+      
+      
+    
+    break;
+    
+    
     case 2:
       Player.PlayerActive();
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
@@ -115,6 +136,14 @@ void draw(){
     }
   }
 }
+
+void startLoadingScene(){ //Go to the loading level scene
+  gameState = 1;
+  LevelSetup.currentLevel += 1;
+  LevelSetup.loadScene(-1); //Load the load-level scene
+  frameCountWhenLoadingStarted = frameCount; //Used for the amount of frames the loading scene should be displayed
+}
+
 
 void deltaTimeCalculation(){
   prevTime = currentTime;

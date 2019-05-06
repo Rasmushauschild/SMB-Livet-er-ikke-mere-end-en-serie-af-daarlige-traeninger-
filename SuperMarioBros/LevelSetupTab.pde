@@ -1,5 +1,5 @@
 class LevelSetup{
-    public int currentLevel=1;
+    public int currentLevel;
     public int currentTableCellCount;
     Table currentLevelTable;
     int currentIdentifier;

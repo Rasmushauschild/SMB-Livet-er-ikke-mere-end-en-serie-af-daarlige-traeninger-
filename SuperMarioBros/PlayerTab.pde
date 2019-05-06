@@ -351,7 +351,10 @@ void keyReleased(){
     if(keyCode == DOWN) Player.downPressed = false;
     if(keyCode == UP) Player.upPressed = false;
     if(keyCode == 32) Player.spacePressed = false;
-  } else if (gameState == 0 && keyCode == ENTER) gameState = 1;
+  } else if (gameState == 0 && keyCode == ENTER){
+    startLoadingScene();
+    println("LoadingScene...");
+  }
 }
 
 void keyPressed(){
