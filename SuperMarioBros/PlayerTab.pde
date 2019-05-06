@@ -340,7 +340,6 @@ class Player{
         }
         break;
       }
-      println(gameState);
   }
 }
 

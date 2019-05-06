@@ -4,13 +4,13 @@ class Background{
   float posY;
   int identifier;
   
-  PImage bushSmall = loadImage("Sprite_BushS"); //40
-  PImage bushMedium = loadImage("Sprite_BushM"); //41
-  PImage bushBig = loadImage("Sprite_BushL"); //42
-  PImage hillSmall = loadImage("Sprite_HillS"); //43
-  PImage hillBig = loadImage("Sprite_HillB"); //44
-  PImage cloudSmall = loadImage("Sprite_CloudS"); //45
-  PImage cloudBig = loadImage("Sprite_CloudB"); //46
+  PImage bushSmall = loadImage("Sprite_BushS.png"); //40
+  PImage bushMedium = loadImage("Sprite_BushM.png"); //41
+  PImage bushBig = loadImage("Sprite_BushL.png"); //42
+  PImage hillSmall = loadImage("Sprite_HillS.png"); //43
+  PImage hillBig = loadImage("Sprite_HillB.png"); //44
+  PImage cloudSmall = loadImage("Sprite_CloudS.png"); //45
+  PImage cloudBig = loadImage("Sprite_CloudB.png"); //46
 
     
   Background(float tempX, float tempY, int tempIdentifier){
