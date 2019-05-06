@@ -17,24 +17,14 @@ class LevelSetup{
 
             for (int t=0; t<(currentLevelTable.getColumnCount()*currentLevelTable.getRowCount()); t++){ 
               currentIdentifier = currentLevelTable.getInt(t/currentLevelTable.getColumnCount(),t%currentLevelTable.getColumnCount());
-              if(currentIdentifier!=0 && (currentIdentifier<20 || currentIdentifier>39)){ //If there is a block in the cell which the for-loop has reached, which also isn't an enemy or menu UI, then spawn a new block
+              if(currentIdentifier!=0 && (currentIdentifier<20 || currentIdentifier>40)){ //If there is a block in the cell which the for-loop has reached, which also isn't an enemy or menu UI, then spawn a new block
               blockInstances[t] = new Block(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32,currentIdentifier,t);
               //println(t + "POS: " + t%currentLevelTable.getColumnCount() + " " + t/currentLevelTable.getColumnCount());
-              } else { //Spawn Enemy
-                switch (currentIdentifier){
-                  case 20:
-                  goombaInstances[t] = new Goomba(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32);
-                  
-                  break;
-                  
-                  case 21:
-                  
-                  
-                  break;
-                  case 22:
-                  break;
-                }
-              } 
+              } else if (currentIdentifier == 20){ //Spawn Goomba
+              goombaInstances[t] = new Goomba(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32);
+              } else if (currentIdentifier >= 30 && currentIdentifier <= 40){
+              menuInstances
+              }
               
             }
             
