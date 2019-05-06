@@ -18,7 +18,7 @@ float currentTime;
 float prevTime;
 float deltaTime;
 float frameCountWhenLoadingStarted;
-int gameState=2; //Responsible for the state of the game - 0: Main menu 1: LevelLoad 2: Gameplay 3:Paused Gameplay
+int gameState; //Responsible for the state of the game - 0: Main menu 1: LevelLoad 2: Gameplay 3:Paused Gameplay
 int mushroomIdentifier = 0; //For creating mushrooms with seperate names
 int publicPipeIdentifier = 0; //For creating ID for pipes which can be used by Mario. 
 int[] pipeArray = new int[100]; //Initiliasizes array and sets length to 100 - setting a max of 50 pipes per level
@@ -59,7 +59,7 @@ void setup(){
     mainFont = loadFont("Super-Mario-Bros.-NES-48.vlw");
     textFont(mainFont,14); //Double the height of the original
     LevelSetup = new LevelSetup();
-    LevelSetup.loadScene(1);
+    LevelSetup.loadScene(0);
     
     //Spawn Player
     Player = new Player(230, 0);
@@ -75,11 +75,12 @@ void setup(){
 }
 void draw(){
   deltaTimeCalculation();
+  println(gameState);
   
   switch(gameState){
     case 0:
       background(#AED1EE);
-      Player.PlayerActive();
+      
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
         if(backgroundInstances[i]!=null) backgroundInstances[i].Display();
         
@@ -91,6 +92,7 @@ void draw(){
       
         if(mushroomInstances[i]!=null) mushroomInstances[i].Alive();  
       }
+      Player.PlayerActive();
     break;
     
     case 1:
@@ -102,8 +104,13 @@ void draw(){
           }
         }
       } else {
-        println(LevelSetup.currentLevel);
         LevelSetup.loadScene(LevelSetup.currentLevel); //Load the level
+        for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
+          if(goombaInstances[i]!=null) {
+          goombaInstances[i].animationSetup();
+          }
+        }
+        Player.animationSetup();
         gameState = 2; //Change the game state accordingly, so that the player has control over the player
       }
     break;
@@ -111,7 +118,7 @@ void draw(){
     
     case 2:
       background(#AED1EE);
-      Player.PlayerActive();
+      
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
         if(backgroundInstances[i]!=null) backgroundInstances[i].Display();
         
@@ -122,9 +129,8 @@ void draw(){
         if(goombaInstances[i]!=null) goombaInstances[i].Alive();
       
         if(mushroomInstances[i]!=null) mushroomInstances[i].Alive();
-        
-        
       }
+      Player.PlayerActive();
       
       if(keyPressed && key == 'b'){
         LevelSetup.currentLevel++;
