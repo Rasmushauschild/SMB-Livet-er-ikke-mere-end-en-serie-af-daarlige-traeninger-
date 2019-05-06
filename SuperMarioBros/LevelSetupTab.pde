@@ -12,7 +12,7 @@ class LevelSetup{
       currentTableCellCount = currentLevelTable.getColumnCount()*currentLevelTable.getRowCount();
       blockInstances = new Block[currentTableCellCount]; //Initiliasizes array and sets length to amount of cells in current level
       goombaInstances = new Goomba[currentTableCellCount]; //Initiliasizes array and sets length to amount of cells in current level
-      mushroomInstances = new Mushroom[currentTableCellCount];
+      collectibleInstances = new Collectible[currentTableCellCount];
       menuInstances = new Menu[currentTableCellCount];
       backgroundInstances = new Background[currentTableCellCount];
 

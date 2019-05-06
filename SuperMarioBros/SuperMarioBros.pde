@@ -1,4 +1,16 @@
-//YO
+import processing.sound.*;
+
+SoundFile mainTheme;
+SoundFile breakBlock;
+SoundFile coin;
+SoundFile death;
+SoundFile flagPole;
+SoundFile jump;
+SoundFile mushroomAppears;
+SoundFile pause;
+SoundFile pipe;
+SoundFile powerUp;
+SoundFile stomp;
 
 LevelSetup LevelSetup;
 Block Ground; //Declare object Block
@@ -6,8 +18,8 @@ Block[] blockInstances; //Create a array of name blockInstances, containing inst
 Goomba Goomba;
 Goomba[] goombaInstances;
 Player Player;
-Mushroom Mushroom;
-Mushroom[] mushroomInstances;
+Collectible Collectible;
+Collectible[] collectibleInstances;
 Menu Menu;
 Menu[] menuInstances;
 Background Background;
@@ -19,7 +31,7 @@ float prevTime;
 float deltaTime;
 float frameCountWhenLoadingStarted;
 int gameState; //Responsible for the state of the game - 0: Main menu 1: LevelLoad 2: Gameplay 3:Paused Gameplay
-int mushroomIdentifier = 0; //For creating mushrooms with seperate names
+int collectibleIdentifier = 0; //For creating collectibles with seperate names
 int publicPipeIdentifier = 0; //For creating ID for pipes which can be used by Mario. 
 int[] pipeArray = new int[100]; //Initiliasizes array and sets length to 100 - setting a max of 50 pipes per level
 
@@ -35,19 +47,19 @@ void setup(){
     //Blocks Mario can move before screen moves with him: 7
     
     /* TO DO LIST:
-    - Item block
+    √ Item block
       - Animation af item block
-    - Brick block
+    √ Brick block
     √ Mushroom
     √ Stor mario
-    - Mario death
+    √ Mario death
     - Menu
     - Flag pole
     √ Pipes
     - Have underground i slutningen af banen
     - Musik
-    - Background Polish
-    - indsæt leveldesign
+    √ Background Polish
+    √ indsæt leveldesign
     */
     
     size(512,448);
@@ -56,6 +68,21 @@ void setup(){
     stroke(2);
     rectMode(CORNER);
     imageMode(CENTER);
+    
+    mainTheme = new SoundFile(this, "Track_Main.wav");
+    breakBlock = new SoundFile(this, "SFX_BreakBlock.wav");
+    coin = new SoundFile(this, "SFX_Coin.wav");
+    death = new SoundFile(this, "SFX_Death.wav");
+    flagPole = new SoundFile(this, "SFX_Flagpole.wav");
+    jump = new SoundFile(this, "SFX_Jump.wav");
+    mushroomAppears = new SoundFile(this, "SFX_MushroomAppears.wav");
+    pause = new SoundFile(this, "SFX_Pause.wav");
+    pipe = new SoundFile(this, "SFX_Pipe.wav");
+    powerUp = new SoundFile(this, "SFX_PowerUp.wav");
+    stomp = new SoundFile(this, "SFX_Stomp.wav");
+
+    mainTheme.play();
+    
     mainFont = loadFont("Super-Mario-Bros.-NES-48.vlw");
     textFont(mainFont,14); //Double the height of the original
     LevelSetup = new LevelSetup();
@@ -70,8 +97,6 @@ void setup(){
       goombaInstances[i].animationSetup();
     }
   }
-    
-
 }
 void draw(){
   deltaTimeCalculation();
@@ -90,7 +115,7 @@ void draw(){
       
         if(goombaInstances[i]!=null) goombaInstances[i].Alive();
       
-        if(mushroomInstances[i]!=null) mushroomInstances[i].Alive();  
+        if(collectibleInstances[i]!=null) collectibleInstances[i].Alive();  
       }
       Player.PlayerActive();
     break;
@@ -128,7 +153,7 @@ void draw(){
       
         if(goombaInstances[i]!=null) goombaInstances[i].Alive();
       
-        if(mushroomInstances[i]!=null) mushroomInstances[i].Alive();
+        if(collectibleInstances[i]!=null) collectibleInstances[i].Alive();
       }
       Player.PlayerActive();
       

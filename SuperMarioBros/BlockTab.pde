@@ -9,14 +9,17 @@ class Block{
     int identifier;
     int localPipeIdentifier; //Local version of the pipeIdentifier value. Makes sure each pipe-top has it's own unique ID.
     int tvalue;
+    boolean empty;
     PImage groundSprite = loadImage("Sprite_Ground.png");
     PImage itemSprite = loadImage("Sprite_Item.png");
+    PImage itemSpriteEmpty = loadImage("Sprite_ItemEmpty.png");
     PImage brickSprite = loadImage("Sprite_Brick.png");
     PImage goombaSprite = loadImage("Sprite_Goomba.png");
     PImage pipeL = loadImage("Sprite_PipeL.png");
     PImage pipeR = loadImage("Sprite_PipeR.png");
     PImage pipeTopL = loadImage("Sprite_PipeTopL.png");
     PImage pipeTopR = loadImage("Sprite_PipeTopR.png");
+    
     
     //Values specifically for mushroom
     int frameCountWhenHit;
@@ -52,21 +55,32 @@ class Block{
         image(groundSprite, posX, posY);
         break;
         
-        case 3: //Brick Block
-        image(brickSprite, posX, posY);
+        case 3: //Brick Block Empty
+          if(!empty){
+            image(brickSprite, posX, posY);
+          } else posY -= 500;
         break;
         
-        case 4: //Item Block
-        //println(animationInProgress);
-        if (animationInProgress && round(posY+pow(frameCountSinceBeingHit,2)-10*frameCountSinceBeingHit-1)>=posY){ //Stop animation after 30 frames
-          animationInProgress = false;
-          frameCountSinceBeingHit =0;
-        } else if (animationInProgress){
-          image(itemSprite, posX, round(posY+pow(frameCountSinceBeingHit,2)-10*frameCountSinceBeingHit-1));
-          frameCountSinceBeingHit = frameCount - frameCountWhenHit;
-        } else {
-          image(itemSprite, posX, posY);
-        }
+        case 4: //Brick Block with goodies
+        case 5:
+          if(!empty){
+          image(brickSprite, posX, posY);
+          } else image(itemSpriteEmpty, posX, posY);
+        break;
+        
+        case 6: //Item Block
+        case 7:
+        if (!empty){
+          if (animationInProgress && round(posY+pow(frameCountSinceBeingHit,2)-10*frameCountSinceBeingHit-1)>=posY){ //Stop animation after 30 frames
+            animationInProgress = false;
+            frameCountSinceBeingHit =0;
+          } else if (animationInProgress){
+            image(itemSprite, posX, round(posY+pow(frameCountSinceBeingHit,2)-10*frameCountSinceBeingHit-1));
+            frameCountSinceBeingHit = frameCount - frameCountWhenHit;
+          } else {
+            image(itemSprite, posX, posY);
+          }
+        } else image(itemSpriteEmpty, posX, posY);
         break;
         
         case 91: //left vertical pipe
@@ -158,23 +172,65 @@ class Block{
         break;
       }
       
-      
+      println(identifier);
       
     }
     
     void ActivatedBelow (){ //Player has jumped up into this block from below
+    if(!empty){
       switch(identifier){
-        case 4: //Item block        
-        mushroomInstances[mushroomIdentifier] = new Mushroom(posX, posY-32);
-        mushroomInstances[mushroomIdentifier].animationSetup();
+        
+        case 3:
+          if(Player.big) {
+            breakBlock.play();
+            empty = true;
+          } else 
+        break;
+        
+        case 4: //Brick block with coin
+        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 0);
+        collectibleInstances[collectibleIdentifier].animationSetup();
+        collectibleInstances[collectibleIdentifier].identifier = 0;
+        collectibleInstances[collectibleIdentifier].spawnedFromBlock = true;
         animationInProgress = true;
         frameCountWhenHit = frameCount;
-        mushroomIdentifier++;
+        coin.play();
+        empty = true;
+        break;  
+        
+        case 5: //Brick block with mushroom
+        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 1);
+        collectibleInstances[collectibleIdentifier].animationSetup();
+        animationInProgress = true;
+        frameCountWhenHit = frameCount;
+        collectibleIdentifier++;
+        mushroomAppears.play();
+        empty = true;
+        break;  
+        
+        case 6: //Item block with coin
+        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 0);
+        collectibleInstances[collectibleIdentifier].animationSetup();
+        collectibleInstances[collectibleIdentifier].identifier = 0;
+        collectibleInstances[collectibleIdentifier].spawnedFromBlock = true;
+        animationInProgress = true;
+        frameCountWhenHit = frameCount;
+        coin.play();
+        empty = true;
         break;     
       
+        case 7: //Item block with mushroom
+        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 1);
+        collectibleInstances[collectibleIdentifier].animationSetup();
+        animationInProgress = true;
+        frameCountWhenHit = frameCount;
+        collectibleIdentifier++;
+        mushroomAppears.play();
+        empty = true;
+        break;   
       }
-    
     }
+  }
     
     void ActivatedVerticalPipe(){ //Player has activated a block by clicking right/left or up/down in it its direction while directly touching it
       if (identifier == 95 || identifier == 96 || identifier == 101 || identifier == 102){ //Makes sure the activated block is a pipe with a vertical orientation

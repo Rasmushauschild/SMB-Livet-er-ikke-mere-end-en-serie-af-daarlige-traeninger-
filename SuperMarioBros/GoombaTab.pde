@@ -127,6 +127,7 @@ class Goomba{
     frontEndPosY + goombaHeight-10 > Player.frontEndPosY && 
     frontEndPosY < Player.frontEndPosY + 32 && Player.velocityY > 0 &&
     !dead){
+      stomp.play();
       dead = true;
       animMode = 1;
       frameCountSinceDeath = frameCount;

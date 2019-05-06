@@ -126,7 +126,9 @@ class Player{
     velocityX = 0;
     if(jumpPossible) animMode = 0;
   }
-    if(spacePressed && jumpPossible){ //Jump animation when space is pressed and player is on ground.
+    if(spacePressed && jumpPossible){ //Jump animation and sound when space is pressed and player is on ground.
+    
+    jump.play();
     animMode = 2;
     }
     jumpPossible = false;
@@ -188,9 +190,11 @@ class Player{
   
     void Death(){
       if(!dead){
-      dead = true;
-      deathFrame = frameCount;
-      deathPosY = frontEndPosY;
+        mainTheme.pause();
+        death.play();
+        dead = true;
+        deathFrame = frameCount;
+        deathPosY = frontEndPosY;
       }
     }
     
