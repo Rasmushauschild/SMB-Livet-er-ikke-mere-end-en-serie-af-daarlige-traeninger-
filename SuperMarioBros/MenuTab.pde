@@ -15,10 +15,14 @@ class Menu{
   }
   
   void Display(){
+    
     switch(identifier){
       case 30: //The text displayed in the top of the screen.
-        Background.Display(#AED1EE);
-        image(textMarioWorldTime, posX, posY);
+      text("Mario               World   Time",posX,posY);
+      
+      break;
+      case 31:
+      text("s",posX,posY);
       break;
     
     }

@@ -53,8 +53,9 @@ void setup(){
     rectMode(CORNER);
     imageMode(CENTER);
     mainFont = loadFont("Super-Mario-Bros.-NES-48.vlw");
+    textFont(mainFont,14); //Double the height of the original
     LevelSetup = new LevelSetup();
-    LevelSetup.loadScene(3);
+    LevelSetup.loadScene(0);
     
     //Spawn Player
     Player = new Player(230, 0);
