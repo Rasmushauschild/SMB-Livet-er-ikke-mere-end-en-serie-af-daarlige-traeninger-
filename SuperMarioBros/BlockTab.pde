@@ -104,7 +104,8 @@ class Block{
         case 97: //topGoingLeftPipe
         pushMatrix();
         translate(posX,posY); //move origin to pivot point
-        rotate(radians(90)); //pivot grid 90 degrees
+        rotate(radians(-90)); //pivot grid 90 degrees
+        scale(-1,1);
         image(pipeTopL, 0, 0);
         popMatrix();
         break;
@@ -112,7 +113,8 @@ class Block{
         case 98: //bottomGoingLeftPipe
         pushMatrix();
         translate(posX,posY); //move origin to pivot point
-        rotate(radians(90)); //pivot grid 90 degrees
+        rotate(radians(-90)); //pivot grid 90 degrees
+        scale(-1,1);
         image(pipeTopR, 0, 0);
         popMatrix();
         break;
@@ -137,7 +139,8 @@ class Block{
         pushMatrix();
         translate(posX,posY); //move origin to pivot point
         rotate(radians(180)); //pivot grid 90 degrees
-        image(pipeTopR, 0, 0);
+        scale(-1,1);
+        image(pipeTopL, 0, 0);
         popMatrix();
         break;
         
@@ -145,7 +148,8 @@ class Block{
         pushMatrix();
         translate(posX,posY); //move origin to pivot point
         rotate(radians(180)); //pivot grid 90 degrees
-        image(pipeTopL, 0, 0);
+        scale(-1,1);
+        image(pipeTopR, 0, 0);
         popMatrix();
         break;
 
@@ -161,7 +165,7 @@ class Block{
     void ActivatedBelow (){ //Player has jumped up into this block from below
       switch(identifier){
         case 4: //Item block        
-        mushroomInstances[mushroomIdentifier] = new Mushroom(posX, posY-64);
+        mushroomInstances[mushroomIdentifier] = new Mushroom(posX, posY-32);
         mushroomInstances[mushroomIdentifier].animationSetup();
         animationInProgress = true;
         frameCountWhenHit = frameCount;

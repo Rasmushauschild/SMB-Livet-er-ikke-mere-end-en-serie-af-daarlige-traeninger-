@@ -140,7 +140,7 @@ class Player{
         if (blockInstances[i]!=null){
           if((posX + playerWidth + velocityX > blockInstances[i].posX && //player collision right edge past ground left-side
           posX + velocityX < blockInstances[i].posX + 32 && //player collision left edge past ground right-side
-          posY + playerHeight > blockInstances[i].posY && //player collision bottom edge past ground top
+          posY > blockInstances[i].posY && //player collision bottom edge past ground top
           posY < blockInstances[i].posY + 32)){ //player collision top edge past ground bottom 
             if (rightPressed || leftPressed) blockInstances[i].ActivatedHorizontalPipe(); 
             velocityX = 0;            
