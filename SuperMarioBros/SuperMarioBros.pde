@@ -4,11 +4,12 @@ Block[] blockInstances; //Create a array of name blockInstances, containing inst
 Goomba Goomba;
 Goomba[] goombaInstances;
 Player Player;
-Background Background;
 Mushroom Mushroom;
 Mushroom[] mushroomInstances;
 Menu Menu;
 Menu[] menuInstances;
+Background Background;
+Background[] backgroundInstances;
 PFont mainFont;
 float scrollAmount;
 float currentTime;
@@ -62,8 +63,6 @@ void setup(){
     Player = new Player(230, 0);
     Player.animationSetup();
     
-    Background = new Background();
-    
     for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
     if(goombaInstances[i]!=null) {
       goombaInstances[i].animationSetup();
@@ -77,7 +76,7 @@ void draw(){
   
   switch(gameState){
     case 0:
-      Background.Display(#AED1EE);
+      background(#AED1EE);
       Player.PlayerActive();
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
         if(blockInstances[i]!=null) blockInstances[i].Display();
@@ -97,22 +96,18 @@ void draw(){
     break;
     
     case 1:
-    println("case 1");
-      Background.Display(#AED1EE);
-    if(frameCountWhenLoadingStarted < frameCount +200){
-      for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell.   
-        if(menuInstances[i]!=null){
-          menuInstances[i].Alive();
+      println("case 1");
+      background(#AED1EE);
+      if(frameCountWhenLoadingStarted + 180 > frameCount){
+        for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell.   
+          if(menuInstances[i]!=null){
+            menuInstances[i].Alive();
+          }
         }
+      } else {
+        LevelSetup.loadScene(LevelSetup.currentLevel); //Load the level
+        gameState = 2; //Change the game state accordingly, so that the player has control over the player
       }
-    } else {
-      LevelSetup.loadScene(LevelSetup.currentLevel); //Load the level
-      gameState = 2; //Change the game state accordingly, so that the player has control over the player
-    }
-      
-      
-      
-    
     break;
     
     

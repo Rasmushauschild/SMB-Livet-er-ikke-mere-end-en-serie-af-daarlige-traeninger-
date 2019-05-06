@@ -15,6 +15,7 @@ class LevelSetup{
       goombaInstances = new Goomba[currentTableCellCount]; //Initiliasizes array and sets length to amount of cells in current level
       mushroomInstances = new Mushroom[currentTableCellCount];
       menuInstances = new Menu[currentTableCellCount];
+      backgroundInstances = new Background[currentTableCellCount];
 
             for (int t=0; t<(currentLevelTable.getColumnCount()*currentLevelTable.getRowCount()); t++){ 
               currentIdentifier = currentLevelTable.getInt(t/currentLevelTable.getColumnCount(),t%currentLevelTable.getColumnCount());
@@ -24,8 +25,9 @@ class LevelSetup{
                 goombaInstances[t] = new Goomba(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32);
               } else if (currentIdentifier >= 30 && currentIdentifier <= 40){ //Spawn a menu-object
                 menuInstances[t] = new Menu(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32,currentIdentifier);
+              } else if (currentIdentifier >= 30 && currentIdentifier <= 40){
+                backgroundInstances[t] = new Background(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32,currentIdentifier);
               }
-              
             }
             
     }

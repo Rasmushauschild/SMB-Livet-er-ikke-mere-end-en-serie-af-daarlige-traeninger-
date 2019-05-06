@@ -1,6 +1,7 @@
 class Background{
-  int posX;
-  int posY;
+  float startPosX;
+  float posX;
+  float posY;
   int identifier;
   
   PImage bushSmall = loadImage("Sprite_BushS");
@@ -12,7 +13,8 @@ class Background{
   PImage cloudBig = loadImage("Sprite_CloudB");
 
     
-  Background(int tempX, int tempY, int tempIdentifier){
+  Background(float tempX, float tempY, int tempIdentifier){
+    startPosX = tempX;
     posX = tempX;
     posY = tempY;
     identifier = tempIdentifier;
@@ -42,13 +44,13 @@ class Background{
       image(hillBig, posX, posY);
       break;
       
-      case 45: //Small Cloud
+      case 46: //Small Cloud
       image(cloudSmall, posX, posY);
       break;
       
-      case 45: //Big Cloud
+      case 47: //Big Cloud
       image(cloudBig, posX, posY);
       break;
+    }
   }
-    
 }
