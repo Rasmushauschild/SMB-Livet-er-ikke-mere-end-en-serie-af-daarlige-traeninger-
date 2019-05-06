@@ -1,7 +1,4 @@
-//Yellow #FFEA6C
-//Green #83FF71
-
-LevelSetup LevelSetup;;
+LevelSetup LevelSetup;
 Block Ground; //Declare object Block
 Block[] blockInstances; //Create a array of name blockInstances, containing instances of the Block class.
 Goomba Goomba;
@@ -12,6 +9,7 @@ Mushroom Mushroom;
 Mushroom[] mushroomInstances;
 Menu Menu;
 Menu[] menuInstances;
+PFont mainFont;
 float scrollAmount;
 float currentTime;
 float prevTime;
@@ -54,6 +52,7 @@ void setup(){
     stroke(2);
     rectMode(CORNER);
     imageMode(CENTER);
+    mainFont = loadFont("Super Mario Bros. NES.ttf");
     LevelSetup = new LevelSetup();
     LevelSetup.loadScene(3);
     
@@ -72,34 +71,43 @@ void setup(){
 
 }
 void draw(){
-
   deltaTimeCalculation();
   
-  if(keyPressed && key == 'b'){
-    LevelSetup.currentLevel++;
-    LevelSetup.loadScene(LevelSetup.currentLevel);
-    println("Scene" + LevelSetup.currentLevel + "Loaded");
-    delay(100);
-  }
-  if(keyPressed && key == 'a'){
-    scrollAmount += 50;
-  }
-  
-  
-  Background.Display(#AED1EE);
-  Player.PlayerActive();
-  for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
-    if(blockInstances[i]!=null) blockInstances[i].Display();
+  switch(gameState){
+    case 0:
+      Background.Display(#AED1EE);
+      Player.PlayerActive();
+      for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
+        if(blockInstances[i]!=null) blockInstances[i].Display();
+      
+        if(goombaInstances[i]!=null) {
+          goombaInstances[i].Alive();
+        }
+      
+        if(mushroomInstances[i]!=null){
+          mushroomInstances[i].Alive();
+        }
+        
+        if(menuInstances[i]!=null){
+          menuInstances[i].Alive();
+        }
+      }
+    break;
     
-    if(goombaInstances[i]!=null) {
-      goombaInstances[i].Alive();
+    case 2:
+    if(keyPressed && key == 'b'){
+      LevelSetup.currentLevel++;
+      LevelSetup.loadScene(LevelSetup.currentLevel);
+      println("Scene" + LevelSetup.currentLevel + "Loaded");
+      delay(100);
+    }
+    if(keyPressed && key == 'a'){
+      scrollAmount += 50;
     }
     
-    if(mushroomInstances[i]!=null){
-      mushroomInstances[i].Alive();
-    }
+    
+    
   }
-
 }
 
 void deltaTimeCalculation(){

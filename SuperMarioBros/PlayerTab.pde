@@ -344,19 +344,21 @@ class Player{
 }
 
 void keyReleased(){
-  //println("Key Released");
-  if (keyCode == RIGHT) Player.rightPressed = false;
-  if (keyCode == LEFT) Player.leftPressed = false;
-  if (keyCode == DOWN) Player.downPressed = false;
-  if (keyCode == UP) Player.upPressed = false;
-  if (keyCode == 32) Player.spacePressed = false;
+  if(gameState == 2){
+    if(keyCode == RIGHT) Player.rightPressed = false;
+    if(keyCode == LEFT) Player.leftPressed = false;
+    if(keyCode == DOWN) Player.downPressed = false;
+    if(keyCode == UP) Player.upPressed = false;
+    if(keyCode == 32) Player.spacePressed = false;
+  }
 }
 
 void keyPressed(){
-  //println("Key Pressed");
-  if (keyCode == RIGHT) Player.rightPressed = true;
-  if (keyCode == LEFT) Player.leftPressed = true;
-  if (keyCode == DOWN) Player.downPressed = true;
-  if (keyCode == UP) Player.upPressed = true;
-  if (keyCode == 32) Player.spacePressed = true;
+  if(gameState == 2){
+    if(keyCode == RIGHT) Player.rightPressed = true;
+    if(keyCode == LEFT) Player.leftPressed = true;
+    if(keyCode == DOWN) Player.downPressed = true;
+    if(keyCode == UP) Player.upPressed = true;
+    if(keyCode == 32) Player.spacePressed = true;
+  }
 }

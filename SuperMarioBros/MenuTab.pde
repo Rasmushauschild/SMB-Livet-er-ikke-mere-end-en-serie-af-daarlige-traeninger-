@@ -10,10 +10,14 @@ class Menu{
     identifier = tempIdentifier;
   }
   
+  void Alive(){
+    Display();
+  }
+  
   void Display(){
     switch(identifier){
       case 30: //The text displayed in the top of the screen.
-      image(textMarioWorldTime, posX, posY);
+        image(textMarioWorldTime, posX, posY);
       break;
     
     }
