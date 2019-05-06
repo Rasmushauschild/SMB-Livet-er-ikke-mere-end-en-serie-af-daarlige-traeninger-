@@ -11,7 +11,7 @@ class Background{
   PImage hillBig = loadImage("Sprite_HillB.png"); //44
   PImage cloudSmall = loadImage("Sprite_CloudS.png"); //45
   PImage cloudBig = loadImage("Sprite_CloudB.png"); //46
-
+  PImage castle = loadImage("Sprite_Castle.png");
     
   Background(float tempX, float tempY, int tempIdentifier){
     startPosX = tempX;

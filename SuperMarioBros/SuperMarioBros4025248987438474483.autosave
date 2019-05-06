@@ -90,7 +90,7 @@ void setup(){
     LevelSetup.loadScene(0);
     
     //Spawn Player
-    Player = new Player(144, 400);
+    Player = new Player(140, 400);
     Player.animationSetup();
     
     for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
@@ -122,7 +122,7 @@ void draw(){
     break;
     
     case 1:
-      background(1);
+      background(#AED1EE);
       if(frameCountWhenLoadingStarted + 180 > frameCount){
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell.   
           if(menuInstances[i]!=null){
@@ -131,25 +131,15 @@ void draw(){
         }
       } else {
         LevelSetup.loadScene(LevelSetup.currentLevel); //Load the level
-        for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
-          if(goombaInstances[i]!=null) {
-          goombaInstances[i].animationSetup();
-          }
-        }
-        Player.animationSetup();
-        gameState = 2; //Change the game state accordingly, so that the player has control over the player
-      }
+
     break;
     
     
     case 2:
       background(#AED1EE);
       
-      for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
-      if(backgroundInstances[i]!=null) backgroundInstances[i].Display();
-      }
-      
-      for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
+      for (int i = 0; i<LevelSetup.currentTableCelount;i++){ //For-loop for displaying every blockInstance. 
+ 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
         
         if(menuInstances[i]!=null) menuInstances[i].Alive();
         
