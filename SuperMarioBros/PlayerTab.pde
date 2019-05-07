@@ -14,7 +14,7 @@ class Player{
   boolean scroll; //Wheather if the screen is currently scrolling
   boolean dead; //Should players code fire
   boolean facingRight = true; //Determines the orientation og players sprites
-  boolean big = true; //Determines players size
+  boolean big; //Determines players size
   boolean playerActive = true;
   int bigAnimation = 0; //7
   int deathFrame;
@@ -70,6 +70,8 @@ class Player{
   }
     
   void Movement(){
+    if(posY > 448) Death();
+    
     for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //Checks whether or not player is touching ground, determines if player can jump
       if (blockInstances[i]!=null){ //Checks if the curent blockinstance exists in the table
         if(frontEndPosX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
@@ -373,7 +375,12 @@ class Player{
                 image(spritesMario[currentFrame + bigAnimation], frontEndPosX,frontEndPosY-16);
               } else image(spritesMario[currentFrame + bigAnimation], frontEndPosX,frontEndPosY+16);
             }
-            if (posX > flagPoleStartX + 130) playerActive = false;
+            if (posX > flagPoleStartX + 130){
+             playerActive = false;
+             gameState = 1;
+             LevelSetup.currentLevel++;
+             LevelSetup.loadScene(-1);
+            }
         break;
       }
   }
