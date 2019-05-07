@@ -17,7 +17,7 @@ class Collectible{
   int collectibleWidth = 32;
   int collectibleHeight = 32;
   boolean dead = false;
-  boolean spawnedFromBlock = true;
+  boolean spawnedFromBlock; //Bool used to differentiate between collectibles which were spawned from blocks vs. spawned directly into the level
   int spawnFrame;
   
   Collectible(float tempX, float tempY, int tempIdentifier){
@@ -116,13 +116,13 @@ class Collectible{
       frontEndPosY < Player.frontEndPosY + 32){
         
         switch(identifier){
-          case 0: //Coin
+          case 18: //Coin
           coins++;//Add 1 coin to the amount of coins the player has collected.
           score += 100;
           coin.play(); //Play coin sound
           break;
           
-          case 1: //Power-up mushroom
+          case 19: //Power-up mushroom
           Player.big = true;
           score += 500;
           powerUp.play(); //Play power-up sound
