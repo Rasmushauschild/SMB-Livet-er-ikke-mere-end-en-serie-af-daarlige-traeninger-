@@ -5,7 +5,7 @@ SoundFile mainTheme;
 SoundFile breakBlock;
 SoundFile coin;
 SoundFile death;
-SoundFile flagPole;
+SoundFile flagPoleSound;
 SoundFile jump;
 SoundFile mushroomAppears;
 SoundFile pause;
@@ -52,7 +52,7 @@ void setup(){
     breakBlock = new SoundFile(this, "SFX_BreakBlock.wav");
     coin = new SoundFile(this, "SFX_Coin.wav");
     death = new SoundFile(this, "SFX_Death.wav");
-    flagPole = new SoundFile(this, "SFX_Flagpole.wav");
+    flagPoleSound = new SoundFile(this, "SFX_Flagpole.wav");
     jump = new SoundFile(this, "SFX_Jump.wav");
     mushroomAppears = new SoundFile(this, "SFX_MushroomAppears.wav");
     pause = new SoundFile(this, "SFX_Pause.wav");

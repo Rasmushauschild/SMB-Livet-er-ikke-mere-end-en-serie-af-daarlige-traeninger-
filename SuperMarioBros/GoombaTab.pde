@@ -133,7 +133,7 @@ class Goomba{
       frameCountSinceDeath = frameCount;
       Player.velocityY = -12;
       Player.animMode = 2;
-      score+=100;
+      score+=200;
 
     //Checks if the player has been killed by the Goomba
     } else if(frontEndPosX + goombaWidth > Player.frontEndPosX && 
@@ -142,7 +142,7 @@ class Goomba{
       frontEndPosY < Player.frontEndPosY + 32 && !dead){
       if (Player.big){ 
         Player.big = false;
-        //Shrinking sound????????????????????????????????????
+        pipe.play();
       } else {
       Player.Death();
       }

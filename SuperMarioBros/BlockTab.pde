@@ -8,6 +8,7 @@ PImage pipeL;
 PImage pipeR;
 PImage pipeTopL;
 PImage pipeTopR;
+PImage flagPole;
 
 class Block{
     boolean animationInProgress = false;
@@ -82,11 +83,15 @@ class Block{
           } else {
             image(itemSprite, posX, posY);
           }
-        } else image(itemSpriteEmpty, posX, posY);
+        } else image(itemSpriteEmpty, posX, posY+200);
         break;
         
         case 8: //StoneBlock
         image(stoneSprite, posX, posY);
+        break;
+        
+        case 10:
+        image(flagPole, posX, posY+);
         break;
         
         case 91: //left vertical pipe
@@ -171,10 +176,6 @@ class Block{
         scale(-1,1);
         image(pipeTopR, 0, 0);
         popMatrix();
-        break;
-
-        case 20:
-        image(goombaSprite, posX, posY);
         break;
       }
       

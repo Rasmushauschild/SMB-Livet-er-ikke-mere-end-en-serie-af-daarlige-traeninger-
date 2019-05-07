@@ -132,11 +132,13 @@ class Collectible{
         switch(identifier){
           case 0: //Coin
           coins++;//Add 1 coin to the amount of coins the player has collected.
+          score += 100;
           coin.play(); //Play coin sound
           break;
           
           case 1: //Power-up mushroom
           Player.big = true;
+          score += 500;
           powerUp.play(); //Play power-up sound
           break;
         }
