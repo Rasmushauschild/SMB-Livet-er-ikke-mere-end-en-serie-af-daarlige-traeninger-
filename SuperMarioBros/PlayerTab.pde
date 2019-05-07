@@ -21,7 +21,7 @@ class Player{
   int framesSinceDeath;
   int deathPosY;
   float flagPoleStartY;
-  boolean flagAction;
+  boolean flagPoleAction;
   
   //Variables related to pipes
   int entryPipeMovement=-1; //0 is down, 1 is right, 2 is up, 3 is left
@@ -62,7 +62,7 @@ class Player{
   
   void PlayerActive(){
    if(playerActive){
-    if(pipeAction == 0 && !dead && !flagAction){
+    if(pipeAction == 0 && !dead && !flagPoleAction){
   Movement();
     }
     Display();
@@ -141,7 +141,7 @@ class Player{
           (i >= (int(posY)/32-1)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32-1)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) ||
           (i >= (int(posY)/32-2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32-2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) ||
           (i >= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount())){
-        if (blockInstances[i]!=null){
+        if (blockInstances[i]!=null && blockInstances[i].identifier!=10){
           if((posX + playerWidth + velocityX > blockInstances[i].posX && //player collision right edge past ground left-side
           posX + velocityX < blockInstances[i].posX + 32 && //player collision left edge past ground right-side
           posY + playerHeight > blockInstances[i].posY && //player collision bottom edge past ground top
@@ -352,7 +352,10 @@ class Player{
         
         case 5:
         if (posY < 300){
-          posY++;
+          posY+=3;
+            } else {
+              frontEndPosX += 50;
+              //flagPoleAction = false;
             }
         if (big){
         image(spritesMario[13], frontEndPosX, frontEndPosY);

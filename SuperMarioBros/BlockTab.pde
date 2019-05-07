@@ -93,9 +93,10 @@ class Block{
         case 10:
         image(flagPole, posX, posY-130);
         
-        if(Player.posX > posX -10 && Player.posX < posX){
+        if(Player.posX > posX -10 && Player.posX < posX && !Player.flagPoleAction){
+          flagPoleSound.play();
         Player.animMode = 5;
-        Player.flagAction = true;
+        Player.flagPoleAction = true;
         }
         break;
         
