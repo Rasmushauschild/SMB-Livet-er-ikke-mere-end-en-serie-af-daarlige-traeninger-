@@ -217,6 +217,8 @@ class Player{
         livesLeft--;
         deathFrame = frameCount;
         deathPosY = frontEndPosY;
+        if (livesLeft < 0) LevelSetup.currentLevel = -1;
+        gameState = 1;
       }
     }
     
