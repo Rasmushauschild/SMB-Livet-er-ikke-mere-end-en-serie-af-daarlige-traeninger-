@@ -194,16 +194,14 @@ class Player{
  }
   
     void Death(){
-      if(!dead && framesSinceDeath  > 150){
+      if(!dead){
         mainTheme.pause();
         death.play();
         big = false;
         dead = true;
         deathFrame = frameCount;
         deathPosY = frontEndPosY;
-        livesLeft--;
-        if (livesLeft < 0) loadMainMenu(); //If Mario has no lives left, reset the game
-        if (livesLeft >= 0) loadCurrentScene(); //If Mario has lives left, respawn him into the same level.
+        
       }
     }
     
@@ -235,6 +233,13 @@ class Player{
       switch (animMode){ //A 1d blendtree responsible for controlling the player animations
         case -1:
         image(spritesMario[15], frontEndPosX,frontEndPosY + ( pow(framesSinceDeath*4, 2) * pow(10, -2.5) - framesSinceDeath*4));
+        println(frontEndPosY + ( pow(framesSinceDeath*4, 2) * pow(10, -2.5) - framesSinceDeath*4));
+        if((frontEndPosY + ( pow(framesSinceDeath*4, 2) * pow(10, -2.5) - framesSinceDeath*4)) > 500){
+          livesLeft--;
+          if (livesLeft < 0) loadMainMenu(); //If Mario has no lives left, reset the game
+          if (livesLeft >= 0) loadCurrentScene(); //If Mario has lives left, respawn him into the same level.
+        }
+        
         break;
       
         case 0: //Standing still Right/Left

@@ -156,7 +156,7 @@ void draw(){
         LevelSetup.loadScene(LevelSetup.currentLevel); //Load the level
         timeLeft = 400;
         millisAtStartOfLevel = millis(); //Reset timer for the level
-        frameCountWhenLoadingStarted = frameCount; //Resets the timer for when to end the loading screen
+        if (LevelSetup.currentLevel != 0) frameCountWhenLoadingStarted = frameCount; //Resets the timer for when to end the loading screen
         
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Animation setup for every Gomba.
           if(goombaInstances[i]!=null) {
