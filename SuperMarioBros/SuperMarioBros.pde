@@ -105,7 +105,7 @@ void setup(){
     LevelSetup.loadScene(0);
     
     //Spawn Player
-    Player = new Player(144, 400);
+    Player = new Player(500, 400);
     Player.animationSetup();
     
     

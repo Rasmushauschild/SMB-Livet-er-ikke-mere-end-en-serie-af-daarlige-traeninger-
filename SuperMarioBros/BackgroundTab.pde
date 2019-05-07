@@ -13,9 +13,7 @@ class Background{
   float posX;
   float posY;
   int identifier;
-  
 
-    
   Background(float tempX, float tempY, int tempIdentifier){
     startPosX = tempX;
     posX = tempX;
