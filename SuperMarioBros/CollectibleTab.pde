@@ -47,7 +47,7 @@ class Collectible{
         case 18: //Coin
           if(spawnedFromBlock){
             image(spriteCoin, frontEndPosX, frontEndPosY -20);
-            if(spawnFrame + 1000 < frameCount) {
+            if(spawnFrame + 50 < frameCount) {
               posY -= 500;
             }
           } else {
