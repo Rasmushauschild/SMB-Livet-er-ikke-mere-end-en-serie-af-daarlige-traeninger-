@@ -6,7 +6,6 @@ class Menu{
   int world = 1;
   int levelInWorld = 1;
   int score;
-  PImage textMarioWorldTime = loadImage("UITopElement.png");
   PImage titlecard = loadImage("Sprite_Titlecard.png");
   
   
