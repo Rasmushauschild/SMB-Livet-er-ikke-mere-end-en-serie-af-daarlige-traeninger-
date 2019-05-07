@@ -383,7 +383,7 @@ class Player{
                 image(spritesMario[currentFrame + bigAnimation], frontEndPosX,frontEndPosY-16);
               } else image(spritesMario[currentFrame + bigAnimation], frontEndPosX,frontEndPosY+16);
             }
-            if (posX > flagPoleStartX + 130){
+            if (posX > flagPoleStartX + 140){
              loadNextScene(); //If Mario reaches the end of the current level, load the next level
             }
         break;
