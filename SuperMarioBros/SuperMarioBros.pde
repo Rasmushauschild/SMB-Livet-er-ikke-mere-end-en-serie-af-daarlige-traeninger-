@@ -238,6 +238,7 @@ switch(palette){
     pipeR = loadImage("Sprite_PipeR.png");
     pipeTopL = loadImage("Sprite_PipeTopL.png");
     pipeTopR = loadImage("Sprite_PipeTopR.png");
+    flagPole = loadImage("Sprite_FlagPole.png");
     
     //Load Images for BackgroundTab
     bushSmall = loadImage("Sprite_BushS.png"); //40
