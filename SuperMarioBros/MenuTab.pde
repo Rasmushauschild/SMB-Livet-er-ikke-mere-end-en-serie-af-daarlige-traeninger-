@@ -23,8 +23,8 @@ class Menu{
     switch(identifier){
       case 30: //The text displayed in the top of the screen.
       text("Mario               World  Time",posX,posY);
-      
       break; 
+      
       case 31: //Score text
       text(score,posX,posY-15);
       break;

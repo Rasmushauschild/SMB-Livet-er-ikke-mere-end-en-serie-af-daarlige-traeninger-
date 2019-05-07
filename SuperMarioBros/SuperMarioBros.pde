@@ -189,6 +189,8 @@ void draw(){
         if(blockInstances[i]!=null) blockInstances[i].Display();
         if(goombaInstances[i]!=null) goombaInstances[i].Alive();
         if(collectibleInstances[i]!=null) collectibleInstances[i].Alive(); 
+      }
+      for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
         if(menuInstances[i]!=null) menuInstances[i].Active();
       }
       if(keyPressed && key == 'b'){
