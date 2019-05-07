@@ -312,23 +312,25 @@ class Player{
         }
         
         if (pipeAction == -1){
+          println("exitPipeMovement 2: " +exitPipeMovement);
           switch (exitPipeMovement){
+            
             case 0:
-            println("0");
+            println("exit 0");
             if (posY < pipeStartY + playerHeight){ posY++;
             } else {pipeAction = 0;}
             break;
             case 1:
-            println("1");
+            println("exit 1");
             if (posX < pipeStartX + playerWidth){ posX++;
             } else {pipeAction = 0;}
             break;
             case 2:
-            println("2");
+            println("exit 2");
             if (posY > pipeStartY - playerHeight){ posY--;
             } else {pipeAction = 0;}
             case 3:
-            println("3");
+            println("exit 3");
             if (posX > pipeStartX - playerWidth){ posX--;
             } else {pipeAction = 0;}
             break;
