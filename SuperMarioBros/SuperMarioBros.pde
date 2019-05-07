@@ -117,9 +117,7 @@ void setup(){
 }
 
 void draw(){
-  deltaTimeCalculation();
-  println("scrollAmount:" + scrollAmount);
-  
+  deltaTimeCalculation();  
   switch(gameState){
     case 0:
       background(backgroundColor);
@@ -205,11 +203,26 @@ void draw(){
   }
 }
 
-void startLoadingScene(){ //Go to the loading level scene
+void loadNextScene(){ //Go to the loading level scene
+  println("next scene loaded...");
+  LevelSetup.currentLevel ++;
   gameState = 1;
-  LevelSetup.currentLevel += 1;
   LevelSetup.loadScene(-1); //Load the load-level scene
   frameCountWhenLoadingStarted = frameCount; //Used for the amount of frames the loading scene should be displayed
+}
+
+void loadCurrentScene(){
+  println("current scene loaded...");
+  collectibleIdentifier = 0;
+  gameState = 1;
+  LevelSetup.loadScene(-1);
+}
+
+void loadMainMenu(){
+  LevelSetup.currentLevel = 0;
+  gameState = 1;
+  LevelSetup.loadScene(-1);
+  gameState = 1;
 }
 
 
@@ -218,6 +231,8 @@ void deltaTimeCalculation(){
   currentTime = millis();
   deltaTime = (currentTime - prevTime)/20;
 }
+
+
 
 void loadSprites(int palette){ //Change sprite pallete based on loaded level
 switch(palette){

@@ -214,11 +214,11 @@ class Player{
         death.play();
         big = false;
         dead = true;
-        livesLeft--;
         deathFrame = frameCount;
         deathPosY = frontEndPosY;
-        if (livesLeft < 0) LevelSetup.currentLevel = -1;
-        gameState = 1;
+        livesLeft--;
+        if (livesLeft < 0) loadMainMenu(); //If Mario has no lives left, reset the game
+        if (livesLeft >= 0) loadCurrentScene(); //If Mario has lives left, respawn him into the same level.
       }
     }
     
@@ -394,10 +394,7 @@ class Player{
               } else image(spritesMario[currentFrame + bigAnimation], frontEndPosX,frontEndPosY+16);
             }
             if (posX > flagPoleStartX + 130){
-             playerActive = false;
-             gameState = 1;
-             LevelSetup.currentLevel++;
-             LevelSetup.loadScene(-1);
+             loadNextScene(); //If Mario reaches the end of the current level, load the next level
             }
         break;
       }
@@ -411,8 +408,8 @@ void keyReleased(){
     if(keyCode == DOWN) Player.downPressed = false;
     if(keyCode == UP) Player.upPressed = false;
     if(keyCode == 32) Player.spacePressed = false;
-  } else if (gameState == 0 && keyCode == ENTER){
-    startLoadingScene();
+  } else if (gameState == 0 && keyCode == ENTER && LevelSetup.currentLevel==0){
+    loadNextScene();
     println("LoadingScene...");
   }
 }
