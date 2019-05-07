@@ -105,7 +105,7 @@ void setup(){
     LevelSetup.loadScene(0);
     
     //Spawn Player
-    Player = new Player(500, 400);
+    Player = new Player(144, 400);
     Player.animationSetup();
     
     
@@ -162,8 +162,10 @@ void draw(){
           goombaInstances[i].animationSetup();
           }
         }
-        Player.Reset();
         gameState = 2; //Change the game state accordingly, so that the player has control over the player
+        scrollAmount = 0;
+        Player = new Player(144, 400);
+        Player.animationSetup();
         
       }
     break;

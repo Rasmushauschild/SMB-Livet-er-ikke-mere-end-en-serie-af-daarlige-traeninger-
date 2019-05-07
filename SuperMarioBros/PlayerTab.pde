@@ -60,24 +60,6 @@ class Player{
     }
   }
   
-  void Reset(){
-  flagPoleAction = false;
-  playerActive = true;
-  posX = 64;
-  posY = 352;
-  scrollAmount = 0;
-  scroll = false;
-  animMode = 0;
-  jumpPossible = false;
-  
-  rightPressed = false;
-  leftPressed = false;
-  downPressed = false;
-  upPressed = false;
-  
-  animationSetup();
-  }
-  
   void PlayerActive(){
    if(playerActive){
     if(pipeAction == 0 && !dead && !flagPoleAction){
