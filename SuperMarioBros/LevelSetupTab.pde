@@ -23,6 +23,8 @@ class LevelSetup{
                 blockInstances[t] = new Block(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32,currentIdentifier,t);
               } else if (currentIdentifier == 20){ //Spawn Goomba
                 goombaInstances[t] = new Goomba(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32);
+              }else if (currentIdentifier == 19){ //Spawn Coin
+                collectibleInstances[t] = new Collectible(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32,0);
               } else if (currentIdentifier >= 30 && currentIdentifier < 40){ //Spawn a menu-object
                 menuInstances[t] = new Menu(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32,currentIdentifier);
               } else if (currentIdentifier >= 40 && currentIdentifier <= 50){

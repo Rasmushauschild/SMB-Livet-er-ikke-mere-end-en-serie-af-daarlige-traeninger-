@@ -31,6 +31,7 @@ float currentTime;
 float prevTime;
 float deltaTime;
 float frameCountWhenLoadingStarted;
+int palette;
 int gameState; //Responsible for the state of the game - 0: Main menu 1: LevelLoad 2: Gameplay 3:Paused Gameplay
 int collectibleIdentifier = 0; //For creating collectibles with seperate names
 int publicPipeIdentifier = 0; //For creating ID for pipes which can be used by Mario. 
@@ -38,31 +39,6 @@ int[] pipeArray = new int[100]; //Initiliasizes array and sets length to 100 - s
 
 
 void setup(){
-    
-    //Load Images for BlockTab
-    groundSprite = loadImage("Sprite_Ground.png");
-    itemSprite = loadImage("Sprite_Item.png");
-    itemSpriteEmpty = loadImage("Sprite_ItemEmpty.png");
-    brickSprite = loadImage("Sprite_Brick.png");
-    goombaSprite = loadImage("Sprite_Goomba.png");
-    pipeL = loadImage("Sprite_PipeL.png");
-    pipeR = loadImage("Sprite_PipeR.png");
-    pipeTopL = loadImage("Sprite_PipeTopL.png");
-    pipeTopR = loadImage("Sprite_PipeTopR.png");
-    
-    //Load Images for BackgroundTab
-    bushSmall = loadImage("Sprite_BushS.png"); //40
-    bushMedium = loadImage("Sprite_BushM.png"); //41
-    bushBig = loadImage("Sprite_BushB.png"); //42
-    hillSmall = loadImage("Sprite_HillS.png"); //43
-    hillBig = loadImage("Sprite_HillB.png"); //44
-    cloudSmall = loadImage("Sprite_CloudS.png"); //45
-    cloudBig = loadImage("Sprite_CloudB.png"); //46
-    castle = loadImage("Sprite_Castle.png");
-    
-    //Load Images for CollectibleTabenuTab
-    coinCounter = loadImage("Sprite_CoinCounter.png");
-    cross = loadImage("Sprite_Cross.png");
     
     //Load soundfiles for game
     mainTheme = new SoundFile(this, "Track_Main.wav");
@@ -130,6 +106,7 @@ void setup(){
     }
   }
 }
+
 void draw(){
   deltaTimeCalculation();
   
@@ -214,4 +191,47 @@ void deltaTimeCalculation(){
   prevTime = currentTime;
   currentTime = millis();
   deltaTime = (currentTime - prevTime)/20;
+}
+
+void loadSprites(){ //Change sprite pallet based on loaded level
+switch(palette){
+  case 0: //Palette 0
+    //Load Images for BlockTab
+    groundSprite = loadImage("Sprite_Ground.png");
+    itemSprite = loadImage("Sprite_Item.png");
+    itemSpriteEmpty = loadImage("Sprite_ItemEmpty.png");
+    brickSprite = loadImage("Sprite_Brick.png");
+    stoneSprite = loadImage("Sprite_Stone.png");
+    goombaSprite = loadImage("Sprite_Goomba.png");
+    break;
+    
+  case 1: //Palette 1
+    groundSprite = loadImage("Sprite_UGGround.png");
+    itemSprite = loadImage("Sprite_UGItem.png");
+    itemSpriteEmpty = loadImage("Sprite_UGItemEmpty.png");
+    brickSprite = loadImage("Sprite_UGBrick.png");
+    stoneSprite = loadImage("Sprite_UGStone.png");
+    goombaSprite = loadImage("Sprite_UGGoomba.png");
+  break;
+}
+    
+    pipeL = loadImage("Sprite_PipeL.png");
+    pipeR = loadImage("Sprite_PipeR.png");
+    pipeTopL = loadImage("Sprite_PipeTopL.png");
+    pipeTopR = loadImage("Sprite_PipeTopR.png");
+    
+    //Load Images for BackgroundTab
+    bushSmall = loadImage("Sprite_BushS.png"); //40
+    bushMedium = loadImage("Sprite_BushM.png"); //41
+    bushBig = loadImage("Sprite_BushB.png"); //42
+    hillSmall = loadImage("Sprite_HillS.png"); //43
+    hillBig = loadImage("Sprite_HillB.png"); //44
+    cloudSmall = loadImage("Sprite_CloudS.png"); //45
+    cloudBig = loadImage("Sprite_CloudB.png"); //46
+    castle = loadImage("Sprite_Castle.png");
+    
+    //Load Images for CollectibleTabenuTab
+    coinCounter = loadImage("Sprite_CoinCounter.png");
+    cross = loadImage("Sprite_Cross.png");
+
 }

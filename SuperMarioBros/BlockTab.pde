@@ -2,6 +2,7 @@ PImage groundSprite;
 PImage itemSprite;
 PImage itemSpriteEmpty;
 PImage brickSprite;
+PImage stoneSprite;
 PImage goombaSprite;
 PImage pipeL;
 PImage pipeR;
@@ -82,6 +83,10 @@ class Block{
             image(itemSprite, posX, posY);
           }
         } else image(itemSpriteEmpty, posX, posY);
+        break;
+        
+        case 8: //StoneBlock
+        
         break;
         
         case 91: //left vertical pipe
