@@ -194,7 +194,7 @@ class Player{
  }
   
     void Death(){
-      if(!dead){
+      if(!dead && framesSinceDeath  > 150){
         mainTheme.pause();
         death.play();
         big = false;

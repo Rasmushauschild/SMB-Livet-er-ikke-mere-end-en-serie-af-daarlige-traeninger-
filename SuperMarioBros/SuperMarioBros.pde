@@ -2,6 +2,7 @@ import processing.sound.*; //Imports the processing sound library.
 
 //Declare variables for sounds
 SoundFile mainTheme;
+SoundFile UGTheme;
 SoundFile breakBlock;
 SoundFile coin;
 SoundFile death;
@@ -50,6 +51,7 @@ void setup(){
     
     //Load soundfiles for game
     mainTheme = new SoundFile(this, "Track_Main.wav");
+    UGTheme = new SoundFile(this, "Track_UG.wav");
     breakBlock = new SoundFile(this, "SFX_BreakBlock.wav");
     coin = new SoundFile(this, "SFX_Coin.wav");
     death = new SoundFile(this, "SFX_Death.wav");
@@ -96,9 +98,6 @@ void setup(){
     rectMode(CORNER);
     imageMode(CENTER);
     
-
-    mainTheme.play();
-    
     mainFont = loadFont("Super-Mario-Bros.-NES-48.vlw");
     textFont(mainFont,14); //Double the height of the original
     LevelSetup = new LevelSetup();
@@ -134,7 +133,9 @@ void draw(){
     
     case 1:
       background(0);
-      Player.Reset();
+      mainTheme.pause();
+      UGTheme.pause();
+          
       if(frameCountWhenLoadingStarted + 333 > frameCount){
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell.   
           if(menuInstances[i]!=null){
@@ -235,6 +236,7 @@ void deltaTimeCalculation(){
 void loadSprites(int palette){ //Change sprite pallete based on loaded level
 switch(palette){
   case 0: //Palette 0
+    mainTheme.play();
     currentPalette = palette;
     backgroundColor = #aed1ee;
     groundSprite = loadImage("Sprite_Ground.png");
@@ -246,6 +248,7 @@ switch(palette){
     break;
     
   case 1: //Palette 1
+    UGTheme.play();
     currentPalette = palette;
     backgroundColor = 0;
     groundSprite = loadImage("Sprite_UGGround.png");
