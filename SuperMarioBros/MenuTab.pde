@@ -5,12 +5,6 @@ class Menu{
   int posX;
   int posY;
   int identifier;
-  int timeLeft = 400;
-  int world = 1;
-  int levelInWorld = 1;
-  int score;
-  int coins; 
-  int livesLeft; //Amount of lives Mario has left
   PImage titlecard = loadImage("Sprite_Titlecard.png");
   
   

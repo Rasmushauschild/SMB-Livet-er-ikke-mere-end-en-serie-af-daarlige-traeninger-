@@ -193,6 +193,7 @@ class Player{
         mainTheme.pause();
         death.play();
         dead = true;
+        livesLeft--;
         deathFrame = frameCount;
         deathPosY = frontEndPosY;
       }

@@ -1,3 +1,5 @@
+PImage spriteSheetGoomba;
+
 class Goomba{
   float startPosX;
   float totalMovementX;
@@ -14,7 +16,6 @@ class Goomba{
   boolean dead;
   
   int animCount;
-  PImage spriteSheetGoomba;
   PImage[] spritesGoomba = new PImage[2]; //Creates an empty PImage array with the correct length
   int animMode;
   int currentFrame;
@@ -29,7 +30,6 @@ class Goomba{
   
   void animationSetup(){
     animCount = 2;
-    spriteSheetGoomba = loadImage("SpriteSheet_Goomba.png"); //Loads the spritesheet
     
     int W = spriteSheetGoomba.width/animCount;
     
@@ -133,6 +133,7 @@ class Goomba{
       frameCountSinceDeath = frameCount;
       Player.velocityY = -12;
       Player.animMode = 2;
+      score+=100;
 
     //Checks if the player has been killed by the Goomba
     } else if(frontEndPosX + goombaWidth > Player.frontEndPosX && 

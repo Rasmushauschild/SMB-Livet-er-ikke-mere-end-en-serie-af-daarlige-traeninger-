@@ -31,11 +31,17 @@ float currentTime;
 float prevTime;
 float deltaTime;
 float frameCountWhenLoadingStarted;
-int palette;
 int gameState; //Responsible for the state of the game - 0: Main menu 1: LevelLoad 2: Gameplay 3:Paused Gameplay
 int collectibleIdentifier = 0; //For creating collectibles with seperate names
 int publicPipeIdentifier = 0; //For creating ID for pipes which can be used by Mario. 
 int[] pipeArray = new int[100]; //Initiliasizes array and sets length to 100 - setting a max of 50 pipes per level
+
+int timeLeft = 400;
+int world = 1;
+int levelInWorld = 1;
+int score;
+int coins; 
+int livesLeft = 3; //Amount of lives Mario has left
 
 
 void setup(){
@@ -80,7 +86,7 @@ void setup(){
     √ indsæt leveldesign
     */
     
-    loadSprites();
+    loadSprites(1);
     size(512,448);
     frameRate(60);
     noStroke();
@@ -194,7 +200,7 @@ void deltaTimeCalculation(){
   deltaTime = (currentTime - prevTime)/20;
 }
 
-void loadSprites(){ //Change sprite pallet based on loaded level
+void loadSprites(int palette){ //Change sprite pallet based on loaded level
 switch(palette){
   case 0: //Palette 0
     //Load Images for BlockTab
@@ -203,7 +209,7 @@ switch(palette){
     itemSpriteEmpty = loadImage("Sprite_ItemEmpty.png");
     brickSprite = loadImage("Sprite_Brick.png");
     stoneSprite = loadImage("Sprite_Stone.png");
-    goombaSprite = loadImage("Sprite_Goomba.png");
+    spriteSheetGoomba = loadImage("SpriteSheet_Goomba.png");
     break;
     
   case 1: //Palette 1
@@ -212,7 +218,7 @@ switch(palette){
     itemSpriteEmpty = loadImage("Sprite_UGItemEmpty.png");
     brickSprite = loadImage("Sprite_UGBrick.png");
     stoneSprite = loadImage("Sprite_UGStone.png");
-    goombaSprite = loadImage("Sprite_UGGoomba.png");
+    spriteSheetGoomba = loadImage("SpriteSheet_UGGoomba.png");
   break;
 }
     

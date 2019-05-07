@@ -131,9 +131,7 @@ class Collectible{
         
         switch(identifier){
           case 0: //Coin
-          for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Add 1 coin to the amount of coins the player has collected.
-            if(menuInstances[i]!=null) menuInstances[i].coins++;
-          }
+          coins++;//Add 1 coin to the amount of coins the player has collected.
           coin.play(); //Play coin sound
           break;
           

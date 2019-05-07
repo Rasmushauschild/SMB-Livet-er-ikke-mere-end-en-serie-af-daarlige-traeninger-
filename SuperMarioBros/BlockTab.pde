@@ -63,14 +63,14 @@ class Block{
           } else posY -= 500;
         break;
         
-        case 4: //Brick Block with goodies
+        case 4: //Brick Block with coin
         case 5: //Brick block with mushroom
           if(!empty){
             image(brickSprite, posX, posY);
           } else image(itemSpriteEmpty, posX, posY);
         break;
         
-        case 6: //Item Block
+        case 6: //Item Block with coin
         case 7: //Item block with mushroom
         if (!empty){
           if (animationInProgress && round(posY+pow(frameCountSinceBeingHit,2)-10*frameCountSinceBeingHit-1)>=posY){ //Stop animation after 30 frames
@@ -86,7 +86,7 @@ class Block{
         break;
         
         case 8: //StoneBlock
-        
+        image(stoneSprite, posX, posY);
         break;
         
         case 91: //left vertical pipe
@@ -199,9 +199,7 @@ class Block{
         collectibleInstances[collectibleIdentifier].spawnedFromBlock = true;
         animationInProgress = true;
         frameCountWhenHit = frameCount;
-        for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Add 1 coin to the amount of coins the player has collected.
-          if(menuInstances[i]!=null) menuInstances[i].coins++;
-        }
+        coins++; //Add 1 coin to the amount of coins the player has collected.
         coin.play();
         empty = true;
         break;  
@@ -223,9 +221,7 @@ class Block{
         collectibleInstances[collectibleIdentifier].spawnedFromBlock = true;
         animationInProgress = true;
         frameCountWhenHit = frameCount;
-        for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Add 1 coin to the amount of coins the player has collected.
-          if(menuInstances[i]!=null) menuInstances[i].coins++;
-        }
+        coins++; //Add 1 coin to the amount of coins the player has collected.
         coin.play();
         empty = true;
         break;     
