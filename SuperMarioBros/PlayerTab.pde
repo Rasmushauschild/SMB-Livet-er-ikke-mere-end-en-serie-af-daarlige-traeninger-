@@ -332,6 +332,7 @@ class Player{
             println("exit 2");
             if (posY > pipeStartY - playerHeight){ posY--;
             } else {pipeAction = 0;}
+            break;
             case 3:
             println("exit 3");
             if (posX > pipeStartX - playerWidth){ posX--;

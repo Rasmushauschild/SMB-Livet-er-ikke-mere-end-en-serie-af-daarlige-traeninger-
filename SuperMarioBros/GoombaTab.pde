@@ -43,7 +43,10 @@ class Goomba{
     posX = startPosX - scrollAmount + totalMovementX; //Makes the Goombas scroll with the player, no matter whether they are active or not.
 
     if((posX - Player.posX)/32 < 16 && (posX - Player.posX)/32 > -8){ //The Gomba is only active when in view of the player.
-      if(!dead) Movement(); //Movement shouldn't happen when the Goomba is in its "corpse" state
+      println("Gomba is active" + frameCount);
+      if(!dead){ Movement(); //Movement shouldn't happen when the Goomba is in its "corpse" state
+      println("Gomba is moving" + frameCount);
+      }
       Display();
       CheckForDeath();
     }
