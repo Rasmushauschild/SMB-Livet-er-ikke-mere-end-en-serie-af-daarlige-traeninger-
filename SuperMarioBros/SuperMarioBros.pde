@@ -44,7 +44,7 @@ int levelInWorld = 1;
 int score;
 int coins; 
 int livesLeft = 3; //Amount of lives Mario has left
-
+int currentPalette;
 
 void setup(){
     
@@ -217,6 +217,7 @@ void deltaTimeCalculation(){
 void loadSprites(int palette){ //Change sprite pallete based on loaded level
 switch(palette){
   case 0: //Palette 0
+    currentPalette = palette;
     backgroundColor = #aed1ee;
     groundSprite = loadImage("Sprite_Ground.png");
     itemSprite = loadImage("Sprite_Item.png");
@@ -227,6 +228,7 @@ switch(palette){
     break;
     
   case 1: //Palette 1
+    currentPalette = palette;
     backgroundColor = 0;
     groundSprite = loadImage("Sprite_UGGround.png");
     itemSprite = loadImage("Sprite_UGItem.png");
