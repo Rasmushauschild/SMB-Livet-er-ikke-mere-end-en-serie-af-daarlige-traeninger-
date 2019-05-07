@@ -194,6 +194,9 @@ class Block{
         collectibleInstances[collectibleIdentifier].spawnedFromBlock = true;
         animationInProgress = true;
         frameCountWhenHit = frameCount;
+        for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Add 1 coin to the amount of coins the player has collected.
+          if(menuInstances[i]!=null) menuInstances[i].coins++;
+        }
         coin.play();
         empty = true;
         break;  
@@ -215,6 +218,9 @@ class Block{
         collectibleInstances[collectibleIdentifier].spawnedFromBlock = true;
         animationInProgress = true;
         frameCountWhenHit = frameCount;
+        for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Add 1 coin to the amount of coins the player has collected.
+          if(menuInstances[i]!=null) menuInstances[i].coins++;
+        }
         coin.play();
         empty = true;
         break;     

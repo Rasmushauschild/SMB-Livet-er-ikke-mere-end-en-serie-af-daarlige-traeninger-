@@ -130,12 +130,14 @@ class Collectible{
       frontEndPosY < Player.frontEndPosY + 32){
         
         switch(identifier){
-          case 0:
-          Menu.score += 1; //Add +1 to player coins
+          case 0: //Coin
+          for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Add 1 coin to the amount of coins the player has collected.
+            if(menuInstances[i]!=null) menuInstances[i].coins++;
+          }
           coin.play(); //Play coin sound
           break;
           
-          case 1:
+          case 1: //Power-up mushroom
           Player.big = true;
           powerUp.play(); //Play power-up sound
           break;

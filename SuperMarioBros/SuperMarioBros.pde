@@ -60,6 +60,10 @@ void setup(){
     cloudBig = loadImage("Sprite_CloudB.png"); //46
     castle = loadImage("Sprite_Castle.png");
     
+    //Load Images for CollectibleTabenuTab
+    coinCounter = loadImage("Sprite_CoinCounter.png");
+    cross = loadImage("Sprite_Cross.png");
+    
     //Load soundfiles for game
     mainTheme = new SoundFile(this, "Track_Main.wav");
     breakBlock = new SoundFile(this, "SFX_BreakBlock.wav");
@@ -119,6 +123,7 @@ void setup(){
     Player = new Player(144, 400);
     Player.animationSetup();
     
+    
     for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
     if(goombaInstances[i]!=null) {
       goombaInstances[i].animationSetup();
@@ -127,7 +132,7 @@ void setup(){
 }
 void draw(){
   deltaTimeCalculation();
-  println(gameState);
+  
   
   switch(gameState){
     case 0:
@@ -136,7 +141,7 @@ void draw(){
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
         if(backgroundInstances[i]!=null) backgroundInstances[i].Display();
         
-        if(menuInstances[i]!=null) menuInstances[i].Alive();
+        if(menuInstances[i]!=null) menuInstances[i].Active();
         
         if(blockInstances[i]!=null) blockInstances[i].Display();
       
@@ -152,7 +157,7 @@ void draw(){
       if(frameCountWhenLoadingStarted + 180 > frameCount){
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell.   
           if(menuInstances[i]!=null){
-            menuInstances[i].Alive();
+            menuInstances[i].Active();
           }
         }
       } else {
@@ -177,7 +182,7 @@ void draw(){
       
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
         
-        if(menuInstances[i]!=null) menuInstances[i].Alive();
+        if(menuInstances[i]!=null) menuInstances[i].Active();
         
         if(blockInstances[i]!=null) blockInstances[i].Display();
       
@@ -193,6 +198,7 @@ void draw(){
         println("Scene" + LevelSetup.currentLevel + "Loaded");
         delay(100);
     }
+    if(keyPressed && key == 'c') LevelSetup.currentLevel += 1;
   }
 }
 

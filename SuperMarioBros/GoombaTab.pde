@@ -136,11 +136,15 @@ class Goomba{
 
     //Checks if the player has been killed by the Goomba
     } else if(frontEndPosX + goombaWidth > Player.frontEndPosX && 
-    frontEndPosX < Player.frontEndPosX + 32 && 
-    frontEndPosY + goombaHeight > Player.frontEndPosY && 
-    frontEndPosY < Player.frontEndPosY + 32 && !dead){
-      println("Mario Killed" + frameCount);
+      frontEndPosX < Player.frontEndPosX + 32 && 
+      frontEndPosY + goombaHeight > Player.frontEndPosY && 
+      frontEndPosY < Player.frontEndPosY + 32 && !dead){
+      if (Player.big){ 
+        Player.big = false;
+        //Shrinking sound????????????????????????????????????
+      } else {
       Player.Death();
+      }
     }
     
     //After the Goomba has been dead for 50 frames, tp it away so that it becomes inactive.

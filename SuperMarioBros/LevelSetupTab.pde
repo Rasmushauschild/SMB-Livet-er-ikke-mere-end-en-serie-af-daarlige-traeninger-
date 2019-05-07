@@ -29,7 +29,7 @@ class LevelSetup{
                 backgroundInstances[t] = new Background(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32,currentIdentifier);
               }
             }
-            
+
         println("loadtime ", millis()-time );   
             
     }
