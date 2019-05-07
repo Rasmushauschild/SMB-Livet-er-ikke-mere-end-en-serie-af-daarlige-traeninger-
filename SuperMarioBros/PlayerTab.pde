@@ -21,6 +21,7 @@ class Player{
   int framesSinceDeath;
   int deathPosY;
   float flagPoleStartY;
+  boolean flagAction;
   
   //Variables related to pipes
   int entryPipeMovement=-1; //0 is down, 1 is right, 2 is up, 3 is left
@@ -61,7 +62,7 @@ class Player{
   
   void PlayerActive(){
    if(playerActive){
-    if(pipeAction == 0 && !dead){
+    if(pipeAction == 0 && !dead && !flagAction){
   Movement();
     }
     Display();
@@ -354,7 +355,7 @@ class Player{
           posY++;
             }
         if (big){
-        image(spritesMario[14], frontEndPosX, frontEndPosY);
+        image(spritesMario[13], frontEndPosX, frontEndPosY);
 
         } else image(spritesMario[6], frontEndPosX, frontEndPosY);
         break;
