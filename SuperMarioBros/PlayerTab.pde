@@ -369,7 +369,9 @@ class Player{
               if(frameCount%5==0 && currentFrame <3){ //if statement responsible for quickly flipping through the running sprites at a specific rate to create an animation
                 currentFrame++;
               } else if(frameCount%5==0) currentFrame = 1;
+              if (big){
                 image(spritesMario[currentFrame + bigAnimation], frontEndPosX,frontEndPosY-16);
+              } else image(spritesMario[currentFrame + bigAnimation], frontEndPosX,frontEndPosY+16);
             }
             if (posX > flagPoleStartX + 130) playerActive = false;
         break;
