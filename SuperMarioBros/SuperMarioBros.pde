@@ -156,17 +156,22 @@ void draw(){
         LevelSetup.loadScene(LevelSetup.currentLevel); //Load the level
         timeLeft = 400;
         millisAtStartOfLevel = millis(); //Reset timer for the level
-        if (LevelSetup.currentLevel != 0) frameCountWhenLoadingStarted = frameCount; //Resets the timer for when to end the loading screen
-        
+        if (LevelSetup.currentLevel != 0){ //Any level
+          frameCountWhenLoadingStarted = frameCount; //Resets the timer for when to end the loading screen. Is not done when returning to the main menu, so as to avoid loading screen.
+          gameState = 2; //Change the game state accordingly, so that the player has control over the player
+        } else { //Main Menu
+          gameState = 0;
+        }
+        scrollAmount = 0; //Reset ScrollAmount
+        Player = new Player(144, 400); //Spawn a new player in the new scene.
+        Player.animationSetup();
+
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Animation setup for every Gomba.
           if(goombaInstances[i]!=null) {
           goombaInstances[i].animationSetup();
           }
         }
-        gameState = 2; //Change the game state accordingly, so that the player has control over the player
-        scrollAmount = 0;
-        Player = new Player(144, 400);
-        Player.animationSetup();
+        
         
       }
     break;
