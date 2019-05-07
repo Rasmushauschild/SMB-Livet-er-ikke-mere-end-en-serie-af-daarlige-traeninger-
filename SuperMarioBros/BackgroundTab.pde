@@ -42,7 +42,7 @@ class Background{
       break;
       
       case 44: //Big Hill
-      image(hillBig, posX, posY-16);
+      image(hillBig, posX, posY - 16);
       break;
       
       case 45: //Small Cloud
@@ -51,6 +51,10 @@ class Background{
       
       case 46: //Big Cloud
       image(cloudBig, posX, posY);
+      break;
+      
+      case 47: //Castle
+      image(castle, posX, posY - 60);
       break;
     }
   }

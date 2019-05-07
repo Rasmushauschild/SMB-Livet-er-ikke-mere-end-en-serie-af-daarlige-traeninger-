@@ -370,8 +370,8 @@ class Player{
                 currentFrame++;
               } else if(frameCount%5==0) currentFrame = 1;
                 image(spritesMario[currentFrame + bigAnimation], frontEndPosX,frontEndPosY-16);
-
             }
+            if (posX > flagPoleStartX + 130) playerActive = false;
         break;
       }
   }
