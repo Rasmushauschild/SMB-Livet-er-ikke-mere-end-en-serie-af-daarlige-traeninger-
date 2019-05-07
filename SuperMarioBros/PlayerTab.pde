@@ -60,7 +60,17 @@ class Player{
     }
   }
   
-  void ResetPlayer()
+  void ResetPlayer(){
+  flagPoleAction = false;
+  playerActive = true;
+  posX = 64;
+  posY = 300;
+  
+  rightPressed = false;
+  leftPressed = false;
+  downPressed = false;
+  upPressed = false;
+  }
   
   void PlayerActive(){
    if(playerActive){
@@ -199,6 +209,7 @@ class Player{
       if(!dead){
         mainTheme.pause();
         death.play();
+        big = false;
         dead = true;
         livesLeft--;
         deathFrame = frameCount;

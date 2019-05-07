@@ -136,6 +136,7 @@ void draw(){
     
     case 1:
       background(0);
+      Player.ResetPlayer();
       if(frameCountWhenLoadingStarted + 180 > frameCount){
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell.   
           if(menuInstances[i]!=null){
@@ -154,6 +155,17 @@ void draw(){
         Player.animationSetup();
         gameState = 2; //Change the game state accordingly, so that the player has control over the player
         millisAtStartOfLevel = millis(); //Reset timer for the level
+        switch (LevelSetup.currentLevel){
+        case 0:
+        case 1:
+          loadSprites(0);
+        break;
+        
+        case 2:
+          loadSprites(1);
+        break;
+        
+        }
       }
     break;
     
