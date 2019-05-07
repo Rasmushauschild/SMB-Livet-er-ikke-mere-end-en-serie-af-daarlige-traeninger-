@@ -44,16 +44,18 @@ class Collectible{
     frontEndPosY = round(posY/2)*2;
     
     switch (identifier){
-        case 18: //Mushroom
+        case 18: //Coin
           if(spawnedFromBlock){
-            image(spriteMushroom, frontEndPosX, frontEndPosY -20);
-            if(spawnFrame + 30 < frameCount) {
+            image(spriteCoin, frontEndPosX, frontEndPosY -20);
+            if(spawnFrame + 1000 < frameCount) {
               posY -= 500;
             }
-          } else image(spriteMushroom, frontEndPosX, frontEndPosY);
+          } else {
+            image(spriteCoin, frontEndPosX, frontEndPosY);
+          }
         break;
         
-        case 19: //Coin
+        case 19: //Mushroom
           image(spriteMushroom, frontEndPosX, frontEndPosY);
         break;
       }
@@ -61,7 +63,7 @@ class Collectible{
   
   void Movement(){
     switch(identifier){
-      case 1:
+      case 19: //Mushroom
     velocityX = baseSpeed * deltaTime;
     velocityY += 0.2 * deltaTime;
     

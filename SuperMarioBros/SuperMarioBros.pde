@@ -256,6 +256,6 @@ switch(palette){
     
     //Load Images for CollectibleTab
     spriteCoin = loadImage("Sprite_Coin.png");
-    spriteMushroom = loadImage ("Sprite_Mushroom");
+    spriteMushroom = loadImage ("Sprite_Mushroom.png");
 
 }

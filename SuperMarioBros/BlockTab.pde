@@ -199,18 +199,19 @@ class Block{
         break;
         
         case 4: //Brick block with coin
-        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 19);
-        collectibleInstances[collectibleIdentifier].identifier = 0;
+        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 18);
         collectibleInstances[collectibleIdentifier].spawnedFromBlock = true;
+        collectibleInstances[collectibleIdentifier].spawnFrame = frameCount;
         animationInProgress = true;
         frameCountWhenHit = frameCount;
+        collectibleIdentifier++;
         coins++; //Add 1 coin to the amount of coins the player has collected.
         coin.play();
         empty = true;
         break;  
         
         case 5: //Brick block with mushroom
-        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 18);
+        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 19);
         animationInProgress = true;
         frameCountWhenHit = frameCount;
         collectibleIdentifier++;
@@ -219,18 +220,19 @@ class Block{
         break;  
         
         case 6: //Item block with coin
-        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 19);
-        collectibleInstances[collectibleIdentifier].identifier = 0;
+        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 18);
         collectibleInstances[collectibleIdentifier].spawnedFromBlock = true;
+        collectibleInstances[collectibleIdentifier].spawnFrame = frameCount;
         animationInProgress = true;
         frameCountWhenHit = frameCount;
+        collectibleIdentifier++;
         coins++; //Add 1 coin to the amount of coins the player has collected.
         coin.play();
         empty = true;
         break;     
       
         case 7: //Item block with mushroom
-        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 18);
+        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 19);
         animationInProgress = true;
         frameCountWhenHit = frameCount;
         collectibleIdentifier++;
