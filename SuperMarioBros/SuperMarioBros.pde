@@ -240,8 +240,8 @@ void deltaTimeCalculation(){
 
 void loadSprites(int palette){ //Change sprite pallete based on loaded level
 switch(palette){
-  case 0: //Palette 0
-    mainTheme.play();
+  case 0: //Palette 0 (Overworld)
+    mainTheme.play(); //Play a different main theme depending on the palette
     currentPalette = palette;
     backgroundColor = #aed1ee;
     groundSprite = loadImage("Sprite_Ground.png");
@@ -252,8 +252,8 @@ switch(palette){
     spriteSheetGoomba = loadImage("SpriteSheet_Goomba.png");
     break;
     
-  case 1: //Palette 1
-    UGTheme.play();
+  case 1: //Palette 1 (Underground)
+    UGTheme.play(); //Play a different main theme depending on the palette
     currentPalette = palette;
     backgroundColor = 0;
     groundSprite = loadImage("Sprite_UGGround.png");
