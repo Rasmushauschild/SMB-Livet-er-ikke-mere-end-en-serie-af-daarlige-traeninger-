@@ -14,7 +14,7 @@ class Player{
   boolean scroll; //Wheather if the screen is currently scrolling
   boolean dead; //Should players code fire
   boolean facingRight = true; //Determines the orientation og players sprites
-  boolean big; //Determines players size
+  boolean big = true; //Determines players size
   boolean playerActive = true;
   int bigAnimation = 0; //7
   int deathFrame;
@@ -351,7 +351,7 @@ class Player{
         
         case 5:
         if (posY < 300){
-          //posY++;
+          posY++;
             }
         if (big){
         image(spritesMario[14], frontEndPosX, frontEndPosY);

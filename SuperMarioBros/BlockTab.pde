@@ -93,7 +93,7 @@ class Block{
         case 10:
         image(flagPole, posX, posY-130);
         
-        if(Player.posX > posX){
+        if(Player.posX > posX && Player.posX < posX + 10){
         Player.animMode = 5;
         Player.playerActive = false;
         }
