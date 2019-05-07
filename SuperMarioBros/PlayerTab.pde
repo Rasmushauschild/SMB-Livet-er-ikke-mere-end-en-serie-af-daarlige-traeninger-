@@ -20,6 +20,7 @@ class Player{
   int deathFrame;
   int framesSinceDeath;
   int deathPosY;
+  float flagPoleStartY;
   
   //Variables related to pipes
   int entryPipeMovement=-1; //0 is down, 1 is right, 2 is up, 3 is left
@@ -144,7 +145,9 @@ class Player{
           posX + velocityX < blockInstances[i].posX + 32 && //player collision left edge past ground right-side
           posY + playerHeight > blockInstances[i].posY && //player collision bottom edge past ground top
           posY < blockInstances[i].posY + 32)){ //player collision top edge past ground bottom 
-            if (rightPressed || leftPressed) blockInstances[i].ActivatedHorizontalPipe(); 
+            if (rightPressed || leftPressed)
+            blockInstances[i].ActivatedHorizontalPipe(); 
+            blockInstances[i].ActivateFlagPole();
             velocityX = 0;            
           }
           if(posX + playerWidth > blockInstances[i].posX && //player collision right edge past ground left-side
@@ -344,6 +347,15 @@ class Player{
         scale(-1,1);
         image(spritesMario[0 + bigAnimation], -frontEndPosX,frontEndPosY-16);
         popMatrix();
+        }
+        break;
+        
+        case 5:
+        if (posY < flagPoleStartY + playerHeight){ posY++;
+            }
+        if (big){
+        image(spritesMario[14], frontEndPosX, frontEndPosY);
+
         }
         break;
       }

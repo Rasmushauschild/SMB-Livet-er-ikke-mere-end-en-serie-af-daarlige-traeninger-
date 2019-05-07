@@ -83,7 +83,7 @@ class Block{
           } else {
             image(itemSprite, posX, posY);
           }
-        } else image(itemSpriteEmpty, posX, posY+200);
+        } else image(itemSpriteEmpty, posX, posY);
         break;
         
         case 8: //StoneBlock
@@ -91,7 +91,7 @@ class Block{
         break;
         
         case 10:
-        image(flagPole, posX, posY+);
+        image(flagPole, posX, posY-200);
         break;
         
         case 91: //left vertical pipe
@@ -316,5 +316,11 @@ class Block{
       }
     }
     
-    
+    void ActivateFlagPole(){
+      if (identifier == 10){
+      Player.animMode = 5;
+      Player.flagPoleStartY = Player.posY;
+      Player.playerActive = false;
+      }
+    }
 }
