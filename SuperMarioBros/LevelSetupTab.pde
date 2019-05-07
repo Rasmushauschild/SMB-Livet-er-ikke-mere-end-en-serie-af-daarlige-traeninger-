@@ -29,7 +29,7 @@ class LevelSetup{
                 println(collectibleIdentifier);
               } else if (currentIdentifier >= 30 && currentIdentifier < 40){ //Spawn a menu-object
                 menuInstances[t] = new Menu(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32,currentIdentifier);
-              } else if (currentIdentifier >= 40 && currentIdentifier <= 50){
+              } else if (currentIdentifier >= 40 && currentIdentifier < 50){
                 backgroundInstances[t] = new Background(t%currentLevelTable.getColumnCount()*32,t/currentLevelTable.getColumnCount()*32,currentIdentifier);
               }
             }
