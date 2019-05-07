@@ -38,6 +38,7 @@ int[] pipeArray = new int[100]; //Initiliasizes array and sets length to 100 - s
 color backgroundColor;
 
 int timeLeft = 400;
+int millisAtStartOfLevel;
 int world = 1;
 int levelInWorld = 1;
 int score;
@@ -146,7 +147,9 @@ void draw(){
           }
         }
       } else {
+        //LOAD NEXT LEVEL
         LevelSetup.loadScene(LevelSetup.currentLevel); //Load the level
+        timeLeft = 400;
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
           if(goombaInstances[i]!=null) {
           goombaInstances[i].animationSetup();
@@ -154,13 +157,20 @@ void draw(){
         }
         Player.animationSetup();
         gameState = 2; //Change the game state accordingly, so that the player has control over the player
+        millisAtStartOfLevel = millis(); //Reset timer for the level
       }
     break;
     
     
     case 2:
-      background(backgroundColor);
+      if (timeLeft > 0) //If there is time left, subtract time accordingly from the timer.
+        timeLeft = 400 - (millis()-millisAtStartOfLevel)/1000;
+      else { //If there is no time left, kill the player
+        Player.Death();
+      }
       
+      background(backgroundColor);
+      if (millis()%1000==0) timeLeft--;
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
       if(backgroundInstances[i]!=null) backgroundInstances[i].Display();
       }
