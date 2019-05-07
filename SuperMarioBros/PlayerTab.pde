@@ -147,7 +147,6 @@ class Player{
           posY < blockInstances[i].posY + 32)){ //player collision top edge past ground bottom 
             if (rightPressed || leftPressed)
             blockInstances[i].ActivatedHorizontalPipe(); 
-            blockInstances[i].ActivateFlagPole();
             velocityX = 0;            
           }
           if(posX + playerWidth > blockInstances[i].posX && //player collision right edge past ground left-side
@@ -351,12 +350,13 @@ class Player{
         break;
         
         case 5:
-        if (posY < flagPoleStartY + playerHeight){ posY++;
+        if (posY < 300){
+          //posY++;
             }
         if (big){
         image(spritesMario[14], frontEndPosX, frontEndPosY);
 
-        }
+        } else image(spritesMario[6], frontEndPosX, frontEndPosY);
         break;
       }
   }

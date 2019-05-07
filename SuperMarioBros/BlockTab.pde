@@ -91,7 +91,12 @@ class Block{
         break;
         
         case 10:
-        image(flagPole, posX, posY-200);
+        image(flagPole, posX, posY-130);
+        
+        if(Player.posX > posX){
+        Player.animMode = 5;
+        Player.playerActive = false;
+        }
         break;
         
         case 91: //left vertical pipe
@@ -309,14 +314,6 @@ class Block{
             Player.pipeStartY = Player.posY;
           }
         }
-      }
-    }
-    
-    void ActivateFlagPole(){
-      if (identifier == 10){
-      Player.animMode = 5;
-      Player.flagPoleStartY = Player.posY;
-      Player.playerActive = false;
       }
     }
 }
