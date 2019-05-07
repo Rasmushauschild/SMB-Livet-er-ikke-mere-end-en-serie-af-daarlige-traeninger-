@@ -20,7 +20,7 @@ class Player{
   int deathFrame;
   int framesSinceDeath;
   int deathPosY;
-  float flagPoleStartY;
+  float flagPoleStartX;
   boolean flagPoleAction;
   
   //Variables related to pipes
@@ -352,16 +352,20 @@ class Player{
         break;
         
         case 5:
-        if (posY < 300){
+        if (posY < 280){
           posY+=3;
-            } else {
-              frontEndPosX += 50;
-              //flagPoleAction = false;
-            }
-        if (big){
-        image(spritesMario[13], frontEndPosX, frontEndPosY);
+          if (big){
+            image(spritesMario[13], frontEndPosX, frontEndPosY);
+            } else image(spritesMario[6], frontEndPosX, frontEndPosY);
+        } else {
+              posX +=4;
+              posY = 352;
+              if(frameCount%5==0 && currentFrame <3){ //if statement responsible for quickly flipping through the running sprites at a specific rate to create an animation
+                currentFrame++;
+              } else if(frameCount%5==0) currentFrame = 1;
+                image(spritesMario[currentFrame + bigAnimation], frontEndPosX,frontEndPosY-16);
 
-        } else image(spritesMario[6], frontEndPosX, frontEndPosY);
+            }
         break;
       }
   }

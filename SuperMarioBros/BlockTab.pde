@@ -95,8 +95,9 @@ class Block{
         
         if(Player.posX > posX -10 && Player.posX < posX && !Player.flagPoleAction){
           flagPoleSound.play();
-        Player.animMode = 5;
-        Player.flagPoleAction = true;
+          Player.animMode = 5;
+          Player.flagPoleStartX = posX;
+          Player.flagPoleAction = true;
         }
         break;
         
