@@ -143,28 +143,28 @@ void draw(){
         }
       } else {
         //LOAD NEXT LEVEL
+        switch (LevelSetup.currentLevel){
+          case 0:
+          case 1:
+            loadSprites(0);
+          break;
+          case 2:
+            loadSprites(1);
+          break;
+        }
         LevelSetup.loadScene(LevelSetup.currentLevel); //Load the level
         timeLeft = 400;
+        frameCountWhenLoadingStarted = frameCount;
+        
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
           if(goombaInstances[i]!=null) {
           goombaInstances[i].animationSetup();
           }
         }
         Player.animationSetup();
-        frameCountWhenLoadingStarted = frameCount;
+        
         gameState = 2; //Change the game state accordingly, so that the player has control over the player
         millisAtStartOfLevel = millis(); //Reset timer for the level
-        switch (LevelSetup.currentLevel){
-        case 0:
-        case 1:
-          loadSprites(0);
-        break;
-        
-        case 2:
-          loadSprites(1);
-        break;
-        
-        }
       }
     break;
     
@@ -174,14 +174,8 @@ void draw(){
         timeLeft = 400 - (millis()-millisAtStartOfLevel)/1000;
       else { //If there is no time left, kill the player
         Player.Death();
-      }
-      
+      }      
       background(backgroundColor);
-      if (millis()%1000==0) timeLeft--;
-      for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
-      if(backgroundInstances[i]!=null) backgroundInstances[i].Display();
-      }
-      
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){if(backgroundInstances[i]!=null) backgroundInstances[i].Display();}
       Player.PlayerActive();
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
@@ -216,6 +210,7 @@ void loadCurrentScene(){
   collectibleIdentifier = 0;
   gameState = 1;
   LevelSetup.loadScene(-1);
+  frameCountWhenLoadingStarted = frameCount;
 }
 
 void loadMainMenu(){
