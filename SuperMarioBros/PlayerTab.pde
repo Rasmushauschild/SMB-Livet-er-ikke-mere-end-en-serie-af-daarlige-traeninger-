@@ -196,6 +196,7 @@ class Player{
     void Death(){
       if(!dead){
         mainTheme.pause();
+        UGTheme.pause();
         death.play();
         big = false;
         dead = true;
