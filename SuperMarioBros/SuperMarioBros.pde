@@ -118,6 +118,7 @@ void setup(){
 
 void draw(){
   deltaTimeCalculation();
+  println("scrollAmount:" + scrollAmount);
   
   switch(gameState){
     case 0:
@@ -192,7 +193,10 @@ void draw(){
         println("Scene" + LevelSetup.currentLevel + "Loaded");
         delay(100);
     }
-    if(keyPressed && key == 'c') LevelSetup.currentLevel += 1;
+    if(keyPressed && key == 'c'){
+      scrollAmount += 5100;
+      delay(400);
+    }
   }
 }
 
