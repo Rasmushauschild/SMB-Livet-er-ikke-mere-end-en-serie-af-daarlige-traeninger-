@@ -312,6 +312,12 @@ class Player{
           pipeStartY = posY; //Update pipeStartY to fit with exit pipe
           pipeStartX = posX; //Update pipeStartX to fit with exit pipe
           pipeAction = -1; //Move on to exit pipe movement
+          if (currentPalette == 0 && LevelSetup.currentLevel!=2){
+            loadSprites(1);
+          } else if (currentPalette == 1 && LevelSetup.currentLevel!=2){
+            loadSprites(0);
+          }
+          
         }
         
         if (pipeAction == -1){

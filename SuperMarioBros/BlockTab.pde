@@ -310,7 +310,6 @@ class Block{
               Player.exitPipeMovement = 1;
             }
             
-            
             Player.pipeDestinationY = blockInstances[destinationPipetvalue].posY;
             Player.pipeDestinationScrollAmount = scrollAmount + (blockInstances[destinationPipetvalue].posX-blockInstances[tvalue].posX);
             Player.pipeAction = 1;
