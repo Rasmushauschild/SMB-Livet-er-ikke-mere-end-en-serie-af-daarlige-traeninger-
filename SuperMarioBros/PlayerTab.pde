@@ -144,6 +144,18 @@ class Player{
           (i >= (int(posY)/32-2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32-2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) ||
           (i >= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount())){
         if (blockInstances[i]!=null && blockInstances[i].identifier!=10){
+          if(posX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
+          posX < blockInstances[i].posX + 31 && //player left edge past ground right-side
+          posY + playerHeight > blockInstances[i].posY && //player bottom edge past ground top
+          posY < blockInstances[i].posY + 31){ //player top edge past ground bottom 
+            if (posY<(blockInstances[i].posY+16)){ //If player clips in the top half, tp to top
+              posY = blockInstances[i].posY-playerHeight; 
+              println("DOOR STUCK! DOOR STUCK! 1" +frameCount);
+            } else if (posY>(blockInstances[i].posY+16)){ //If player clips in the bottom half, to the bottom
+              posY = blockInstances[i].posY+playerHeight; 
+              println("DOOR STUCK! DOOR STUCK! 2");
+            }
+          }
           if((posX + playerWidth + velocityX > blockInstances[i].posX && //player collision right edge past ground left-side
           posX + velocityX < blockInstances[i].posX + 31 && //player collision left edge past ground right-side
           posY + playerHeight > blockInstances[i].posY && //player collision bottom edge past ground top
@@ -160,19 +172,7 @@ class Player{
             velocityY = 0;
 
           }
-          if(posX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
-          posX < blockInstances[i].posX + 31 && //player left edge past ground right-side
-          posY + playerHeight > blockInstances[i].posY && //player bottom edge past ground top
-          posY < blockInstances[i].posY + 31){ //player top edge past ground bottom 
-            
-            if (posY<(blockInstances[i].posY+16)){ //If player clips in the top half, tp to top
-              posY = blockInstances[i].posY-playerHeight; 
-              println("DOOR STUCK! DOOR STUCK! 1" +frameCount);
-            } else if (posY>(blockInstances[i].posY+16)){ //If player clips in the bottom half, to the bottom
-              posY = blockInstances[i].posY+playerHeight; 
-              println("DOOR STUCK! DOOR STUCK! 2");
-            }
-          }
+          
         }
       }
     }
