@@ -30,22 +30,8 @@ class Collectible{
     startScrollAmount = scrollAmount;
   }
   
-  void animationSetup(){
-        animMode = identifier;
-        
-        spawnFrame = frameCount;
-
-        spriteSheetCollectibles = loadImage("SpriteSheet_Collectibles.png"); //Loads the spritesheet
-    
-        int W = spriteSheetCollectibles.width/animCount;
-    
-        for(int i = 0; i<spritesCollectibles.length; i++){
-        int x = i%animCount*W;
-        spritesCollectibles[i]=spriteSheetCollectibles.get(x,0,W,spriteSheetCollectibles.height);
-      }
-}
   
-  void Alive(){ //Main Function for the Mushroom: Calls all other functions. 
+  void Alive(){ //Main Function for the collectible: Calls all other functions. 
     posX = startPosX - scrollAmount + startScrollAmount + totalMovementX; //Makes the collectibles scroll with the player, no matter whether they are active or not. A start scroll amount value is required, as the mushroom can be spawned after the screen has already been scrolled a bit.
 
     if((posX - Player.posX)/32 < 16 && (posX - Player.posX)/32 > -8){ //The collectible is only active when in view of the player.
@@ -59,8 +45,8 @@ class Collectible{
     frontEndPosX = round(posX/2)*2;
     frontEndPosY = round(posY/2)*2;
     
-    switch (animMode){
-        case 0: //Standing still Right/Left
+    switch (identifier){
+        case 18: //Standing still Right/Left
           if(spawnedFromBlock){
             image(spritesCollectibles[1], frontEndPosX, frontEndPosY -20);
             if(spawnFrame + 30 < frameCount) {
@@ -69,7 +55,7 @@ class Collectible{
           } else image(spritesCollectibles[1], frontEndPosX, frontEndPosY);
         break;
         
-        case 1: //Moving Right/Left
+        case 19: //Coin
           image(spritesCollectibles[0], frontEndPosX, frontEndPosY);
         break;
       }

@@ -194,8 +194,7 @@ class Block{
         break;
         
         case 4: //Brick block with coin
-        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 0);
-        collectibleInstances[collectibleIdentifier].animationSetup();
+        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 19);
         collectibleInstances[collectibleIdentifier].identifier = 0;
         collectibleInstances[collectibleIdentifier].spawnedFromBlock = true;
         animationInProgress = true;
@@ -206,8 +205,7 @@ class Block{
         break;  
         
         case 5: //Brick block with mushroom
-        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 1);
-        collectibleInstances[collectibleIdentifier].animationSetup();
+        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 18);
         animationInProgress = true;
         frameCountWhenHit = frameCount;
         collectibleIdentifier++;
@@ -216,8 +214,7 @@ class Block{
         break;  
         
         case 6: //Item block with coin
-        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 0);
-        collectibleInstances[collectibleIdentifier].animationSetup();
+        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 19);
         collectibleInstances[collectibleIdentifier].identifier = 0;
         collectibleInstances[collectibleIdentifier].spawnedFromBlock = true;
         animationInProgress = true;
@@ -228,8 +225,7 @@ class Block{
         break;     
       
         case 7: //Item block with mushroom
-        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 1);
-        collectibleInstances[collectibleIdentifier].animationSetup();
+        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 18);
         animationInProgress = true;
         frameCountWhenHit = frameCount;
         collectibleIdentifier++;
