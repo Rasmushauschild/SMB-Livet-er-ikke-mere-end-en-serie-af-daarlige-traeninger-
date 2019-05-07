@@ -65,6 +65,8 @@ class Player{
   playerActive = true;
   posX = 64;
   posY = 352;
+  scrollAmount = 0;
+  scroll = false;
   animMode = 0;
   
   rightPressed = false;
@@ -374,13 +376,13 @@ class Player{
         break;
         
         case 5:
-        if (posY < 280){
-          posY+=3;
+        if (posY < 310){
+          posY+=2;
           if (big){
             image(spritesMario[13], frontEndPosX, frontEndPosY);
             } else image(spritesMario[6], frontEndPosX, frontEndPosY);
         } else {
-              posX +=4;
+              posX +=2;
               posY = 352;
               if(frameCount%5==0 && currentFrame <3){ //if statement responsible for quickly flipping through the running sprites at a specific rate to create an animation
                 currentFrame++;

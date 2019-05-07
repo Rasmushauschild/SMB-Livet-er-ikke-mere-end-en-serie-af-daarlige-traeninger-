@@ -137,7 +137,7 @@ void draw(){
     case 1:
       background(0);
       Player.ResetPlayer();
-      if(frameCountWhenLoadingStarted + 180 > frameCount){
+      if(frameCountWhenLoadingStarted + 333 > frameCount){
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell.   
           if(menuInstances[i]!=null){
             menuInstances[i].Active();
