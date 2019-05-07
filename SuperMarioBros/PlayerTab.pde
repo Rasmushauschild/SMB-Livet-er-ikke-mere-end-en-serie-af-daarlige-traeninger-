@@ -60,6 +60,8 @@ class Player{
     }
   }
   
+  void ResetPlayer()
+  
   void PlayerActive(){
    if(playerActive){
     if(pipeAction == 0 && !dead && !flagPoleAction){

@@ -135,7 +135,7 @@ void draw(){
     break;
     
     case 1:
-      background(backgroundColor);
+      background(0);
       if(frameCountWhenLoadingStarted + 180 > frameCount){
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell.   
           if(menuInstances[i]!=null){
