@@ -211,7 +211,7 @@ void deltaTimeCalculation(){
   deltaTime = (currentTime - prevTime)/20;
 }
 
-void loadSprites(int palette){ //Change sprite pallet based on loaded level
+void loadSprites(int palette){ //Change sprite pallete based on loaded level
 switch(palette){
   case 0: //Palette 0
     backgroundColor = #aed1ee;
@@ -250,8 +250,12 @@ switch(palette){
     cloudBig = loadImage("Sprite_CloudB.png"); //46
     castle = loadImage("Sprite_Castle.png");
     
-    //Load Images for CollectibleTabenuTab
+    //Load Images for MenuTab
     coinCounter = loadImage("Sprite_CoinCounter.png");
     cross = loadImage("Sprite_Cross.png");
+    
+    //Load Images for CollectibleTab
+    spriteCoin = loadImage("Sprite_Coin.png");
+    spriteMushroom = loadImage ("Sprite_Mushroom");
 
 }

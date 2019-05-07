@@ -1,3 +1,6 @@
+PImage spriteCoin;
+PImage spriteMushroom;
+
 class Collectible{
   float startPosX;
   float startScrollAmount;
@@ -16,11 +19,6 @@ class Collectible{
   boolean dead = false;
   boolean spawnedFromBlock = true;
   int spawnFrame;
-  
-  int animCount = 2;
-  PImage spriteSheetCollectibles;
-  PImage[] spritesCollectibles = new PImage[animCount]; //Creates an empty PImage array with the correct length
-  int animMode = 1;
   
   Collectible(float tempX, float tempY, int tempIdentifier){
     startPosX = tempX;
@@ -46,17 +44,17 @@ class Collectible{
     frontEndPosY = round(posY/2)*2;
     
     switch (identifier){
-        case 18: //Standing still Right/Left
+        case 18: //Mushroom
           if(spawnedFromBlock){
-            image(spritesCollectibles[1], frontEndPosX, frontEndPosY -20);
+            image(spriteMushroom, frontEndPosX, frontEndPosY -20);
             if(spawnFrame + 30 < frameCount) {
               posY -= 500;
             }
-          } else image(spritesCollectibles[1], frontEndPosX, frontEndPosY);
+          } else image(spriteMushroom, frontEndPosX, frontEndPosY);
         break;
         
         case 19: //Coin
-          image(spritesCollectibles[0], frontEndPosX, frontEndPosY);
+          image(spriteMushroom, frontEndPosX, frontEndPosY);
         break;
       }
   }
