@@ -63,14 +63,14 @@ class Block{
         break;
         
         case 4: //Brick Block with goodies
-        case 5:
+        case 5: //Brick block with mushroom
           if(!empty){
-          image(brickSprite, posX, posY);
+            image(brickSprite, posX, posY);
           } else image(itemSpriteEmpty, posX, posY);
         break;
         
         case 6: //Item Block
-        case 7:
+        case 7: //Item block with mushroom
         if (!empty){
           if (animationInProgress && round(posY+pow(frameCountSinceBeingHit,2)-10*frameCountSinceBeingHit-1)>=posY){ //Stop animation after 30 frames
             animationInProgress = false;
@@ -180,11 +180,11 @@ class Block{
     if(!empty){
       switch(identifier){
         
-        case 3:
+        case 3: //Brick block empty
           if(Player.big) {
             breakBlock.play();
             empty = true;
-          } else 
+          }
         break;
         
         case 4: //Brick block with coin

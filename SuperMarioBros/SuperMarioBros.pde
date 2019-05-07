@@ -1,5 +1,6 @@
-import processing.sound.*;
+import processing.sound.*; //Imports the processing sound library.
 
+//Declare variables for sounds
 SoundFile mainTheme;
 SoundFile breakBlock;
 SoundFile coin;
@@ -13,7 +14,7 @@ SoundFile powerUp;
 SoundFile stomp;
 
 LevelSetup LevelSetup;
-Block Ground; //Declare object Block
+Block Block; //Declare object Block
 Block[] blockInstances; //Create a array of name blockInstances, containing instances of the Block class.
 Goomba Goomba;
 Goomba[] goombaInstances;
@@ -59,6 +60,20 @@ void setup(){
     cloudBig = loadImage("Sprite_CloudB.png"); //46
     castle = loadImage("Sprite_Castle.png");
     
+    //Load soundfiles for game
+    mainTheme = new SoundFile(this, "Track_Main.wav");
+    breakBlock = new SoundFile(this, "SFX_BreakBlock.wav");
+    coin = new SoundFile(this, "SFX_Coin.wav");
+    death = new SoundFile(this, "SFX_Death.wav");
+    flagPole = new SoundFile(this, "SFX_Flagpole.wav");
+    jump = new SoundFile(this, "SFX_Jump.wav");
+    mushroomAppears = new SoundFile(this, "SFX_MushroomAppears.wav");
+    pause = new SoundFile(this, "SFX_Pause.wav");
+    pipe = new SoundFile(this, "SFX_Pipe.wav");
+    powerUp = new SoundFile(this, "SFX_PowerUp.wav");
+    stomp = new SoundFile(this, "SFX_Stomp.wav");
+
+    
     //60 FPS
     //Level size in pixels: 7042,448
     //Level size in blocks: 221, 14
@@ -92,17 +107,6 @@ void setup(){
     rectMode(CORNER);
     imageMode(CENTER);
     
-    mainTheme = new SoundFile(this, "Track_Main.wav");
-    breakBlock = new SoundFile(this, "SFX_BreakBlock.wav");
-    coin = new SoundFile(this, "SFX_Coin.wav");
-    death = new SoundFile(this, "SFX_Death.wav");
-    flagPole = new SoundFile(this, "SFX_Flagpole.wav");
-    jump = new SoundFile(this, "SFX_Jump.wav");
-    mushroomAppears = new SoundFile(this, "SFX_MushroomAppears.wav");
-    pause = new SoundFile(this, "SFX_Pause.wav");
-    pipe = new SoundFile(this, "SFX_Pipe.wav");
-    powerUp = new SoundFile(this, "SFX_PowerUp.wav");
-    stomp = new SoundFile(this, "SFX_Stomp.wav");
 
     mainTheme.play();
     

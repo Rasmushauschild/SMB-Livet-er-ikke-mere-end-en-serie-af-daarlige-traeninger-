@@ -131,13 +131,13 @@ class Collectible{
         
         switch(identifier){
           case 0:
-          //Add +1 to player coins
-          coin.play();
+          Menu.score += 1; //Add +1 to player coins
+          coin.play(); //Play coin sound
           break;
           
           case 1:
           Player.big = true;
-          powerUp.play();
+          powerUp.play(); //Play power-up sound
           break;
         }
         totalMovementX = -10000;

@@ -25,26 +25,26 @@ class Menu{
       case 30: //The text displayed in the top of the screen.
       text("Mario               World  Time",posX,posY);
       
-      break;
-      case 31:
+      break; 
+      case 31: //Score text
       text(score,posX,posY-15);
       break;
       
-      case 33:
+      case 33: //World-Level text
       text(world + "-" + levelInWorld,posX+34,posY-15);
       break;
       
-      case 34:
+      case 34: //Time left in level text
       text(timeLeft,posX,posY-15);
       break;
       
-      case 35:
+      case 35: //Titlecard
       imageMode(CORNER);
       image(titlecard, posX, posY);
       imageMode(CENTER);
       break;
       
-      case 36:
+      case 36: //Prompt to start on titlescreen
       text("Press Enter To Start",posX,posY);
       break;
       
