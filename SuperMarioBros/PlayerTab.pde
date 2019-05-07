@@ -64,7 +64,8 @@ class Player{
   flagPoleAction = false;
   playerActive = true;
   posX = 64;
-  posY = 300;
+  posY = 352;
+  animMode = 0;
   
   rightPressed = false;
   leftPressed = false;

@@ -153,6 +153,7 @@ void draw(){
           }
         }
         Player.animationSetup();
+        frameCountWhenLoadingStarted = frameCount;
         gameState = 2; //Change the game state accordingly, so that the player has control over the player
         millisAtStartOfLevel = millis(); //Reset timer for the level
         switch (LevelSetup.currentLevel){
@@ -190,7 +191,7 @@ void draw(){
         if(blockInstances[i]!=null) blockInstances[i].Display();
         if(goombaInstances[i]!=null) goombaInstances[i].Alive();
         if(collectibleInstances[i]!=null) collectibleInstances[i].Alive(); 
-      
+      }
       if(keyPressed && key == 'b'){
         LevelSetup.currentLevel++;
         LevelSetup.loadScene(LevelSetup.currentLevel);
