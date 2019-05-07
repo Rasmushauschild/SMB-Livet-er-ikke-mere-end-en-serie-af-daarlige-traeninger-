@@ -2,7 +2,7 @@ class Player{
   float posX; //Players raw xposition in canvas space
   float posY; //Players raw yposition in canvs space
   float playerWidth = 26;
-  float playerHeight = 32; 
+  float playerHeight = 31; 
   float velocityX; //Multiplier to change xposition
   float velocityY; //Multiplier to change yposition
   int frontEndPosX; //Players rendered xposition 
@@ -145,25 +145,25 @@ class Player{
           (i >= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount())){
         if (blockInstances[i]!=null && blockInstances[i].identifier!=10){
           if((posX + playerWidth + velocityX > blockInstances[i].posX && //player collision right edge past ground left-side
-          posX + velocityX < blockInstances[i].posX + 32 && //player collision left edge past ground right-side
+          posX + velocityX < blockInstances[i].posX + 31 && //player collision left edge past ground right-side
           posY + playerHeight > blockInstances[i].posY && //player collision bottom edge past ground top
-          posY < blockInstances[i].posY + 32)){ //player collision top edge past ground bottom 
+          posY < blockInstances[i].posY + 31)){ //player collision top edge past ground bottom 
             if (rightPressed || leftPressed) blockInstances[i].ActivatedHorizontalPipe(); 
             velocityX = 0;            
           }
           if(posX + playerWidth > blockInstances[i].posX && //player collision right edge past ground left-side
-          posX < blockInstances[i].posX + 32 && //player collision left edge past ground right-side
-          posY + playerHeight + velocityY +0.1> blockInstances[i].posY && //player collision bottom edge past ground top
-          posY + velocityY < blockInstances[i].posY + 32){ //player collision top edge past ground bottom 
+          posX < blockInstances[i].posX + 31 && //player collision left edge past ground right-side
+          posY + playerHeight + velocityY > blockInstances[i].posY && //player collision bottom edge past ground top
+          posY + velocityY < blockInstances[i].posY + 31){ //player collision top edge past ground bottom 
             if (velocityY < 0) blockInstances[i].ActivatedBelow(); //Calling the ActivatedBelow fuction on the hit instance
             if (downPressed || upPressed) blockInstances[i].ActivatedVerticalPipe(); //If down-button is pressed on top of pipe, go down pipe.            
             velocityY = 0;
 
           }
           if(posX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
-          posX < blockInstances[i].posX + 32 && //player left edge past ground right-side
+          posX < blockInstances[i].posX + 31 && //player left edge past ground right-side
           posY + playerHeight > blockInstances[i].posY && //player bottom edge past ground top
-          posY < blockInstances[i].posY + 32){ //player top edge past ground bottom 
+          posY < blockInstances[i].posY + 31){ //player top edge past ground bottom 
             
             if (posY<(blockInstances[i].posY+16)){ //If player clips in the top half, tp to top
               posY = blockInstances[i].posY-playerHeight; 
