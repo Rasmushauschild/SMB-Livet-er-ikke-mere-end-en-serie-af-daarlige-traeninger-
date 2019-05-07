@@ -123,18 +123,17 @@ void draw(){
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){if(backgroundInstances[i]!=null) backgroundInstances[i].Display();}
       Player.PlayerActive();
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
-        if(menuInstances[i]!=null) menuInstances[i].Active();
         if(blockInstances[i]!=null) blockInstances[i].Display();
         if(goombaInstances[i]!=null) goombaInstances[i].Alive();
         if(collectibleInstances[i]!=null) collectibleInstances[i].Alive();  
+        if(menuInstances[i]!=null) menuInstances[i].Active();
       }
 
     break;
     
     case 1:
       background(0);
-      mainTheme.pause();
-      UGTheme.pause();
+      pauseMusic();
           
       if(frameCountWhenLoadingStarted + 333 > frameCount){
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell.   
@@ -187,10 +186,10 @@ void draw(){
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){if(backgroundInstances[i]!=null) backgroundInstances[i].Display();}
       Player.PlayerActive();
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
-        if(menuInstances[i]!=null) menuInstances[i].Active();
         if(blockInstances[i]!=null) blockInstances[i].Display();
         if(goombaInstances[i]!=null) goombaInstances[i].Alive();
         if(collectibleInstances[i]!=null) collectibleInstances[i].Alive(); 
+        if(menuInstances[i]!=null) menuInstances[i].Active();
       }
       if(keyPressed && key == 'b'){
         LevelSetup.currentLevel++;
@@ -241,7 +240,7 @@ void deltaTimeCalculation(){
 void loadSprites(int palette){ //Change sprite pallete based on loaded level
 switch(palette){
   case 0: //Palette 0 (Overworld)
-    mainTheme.play(); //Play a different main theme depending on the palette
+    mainTheme.loop(); //Play a different main theme depending on the palette
     currentPalette = palette;
     backgroundColor = #aed1ee;
     groundSprite = loadImage("Sprite_Ground.png");
@@ -253,7 +252,7 @@ switch(palette){
     break;
     
   case 1: //Palette 1 (Underground)
-    UGTheme.play(); //Play a different main theme depending on the palette
+    UGTheme.loop(); //Play a different main theme depending on the palette
     currentPalette = palette;
     backgroundColor = 0;
     groundSprite = loadImage("Sprite_UGGround.png");
@@ -289,4 +288,9 @@ switch(palette){
     spriteCoin = loadImage("Sprite_Coin.png");
     spriteMushroom = loadImage ("Sprite_Mushroom.png");
 
+}
+
+void pauseMusic(){
+  mainTheme.pause();
+  UGTheme.pause();
 }

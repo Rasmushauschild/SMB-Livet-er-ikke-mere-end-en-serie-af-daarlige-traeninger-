@@ -272,6 +272,7 @@ class Block{
             } else if (destinationPipeIdentifier == 99 || destinationPipeIdentifier == 100){ //If the exit pipe points rightwards, the exit pipe movement should be rightwards
               Player.exitPipeMovement = 1;
             }
+            pauseMusic();
             pipe.play();
             Player.pipeDestinationY = blockInstances[destinationPipetvalue].posY;
             Player.pipeDestinationScrollAmount = scrollAmount + (blockInstances[destinationPipetvalue].posX-blockInstances[tvalue].posX);
@@ -309,6 +310,7 @@ class Block{
             } else if (destinationPipeIdentifier == 99 || destinationPipeIdentifier == 100){ //If the exit pipe points rightwards, the exit pipe movement should be rightwards
               Player.exitPipeMovement = 1;
             }
+            pauseMusic();
             pipe.play();
             Player.pipeDestinationY = blockInstances[destinationPipetvalue].posY;
             Player.pipeDestinationScrollAmount = scrollAmount + (blockInstances[destinationPipetvalue].posX-blockInstances[tvalue].posX);
