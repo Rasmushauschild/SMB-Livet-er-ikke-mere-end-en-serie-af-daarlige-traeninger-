@@ -154,17 +154,17 @@ void draw(){
         }
         LevelSetup.loadScene(LevelSetup.currentLevel); //Load the level
         timeLeft = 400;
-        frameCountWhenLoadingStarted = frameCount;
+        millisAtStartOfLevel = millis(); //Reset timer for the level
+        frameCountWhenLoadingStarted = frameCount; //Resets the timer for when to end the loading screen
         
-        for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
+        for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Animation setup for every Gomba.
           if(goombaInstances[i]!=null) {
           goombaInstances[i].animationSetup();
           }
         }
-        Player.animationSetup();
-        
+        Player.Reset();
         gameState = 2; //Change the game state accordingly, so that the player has control over the player
-        millisAtStartOfLevel = millis(); //Reset timer for the level
+        
       }
     break;
     
@@ -190,10 +190,11 @@ void draw(){
         println("Scene" + LevelSetup.currentLevel + "Loaded");
         delay(100);
     }
-    if(keyPressed && key == 'c'){
-      scrollAmount += 5100;
-      delay(400);
+      if(keyPressed && key == 'c'){
+        scrollAmount += 5100;
+        delay(400);
     }
+    break;
   }
 }
 
