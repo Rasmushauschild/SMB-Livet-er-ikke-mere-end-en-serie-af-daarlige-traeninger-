@@ -35,6 +35,7 @@ int gameState; //Responsible for the state of the game - 0: Main menu 1: LevelLo
 int collectibleIdentifier = 0; //For creating collectibles with seperate names
 int publicPipeIdentifier = 0; //For creating ID for pipes which can be used by Mario. 
 int[] pipeArray = new int[100]; //Initiliasizes array and sets length to 100 - setting a max of 50 pipes per level
+color backgroundColor;
 
 int timeLeft = 400;
 int world = 1;
@@ -86,7 +87,7 @@ void setup(){
     √ indsæt leveldesign
     */
     
-    loadSprites(1);
+    loadSprites(0);
     size(512,448);
     frameRate(60);
     noStroke();
@@ -120,7 +121,7 @@ void draw(){
   
   switch(gameState){
     case 0:
-      background(#AED1EE);
+      background(backgroundColor);
       
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
         if(backgroundInstances[i]!=null) backgroundInstances[i].Display();
@@ -137,7 +138,7 @@ void draw(){
     break;
     
     case 1:
-      background(1);
+      background(backgroundColor);
       if(frameCountWhenLoadingStarted + 180 > frameCount){
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell.   
           if(menuInstances[i]!=null){
@@ -158,7 +159,7 @@ void draw(){
     
     
     case 2:
-      background(#AED1EE);
+      background(backgroundColor);
       
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
       if(backgroundInstances[i]!=null) backgroundInstances[i].Display();
@@ -203,7 +204,7 @@ void deltaTimeCalculation(){
 void loadSprites(int palette){ //Change sprite pallet based on loaded level
 switch(palette){
   case 0: //Palette 0
-    //Load Images for BlockTab
+    backgroundColor = #aed1ee;
     groundSprite = loadImage("Sprite_Ground.png");
     itemSprite = loadImage("Sprite_Item.png");
     itemSpriteEmpty = loadImage("Sprite_ItemEmpty.png");
@@ -213,6 +214,7 @@ switch(palette){
     break;
     
   case 1: //Palette 1
+    backgroundColor = 0;
     groundSprite = loadImage("Sprite_UGGround.png");
     itemSprite = loadImage("Sprite_UGItem.png");
     itemSpriteEmpty = loadImage("Sprite_UGItemEmpty.png");
