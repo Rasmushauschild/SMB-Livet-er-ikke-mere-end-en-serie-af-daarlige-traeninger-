@@ -1,17 +1,20 @@
+//Declare images for backgroundTab. Images are assigned in setup.
+PImage bushSmall; //40
+PImage bushMedium; //41
+PImage bushBig; //42
+PImage hillSmall; //43
+PImage hillBig; //44
+PImage cloudSmall; //45
+PImage cloudBig; //46
+PImage castle; //?
+
 class Background{
   float startPosX;
   float posX;
   float posY;
   int identifier;
   
-  PImage bushSmall = loadImage("Sprite_BushS.png"); //40
-  PImage bushMedium = loadImage("Sprite_BushM.png"); //41
-  PImage bushBig = loadImage("Sprite_BushB.png"); //42
-  PImage hillSmall = loadImage("Sprite_HillS.png"); //43
-  PImage hillBig = loadImage("Sprite_HillB.png"); //44
-  PImage cloudSmall = loadImage("Sprite_CloudS.png"); //45
-  PImage cloudBig = loadImage("Sprite_CloudB.png"); //46
-  PImage castle = loadImage("Sprite_Castle.png");
+
     
   Background(float tempX, float tempY, int tempIdentifier){
     startPosX = tempX;

@@ -37,6 +37,28 @@ int[] pipeArray = new int[100]; //Initiliasizes array and sets length to 100 - s
 
 
 void setup(){
+    
+    //Load Images for BlockTab
+    groundSprite = loadImage("Sprite_Ground.png");
+    itemSprite = loadImage("Sprite_Item.png");
+    itemSpriteEmpty = loadImage("Sprite_ItemEmpty.png");
+    brickSprite = loadImage("Sprite_Brick.png");
+    goombaSprite = loadImage("Sprite_Goomba.png");
+    pipeL = loadImage("Sprite_PipeL.png");
+    pipeR = loadImage("Sprite_PipeR.png");
+    pipeTopL = loadImage("Sprite_PipeTopL.png");
+    pipeTopR = loadImage("Sprite_PipeTopR.png");
+    
+    //Load Images for BackgroundTab
+    bushSmall = loadImage("Sprite_BushS.png"); //40
+    bushMedium = loadImage("Sprite_BushM.png"); //41
+    bushBig = loadImage("Sprite_BushB.png"); //42
+    hillSmall = loadImage("Sprite_HillS.png"); //43
+    hillBig = loadImage("Sprite_HillB.png"); //44
+    cloudSmall = loadImage("Sprite_CloudS.png"); //45
+    cloudBig = loadImage("Sprite_CloudB.png"); //46
+    castle = loadImage("Sprite_Castle.png");
+    
     //60 FPS
     //Level size in pixels: 7042,448
     //Level size in blocks: 221, 14
@@ -173,11 +195,7 @@ void draw(){
 void startLoadingScene(){ //Go to the loading level scene
   gameState = 1;
   LevelSetup.currentLevel += 1;
-          println("before"+LevelSetup.currentLevel);
-
   LevelSetup.loadScene(-1); //Load the load-level scene
-            println("afyer"+LevelSetup.currentLevel);
-
   frameCountWhenLoadingStarted = frameCount; //Used for the amount of frames the loading scene should be displayed
 }
 

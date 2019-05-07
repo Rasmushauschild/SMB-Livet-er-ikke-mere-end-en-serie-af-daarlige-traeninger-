@@ -1,3 +1,13 @@
+PImage groundSprite;
+PImage itemSprite;
+PImage itemSpriteEmpty;
+PImage brickSprite;
+PImage goombaSprite;
+PImage pipeL;
+PImage pipeR;
+PImage pipeTopL;
+PImage pipeTopR;
+
 class Block{
     boolean animationInProgress = false;
     float posX;
@@ -10,15 +20,6 @@ class Block{
     int localPipeIdentifier; //Local version of the pipeIdentifier value. Makes sure each pipe-top has it's own unique ID.
     int tvalue;
     boolean empty;
-    PImage groundSprite = loadImage("Sprite_Ground.png");
-    PImage itemSprite = loadImage("Sprite_Item.png");
-    PImage itemSpriteEmpty = loadImage("Sprite_ItemEmpty.png");
-    PImage brickSprite = loadImage("Sprite_Brick.png");
-    PImage goombaSprite = loadImage("Sprite_Goomba.png");
-    PImage pipeL = loadImage("Sprite_PipeL.png");
-    PImage pipeR = loadImage("Sprite_PipeR.png");
-    PImage pipeTopL = loadImage("Sprite_PipeTopL.png");
-    PImage pipeTopR = loadImage("Sprite_PipeTopR.png");
     
     
     //Values specifically for mushroom
@@ -172,7 +173,6 @@ class Block{
         break;
       }
       
-      println(identifier);
       
     }
     
