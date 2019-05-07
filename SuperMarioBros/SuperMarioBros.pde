@@ -119,7 +119,6 @@ void setup(){
 void draw(){
   deltaTimeCalculation();
   
-  
   switch(gameState){
     case 0:
       background(backgroundColor);
