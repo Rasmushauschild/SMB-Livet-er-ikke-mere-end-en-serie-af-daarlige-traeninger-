@@ -43,7 +43,7 @@ int world = 1;
 int levelInWorld = 1;
 int score;
 int coins; 
-int livesLeft = 3; //Amount of lives Mario has left
+int livesLeft = 0; //Amount of lives Mario has left
 int currentPalette;
 
 void setup(){
@@ -117,7 +117,9 @@ void setup(){
 }
 
 void draw(){
-  deltaTimeCalculation();  
+  deltaTimeCalculation();
+  println("scrollAmount:" + scrollAmount);
+  
   switch(gameState){
     case 0:
       background(backgroundColor);
@@ -134,7 +136,7 @@ void draw(){
     
     case 1:
       background(0);
-      Player.Reset();
+      Player.ResetPlayer();
       if(frameCountWhenLoadingStarted + 333 > frameCount){
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell.   
           if(menuInstances[i]!=null){
@@ -143,28 +145,28 @@ void draw(){
         }
       } else {
         //LOAD NEXT LEVEL
-        switch (LevelSetup.currentLevel){
-          case 0:
-          case 1:
-            loadSprites(0);
-          break;
-          case 2:
-            loadSprites(1);
-          break;
-        }
         LevelSetup.loadScene(LevelSetup.currentLevel); //Load the level
         timeLeft = 400;
-        frameCountWhenLoadingStarted = frameCount;
-        
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
           if(goombaInstances[i]!=null) {
           goombaInstances[i].animationSetup();
           }
         }
         Player.animationSetup();
-        
+        frameCountWhenLoadingStarted = frameCount;
         gameState = 2; //Change the game state accordingly, so that the player has control over the player
         millisAtStartOfLevel = millis(); //Reset timer for the level
+        switch (LevelSetup.currentLevel){
+        case 0:
+        case 1:
+          loadSprites(0);
+        break;
+        
+        case 2:
+          loadSprites(1);
+        break;
+        
+        }
       }
     break;
     
@@ -174,8 +176,14 @@ void draw(){
         timeLeft = 400 - (millis()-millisAtStartOfLevel)/1000;
       else { //If there is no time left, kill the player
         Player.Death();
-      }      
+      }
+      
       background(backgroundColor);
+      if (millis()%1000==0) timeLeft--;
+      for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
+      if(backgroundInstances[i]!=null) backgroundInstances[i].Display();
+      }
+      
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){if(backgroundInstances[i]!=null) backgroundInstances[i].Display();}
       Player.PlayerActive();
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
@@ -197,27 +205,11 @@ void draw(){
   }
 }
 
-void loadNextScene(){ //Go to the loading level scene
-  println("next scene loaded...");
-  LevelSetup.currentLevel ++;
+void startLoadingScene(){ //Go to the loading level scene
   gameState = 1;
+  LevelSetup.currentLevel += 1;
   LevelSetup.loadScene(-1); //Load the load-level scene
   frameCountWhenLoadingStarted = frameCount; //Used for the amount of frames the loading scene should be displayed
-}
-
-void loadCurrentScene(){
-  println("current scene loaded...");
-  collectibleIdentifier = 0;
-  gameState = 1;
-  LevelSetup.loadScene(-1);
-  frameCountWhenLoadingStarted = frameCount;
-}
-
-void loadMainMenu(){
-  LevelSetup.currentLevel = 0;
-  gameState = 1;
-  LevelSetup.loadScene(-1);
-  gameState = 1;
 }
 
 
@@ -226,8 +218,6 @@ void deltaTimeCalculation(){
   currentTime = millis();
   deltaTime = (currentTime - prevTime)/20;
 }
-
-
 
 void loadSprites(int palette){ //Change sprite pallete based on loaded level
 switch(palette){

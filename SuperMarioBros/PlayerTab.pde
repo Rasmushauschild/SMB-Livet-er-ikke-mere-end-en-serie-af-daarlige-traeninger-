@@ -60,7 +60,7 @@ class Player{
     }
   }
   
-  void ResetPlayer(){
+  void Reset(){
   flagPoleAction = false;
   playerActive = true;
   posX = 64;
@@ -68,11 +68,14 @@ class Player{
   scrollAmount = 0;
   scroll = false;
   animMode = 0;
+  jumpPossible = false;
   
   rightPressed = false;
   leftPressed = false;
   downPressed = false;
   upPressed = false;
+  
+  animationSetup();
   }
   
   void PlayerActive(){
