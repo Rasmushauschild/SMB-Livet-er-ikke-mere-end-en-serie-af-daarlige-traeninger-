@@ -173,12 +173,12 @@ void draw(){
       }      
       background(backgroundColor);
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){if(backgroundInstances[i]!=null) backgroundInstances[i].Display();}
-      Player.PlayerActive();
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Display blocks, Goombas and collectibles. 
         if(blockInstances[i]!=null) blockInstances[i].Display();
         if(goombaInstances[i]!=null) goombaInstances[i].Alive();
         if(collectibleInstances[i]!=null) collectibleInstances[i].Alive(); 
       }
+            Player.PlayerActive();
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Display menu (HUD). Has to be last and in its own loop to make sure it's displayed on top of everything else.
         if(menuInstances[i]!=null) menuInstances[i].Active();
       }

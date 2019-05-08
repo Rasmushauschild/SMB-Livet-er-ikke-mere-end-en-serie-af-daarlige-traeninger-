@@ -6,20 +6,19 @@ class Collectible{
   float startPosX; //initial horizontal position
   float startScrollAmount; //initial scrollamount
   float totalMovementX = 0; //total pixels moved in the horizontal axis
-  float posX;
-  float posY;
-  int frontEndPosX;
-  int frontEndPosY;
+  float posX; //accurate horizontal position
+  float posY; //accurate vertical position
+  int frontEndPosX; //rendered horizontal position
+  int frontEndPosY; //rendered vertical position
   int identifier; // 0: coin 1: mushroom
-  float baseSpeed = 1;
-  float velocityX;
-  float velocityY;
-  float deathTime;
-  int collectibleWidth = 32;
-  int collectibleHeight = 32;
-  boolean dead = false;
+  float baseSpeed = 1; //multiplier for updating the horisontal position - used to change direction
+  float velocityX; //multiplier for updating the horizontal position
+  float velocityY; //multiplier for updating the vertical position
+  int collectibleWidth = 32; //collision width
+  int collectibleHeight = 32; //collision height
+  boolean dead = false; //Determines wheather if a specific instance of the class has been "collected" by mario
   boolean spawnedFromBlock; //Bool used to differentiate between collectibles which were spawned from blocks vs. spawned directly into the level
-  int spawnFrame;
+  int spawnFrame; //the frame at which the instance was spawned (used for showing the coin for only a specific amount of time)
   
   Collectible(float tempX, float tempY, int tempIdentifier){
     startPosX = tempX;
