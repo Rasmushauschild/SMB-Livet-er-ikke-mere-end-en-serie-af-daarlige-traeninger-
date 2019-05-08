@@ -1,28 +1,28 @@
 //Declare images for backgroundTab. Images are assigned in setup.
-PImage bushSmall; //40
-PImage bushMedium; //41
-PImage bushBig; //42
-PImage hillSmall; //43
-PImage hillBig; //44
-PImage cloudSmall; //45
-PImage cloudBig; //46
-PImage castle; //?
+PImage bushSmall; //ID: 40
+PImage bushMedium; //ID: 41
+PImage bushBig; //ID: 42
+PImage hillSmall; //ID: 43
+PImage hillBig; //ID: 44
+PImage cloudSmall; //ID: 45
+PImage cloudBig; //ID: 46
+PImage castle; //ID: 47
 
-class Background{
-  float startPosX;
-  float posX;
-  float posY;
-  int identifier;
+class Background{ //class containing functionality used in all non-interactable scene elements
+  float startPosX; //Original horizontal position
+  float posX; //horizontal position updated by scrollAmount
+  float posY; //vertical positiona
+  int identifier; //Identifier determining what type of background element each instance of this class should become
 
-  Background(float tempX, float tempY, int tempIdentifier){
+  Background(float tempX, float tempY, int tempIdentifier){ //Class initializer
     startPosX = tempX;
     posX = tempX;
     posY = tempY;
     identifier = tempIdentifier;
     
   }
-  void Display(){
-    posX = startPosX-scrollAmount;
+  void Display(){ //Function responsible for displaying each background element at the correct location
+    posX = startPosX-scrollAmount; //Updates the horizontal position with scrollAmount
     
     switch (identifier){
       case 40: //Small Bush

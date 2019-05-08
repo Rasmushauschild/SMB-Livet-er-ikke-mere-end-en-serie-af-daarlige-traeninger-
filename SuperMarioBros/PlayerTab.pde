@@ -1,8 +1,8 @@
 class Player{
   float posX; //Players raw xposition in canvas space
   float posY; //Players raw yposition in canvs space
-  float playerWidth = 26;
-  float playerHeight = 31; 
+  float playerWidth = 26; //Players default width
+  float playerHeight = 31; //Players default heigth (hard coded in Display())
   float velocityX; //Multiplier to change xposition
   float velocityY; //Multiplier to change yposition
   int frontEndPosX; //Players rendered xposition 
@@ -16,24 +16,24 @@ class Player{
   boolean facingRight = true; //Determines the orientation og players sprites
   boolean big; //Determines players size
   boolean playerActive = true;
-  int bigAnimation = 0; //7
-  int deathFrame;
-  int framesSinceDeath;
-  int deathPosY;
-  float flagPoleStartX;
-  boolean flagPoleAction;
+  int bigAnimation = 0; //integer value added to the loaded sprite in marioSprites[] to load the proper sprites (7)
+  int deathFrame; //integer value set to the frame Mario dies
+  int framesSinceDeath; //integer value counting up every frame after Mario has died
+  int deathPosY; //the y position for Marios death
+  float flagPoleStartX; //the x position for where the flagpole area begins
+  boolean flagPoleAction; //boolean set true when Mario reaches the flagpole - used for disabling user input
   
   //Variables related to pipes
   int entryPipeMovement=-1; //0 is down, 1 is right, 2 is up, 3 is left
   int exitPipeMovement= -1; //0 is down, 1 is right, 2 is up, 3 is left
   int pipeAction; //0 is inactive pipe animation, 1 is an active entry pipe animation and -1 is an active exit pipe animation
-  float pipeDestinationScrollAmount;
-  float pipeDestinationY;
-  float pipeStartY;
-  float pipeStartX;
+  float pipeDestinationScrollAmount; //the amount the world must scroll for the new pipe location
+  float pipeDestinationY; //the vertical position to spawn Mario at
+  float pipeStartY; //the vertical position at which Mario enters the pipe
+  float pipeStartX; //the horizontal position at which Mario enters the pipe
   
   //Keyboard input controls
-  public boolean rightPressed; 
+  public boolean rightPressed;
   public boolean leftPressed;
   public boolean spacePressed;
   public boolean downPressed;
@@ -149,10 +149,8 @@ class Player{
           posY < blockInstances[i].posY + 31){ //player top edge past ground bottom 
             if (posY<(blockInstances[i].posY+16)){ //If player clips in the top half, tp to top
               posY = blockInstances[i].posY-playerHeight; 
-              println("DOOR STUCK! DOOR STUCK! 1" +frameCount);
             } else if (posY>(blockInstances[i].posY+16)){ //If player clips in the bottom half, to the bottom
               posY = blockInstances[i].posY+playerHeight; 
-              println("DOOR STUCK! DOOR STUCK! 2");
             }
           }
           if((posX + playerWidth + velocityX > blockInstances[i].posX && //player collision right edge past ground left-side
@@ -191,9 +189,9 @@ class Player{
     posY += velocityY;
  }
   
-    void Death(){
+    void Death(){ //Called upon Marios death
       if(!dead){
-        pauseMusic();
+        pauseMusic(); 
         death.play();
         big = false;
         dead = true;
@@ -216,22 +214,21 @@ class Player{
       }
       
       if(pipeAction != 0){
-        animMode = 4;
+        animMode = 4; //Sets the proper animMode for entereing and leaving pipes
       }
       
-      if(big){
-        bigAnimation = 7;
-        playerHeight = 64;
-        frontEndPosY = round((posY/2)*2+32);
+      if(big){ //Called when a mushroom is obtained
+        bigAnimation = 7; //skips the first 7 frames in marioSprites[] to set big Mario sprites
+        playerHeight = 64; //sets a new proportionally accurate playerheight to fit big Mario
+        frontEndPosY = round((posY/2)*2+32); //adds 32 pixels to the player vertical position, to compensate for the larger sprite
       }else{
-        bigAnimation = 0;
-        playerHeight = 32;
+        bigAnimation = 0; //starts the animtion of marioSprites[] at index [0]
+        playerHeight = 32; //sets proportionally accurate height to small Mario
       }
       
       switch (animMode){ //A 1d blendtree responsible for controlling the player animations
         case -1:
         image(spritesMario[15], frontEndPosX,frontEndPosY + ( pow(framesSinceDeath*4, 2) * pow(10, -2.5) - framesSinceDeath*4));
-        println(frontEndPosY + ( pow(framesSinceDeath*4, 2) * pow(10, -2.5) - framesSinceDeath*4));
         if((frontEndPosY + ( pow(framesSinceDeath*4, 2) * pow(10, -2.5) - framesSinceDeath*4)) > 500){
           livesLeft--;
           if (livesLeft < 0) loadMainMenu(); //If Mario has no lives left, reset the game
@@ -291,8 +288,6 @@ class Player{
         break;
         
         case 4:
-        println(" entryPipeMovement: " + entryPipeMovement + " exitPipeMovement: " + exitPipeMovement);
-        
         if (pipeAction == 1){ //Entry pipe movement.
           switch (entryPipeMovement){
             case 0:
@@ -329,26 +324,21 @@ class Player{
         }
         
         if (pipeAction == -1){
-          println("exitPipeMovement 2: " +exitPipeMovement);
           switch (exitPipeMovement){
             
             case 0:
-            println("exit 0");
             if (posY < pipeStartY + playerHeight){ posY++;
             } else {pipeAction = 0;}
             break;
             case 1:
-            println("exit 1");
             if (posX < pipeStartX + playerWidth){ posX++;
             } else {pipeAction = 0;}
             break;
             case 2:
-            println("exit 2");
             if (posY > pipeStartY - playerHeight){ posY--;
             } else {pipeAction = 0;}
             break;
             case 3:
-            println("exit 3");
             if (posX > pipeStartX - playerWidth){ posX--;
             } else {pipeAction = 0;}
             break;
@@ -365,14 +355,14 @@ class Player{
         }
         break;
         
-        case 5:
-        if (posY < 310){
+        case 5: // Animation for mario sliding down the flagpole
+        if (posY < 310){ //Slides Mario down
           posY+=2;
-          if (big){
+          if (big){ //Sets the sprite based on Marios size
             image(spritesMario[13], frontEndPosX, frontEndPosY);
             } else image(spritesMario[6], frontEndPosX, frontEndPosY);
         } else {
-              posX +=2;
+              posX +=2; //Moves Mario horizontally towards the castle
               posY = 352;
               if(frameCount%5==0 && currentFrame <3){ //if statement responsible for quickly flipping through the running sprites at a specific rate to create an animation
                 currentFrame++;
@@ -389,7 +379,7 @@ class Player{
   }
 }
 
-void keyReleased(){
+void keyReleased(){ // Responsible for receiving key inputs
   if(gameState == 2){
     if(keyCode == RIGHT) Player.rightPressed = false;
     if(keyCode == LEFT) Player.leftPressed = false;
@@ -398,11 +388,10 @@ void keyReleased(){
     if(keyCode == 32) Player.spacePressed = false;
   } else if (gameState == 0 && keyCode == ENTER && LevelSetup.currentLevel==0){
     loadNextScene();
-    println("LoadingScene...");
   }
 }
 
-void keyPressed(){
+void keyPressed(){ // Responsible for receiving key inputs
   if(gameState == 2){
     if(keyCode == RIGHT) Player.rightPressed = true;
     if(keyCode == LEFT) Player.leftPressed = true;

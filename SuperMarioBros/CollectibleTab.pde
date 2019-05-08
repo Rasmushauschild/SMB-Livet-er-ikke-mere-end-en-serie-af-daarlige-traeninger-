@@ -1,10 +1,11 @@
+//Declare images for backgroundTab. Images are assigned in setup.
 PImage spriteCoin;
 PImage spriteMushroom;
 
 class Collectible{
-  float startPosX;
-  float startScrollAmount;
-  float totalMovementX = 0;
+  float startPosX; //initial horizontal position
+  float startScrollAmount; //initial scrollamount
+  float totalMovementX = 0; //total pixels moved in the horizontal axis
   float posX;
   float posY;
   int frontEndPosX;

@@ -1,3 +1,4 @@
+//Declare images for backgroundTab. Images are assigned in setup.
 PImage groundSprite;
 PImage itemSprite;
 PImage itemSpriteEmpty;
