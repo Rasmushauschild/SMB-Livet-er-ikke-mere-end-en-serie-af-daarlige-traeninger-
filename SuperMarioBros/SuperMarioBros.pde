@@ -1,4 +1,3 @@
-
 //W
 import processing.sound.*; //Imports the processing sound library.
 
@@ -166,7 +165,7 @@ void draw(){
         scrollAmount = 0; //Reset ScrollAmount
         Player = new Player(144, 400); //Spawn a new player in the new scene.
         Player.animationSetup();
-
+        publicPipeIdentifier = 0;
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Animation setup for every Gomba.
           if(goombaInstances[i]!=null) {
           goombaInstances[i].animationSetup();
@@ -202,7 +201,12 @@ void draw(){
         delay(100);
     }
       if(keyPressed && key == 'c'){
-        scrollAmount += 5100;
+        frameRate(0);
+        delay(400);
+    }
+    
+    if(keyPressed && key == 'd'){
+        frameRate(60);
         delay(400);
     }
     break;

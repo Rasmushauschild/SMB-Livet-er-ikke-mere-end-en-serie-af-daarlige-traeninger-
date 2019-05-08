@@ -88,13 +88,13 @@ class Player{
     
     //UP-DOWN MOVEMENT ------------------------------------------------------
     //Jump
-    if(spacePressed && jumpPossible){ //Jump when space is pressed and player is on ground.
+    if((spacePressed||upPressed) && jumpPossible){ //Jump when space is pressed and player is on ground.
       velocityY=-7;
       animMode = 2;
     }
     
     //Increases jump height if space is held in longer
-    if(!spacePressed && !jumpPossible && velocityY<0){ //If the player is going upwards, isn't touching ground and isn't pressing space, then increase gravity
+    if(!(spacePressed||upPressed) && !jumpPossible && velocityY<0){ //If the player is going upwards, isn't touching ground and isn't pressing space, then increase gravity
       velocityY += 2.8*deltaTime;
     } else if(!jumpPossible && velocityY>0){ //If the player is going downwards and isn't touching ground, increase gravity
       velocityY += 1.0*deltaTime;
@@ -130,12 +130,11 @@ class Player{
     velocityX = 0;
     if(jumpPossible) animMode = 0;
   }
-    if(spacePressed && jumpPossible){ //Jump animation and sound when space is pressed and player is on ground.
-    
-    jump.play();
-    animMode = 2;
+    if((spacePressed||upPressed) && jumpPossible){ //Jump animation and sound when space is pressed and player is on ground.
+      jump.play();
+      animMode = 2;
     }
-    jumpPossible = false;
+    jumpPossible = false; //Reset jumpPossible every frame.
     
     for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //Creating a "collision-matrix" around The player, so it does not have to check on every single block in the table
       if ((i >= (int(posY)/32+1)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32+1)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) || 
