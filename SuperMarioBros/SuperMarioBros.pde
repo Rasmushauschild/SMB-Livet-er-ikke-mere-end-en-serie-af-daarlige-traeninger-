@@ -1,4 +1,19 @@
-//W
+/*
+Super Mario Bros. Created by Alsing and True (Rasmus A. Haushild and Joachim L. Sand).
+USEFUL INFORMATION--------------------------
+The word menu is used pretty interchangebly with HUD/UI
+The games default speed is 60 FPS.
+Level size in pixels: 7042,448
+Level size in blocks: 221, 14
+
+Window size in pixels (2x original): 512, 448
+Window size in blocks: 16, 14
+
+Blocks Mario can move before screen moves with him: 7
+--------------------------------------------
+*/
+
+
 import processing.sound.*; //Imports the processing sound library.
 
 //Declare variables for sounds
@@ -15,41 +30,47 @@ SoundFile pipe;
 SoundFile powerUp;
 SoundFile stomp;
 
-LevelSetup LevelSetup;
-Block Block; //Declare object Block
-Block[] blockInstances; //Create a array of name blockInstances, containing instances of the Block class.
-Goomba Goomba;
-Goomba[] goombaInstances;
-Player Player;
-Collectible Collectible;
-Collectible[] collectibleInstances;
-Menu Menu;
-Menu[] menuInstances;
-Background Background;
-Background[] backgroundInstances;
-PFont mainFont;
-float scrollAmount;
-float currentTime;
-float prevTime;
-float deltaTime;
+Player Player; //Declare class player
+LevelSetup LevelSetup; //Declare class LevelSetup 
+Block Block; //Declare class Block
+Block[] blockInstances; //Create a array with name blockInstances, containing instances of the Block class.
+Goomba Goomba; //Declare class Goomba
+Goomba[] goombaInstances; //Create a array with name goombaInstances, containing instances of the Goomba class.
+Collectible Collectible; //Declare class collectibles
+Collectible[] collectibleInstances; //Create a array with name collectibleInstances, containing instances of the Collectible class.
+Menu Menu; //Declare class Menu
+Menu[] menuInstances; //Create a array with name menuInstances, containing instances of the Menu class.
+Background Background; //Declare class Background
+Background[] backgroundInstances; //Create a array with name backgroundInstances, containing instances of the Background class.
+
+PFont mainFont; //Declare mainFont used for the game. 
+float scrollAmount; //Declare scrollAmount. Used for tracking how much the current scene/level has been scrolled
 float frameCountWhenLoadingStarted;
-int gameState; //Responsible for the state of the game - 0: Main menu 1: LevelLoad 2: Gameplay 3:Paused Gameplay
+int gameState; //Responsible for the state of the game - 0: Main menu, 1: Level Loading Screen, 2: Gameplay 3
 int collectibleIdentifier = 0; //For creating collectibles with seperate names
 int publicPipeIdentifier = 0; //For creating ID for pipes which can be used by Mario. 
-int[] pipeArray = new int[100]; //Initiliasizes array and sets length to 100 - setting a max of 50 pipes per level
-color backgroundColor;
+int[] pipeArray = new int[100]; //Initiliasizes array and sets length to 100 - setting a max of 50 pipes per level. Is used to keep track of pipes.
+color backgroundColor; //Declare color for background. 
 
-int timeLeft = 400;
-int millisAtStartOfLevel;
-int world = 1;
-int levelInWorld = 1;
-int score;
-int coins; 
+//Values concerning deltaTime and its calculation
+float currentTime; 
+float prevTime;
+float deltaTime; //deltaTime represent the time which passed between each frame. Is used to create consistent movement for every computer, even though frame rates might vary.
+
+//Values concerning the HUD.
+int timeLeft = 400; //TimeLeft is the amount of time left in a level in seconds. Is reset every time a level is loaded.
+int millisAtStartOfLevel; //Used to keeping the HUD-timer working. Is reset every time a level is loaded.
+int world = 1; //Keeps track of which world Mario is in. Each world contains 4 levels.
+int levelInWorld = 1; //The current level in the current world.
+int score; //Score Mario has achieved in his current run.
+int coins; //Amount of coins Mario has collected.
 int livesLeft = 3; //Amount of lives Mario has left
-int currentPalette;
+int currentPalette; //The palette of the game. 0 is overworld (the usual palette SMB has) and 1 is underground (dark blueish).
 
 void setup(){
-    
+    size(512,448);
+    imageMode(CENTER);  
+  
     //Load soundfiles for game
     mainTheme = new SoundFile(this, "Track_Main.wav");
     UGTheme = new SoundFile(this, "Track_UG.wav");
@@ -63,53 +84,21 @@ void setup(){
     pipe = new SoundFile(this, "SFX_Pipe.wav");
     powerUp = new SoundFile(this, "SFX_PowerUp.wav");
     stomp = new SoundFile(this, "SFX_Stomp.wav");
-
     
-    //60 FPS
-    //Level size in pixels: 7042,448
-    //Level size in blocks: 221, 14
-
-    //Window size in pixels (2x original): 512, 448
-    //Window size in blocks: 16, 14
+    loadSprites(0); //Load Sprites based on palette. (0 is overworld, 1 is underground).
     
-    //Blocks Mario can move before screen moves with him: 7
-    
-    /* TO DO LIST:
-    √ Item block
-      - Animation af item block
-    √ Brick block
-    √ Mushroom
-    √ Stor mario
-    √ Mario death
-    - Menu
-    - Flag pole
-    √ Pipes
-    - Have underground i slutningen af banen
-    √ Musik
-      √ Sound FX
-    √ Background Polish
-    √ indsæt leveldesign
-    */
-    
-    loadSprites(0);
-    size(512,448);
-    frameRate(60);
-    noStroke();
-    stroke(2);
-    rectMode(CORNER);
-    imageMode(CENTER);
-    
-    mainFont = loadFont("Super-Mario-Bros.-NES-48.vlw");
+    mainFont = loadFont("Super-Mario-Bros.-NES-48.vlw"); //Load SMB font.
     textFont(mainFont,14); //Double the height of the original
-    LevelSetup = new LevelSetup();
-    LevelSetup.loadScene(0);
+    
+    LevelSetup = new LevelSetup(); //Init LevelSetup class
+    LevelSetup.loadScene(0); //Load Main Menu
     
     //Spawn Player
     Player = new Player(144, 400);
     Player.animationSetup();
     
-    
-    for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
+    //AnimationSetup for every Goomba. Is in a for-loop in order to reach every instance of the Goomba.
+    for (int i = 0; i<LevelSetup.currentTableCellCount;i++){
     if(goombaInstances[i]!=null) {
       goombaInstances[i].animationSetup();
     }
@@ -117,9 +106,9 @@ void setup(){
 }
 
 void draw(){
-  deltaTimeCalculation();  
-  switch(gameState){
-    case 0:
+  deltaTimeCalculation(); //Calculate deltaTime
+  switch(gameState){ //Whatever is done each frame should be determined by the gameState.
+    case 0: //Main Menu
       background(backgroundColor);
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){if(backgroundInstances[i]!=null) backgroundInstances[i].Display();}
       Player.PlayerActive();
@@ -132,29 +121,28 @@ void draw(){
 
     break;
     
-    case 1:
+    case 1: //Loading Scene
       background(0);
-      pauseMusic();
+      pauseMusic(); //Pause when loading a new scene.
           
-      if(frameCountWhenLoadingStarted + 333 > frameCount){
-        for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell.   
+      if(frameCountWhenLoadingStarted + 333 > frameCount){ //Display the loading screen for 333 frames.
+        for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Display every MenuInstance.   
           if(menuInstances[i]!=null){
             menuInstances[i].Active();
           }
         }
-      } else {
-        //LOAD NEXT LEVEL
-        switch (LevelSetup.currentLevel){
+      } else { //LOAD NEXT LEVEL
+        switch (LevelSetup.currentLevel){ //Load appropiate palette for level
           case 0:
-          case 1:
+          case 1: //Overworld level
             loadSprites(0);
           break;
-          case 2:
+          case 2: //Underground level
             loadSprites(1);
           break;
         }
         LevelSetup.loadScene(LevelSetup.currentLevel); //Load the level
-        timeLeft = 400;
+        timeLeft = 400; //Reset timer
         millisAtStartOfLevel = millis(); //Reset timer for the level
         if (LevelSetup.currentLevel != 0){ //Any level
           frameCountWhenLoadingStarted = frameCount; //Resets the timer for when to end the loading screen. Is not done when returning to the main menu, so as to avoid loading screen.
@@ -165,7 +153,7 @@ void draw(){
         scrollAmount = 0; //Reset ScrollAmount
         Player = new Player(144, 400); //Spawn a new player in the new scene.
         Player.animationSetup();
-        publicPipeIdentifier = 0;
+        publicPipeIdentifier = 0; //Reset
         for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Animation setup for every Gomba.
           if(goombaInstances[i]!=null) {
           goombaInstances[i].animationSetup();
@@ -186,29 +174,14 @@ void draw(){
       background(backgroundColor);
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){if(backgroundInstances[i]!=null) backgroundInstances[i].Display();}
       Player.PlayerActive();
-      for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
+      for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Display blocks, Goombas and collectibles. 
         if(blockInstances[i]!=null) blockInstances[i].Display();
         if(goombaInstances[i]!=null) goombaInstances[i].Alive();
         if(collectibleInstances[i]!=null) collectibleInstances[i].Alive(); 
       }
-      for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //For-loop for displaying every blockInstance. Checks every possible tablecell. 
+      for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Display menu (HUD). Has to be last and in its own loop to make sure it's displayed on top of everything else.
         if(menuInstances[i]!=null) menuInstances[i].Active();
       }
-      if(keyPressed && key == 'b'){
-        LevelSetup.currentLevel++;
-        LevelSetup.loadScene(LevelSetup.currentLevel);
-        println("Scene" + LevelSetup.currentLevel + "Loaded");
-        delay(100);
-    }
-      if(keyPressed && key == 'c'){
-        frameRate(0);
-        delay(400);
-    }
-    
-    if(keyPressed && key == 'd'){
-        frameRate(60);
-        delay(400);
-    }
     break;
   }
 }
@@ -221,7 +194,7 @@ void loadNextScene(){ //Go to the loading level scene
   frameCountWhenLoadingStarted = frameCount; //Used for the amount of frames the loading scene should be displayed
 }
 
-void loadCurrentScene(){
+void loadCurrentScene(){ //Load the current scene again. Usually when the players dies but has lives left
   println("current scene loaded...");
   collectibleIdentifier = 0;
   gameState = 1;
@@ -229,7 +202,7 @@ void loadCurrentScene(){
   frameCountWhenLoadingStarted = frameCount;
 }
 
-void loadMainMenu(){
+void loadMainMenu(){ //Load main menu. Usually when the player dies but has no lives left
   livesLeft = 3;
   LevelSetup.currentLevel = 0;
   gameState = 1;
@@ -238,13 +211,11 @@ void loadMainMenu(){
 }
 
 
-void deltaTimeCalculation(){
+void deltaTimeCalculation(){ //Calculate deltaTime: The time in millis between each frame.
   prevTime = currentTime;
   currentTime = millis();
-  deltaTime = (currentTime - prevTime)/20;
+  deltaTime = (currentTime - prevTime)/20; //Divided by 20 to achieve values of deltaTime which are more workable.
 }
-
-
 
 void loadSprites(int palette){ //Change sprite pallete based on loaded level
 switch(palette){
@@ -272,6 +243,8 @@ switch(palette){
     spriteSheetGoomba = loadImage("SpriteSheet_UGGoomba.png");
   break;
 }
+    //The following are the same, no matter which palette is selected.
+    
     
     pipeL = loadImage("Sprite_PipeL.png");
     pipeR = loadImage("Sprite_PipeR.png");
@@ -299,7 +272,7 @@ switch(palette){
 
 }
 
-void pauseMusic(){
+void pauseMusic(){ //Function for pausing game music.
   mainTheme.pause();
   UGTheme.pause();
 }
