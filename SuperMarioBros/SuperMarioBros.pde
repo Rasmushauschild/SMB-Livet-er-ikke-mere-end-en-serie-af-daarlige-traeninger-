@@ -230,6 +230,7 @@ void loadCurrentScene(){
 }
 
 void loadMainMenu(){
+  livesLeft = 3;
   LevelSetup.currentLevel = 0;
   gameState = 1;
   LevelSetup.loadScene(-1);
