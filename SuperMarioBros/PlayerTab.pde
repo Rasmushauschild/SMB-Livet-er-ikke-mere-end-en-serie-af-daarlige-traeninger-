@@ -72,20 +72,26 @@ class Player{
   void Movement(){
     if(posY > 448) Death();
     
-    for (int i = 0; i<LevelSetup.currentTableCellCount; i++){ //Checks whether or not player is touching ground, determines if player can jump
-      if (blockInstances[i]!=null){ //Checks if the curent blockinstance exists in the table
+    for (int i = 0; i<LevelSetup.currentTableCellCount; i++){
+      if ((i >= (int(posY)/32+1)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32+1)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) || 
+          (i >= (int(posY)/32-0)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32-0)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) ||
+          (i >= (int(posY)/32-1)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32-1)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) ||
+          (i >= (int(posY)/32-2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32-2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount()) ||
+          (i >= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32)-1)%LevelSetup.currentLevelTable.getColumnCount() && i <= (int(posY)/32+2)*LevelSetup.currentLevelTable.getColumnCount()+((int(posX + scrollAmount)/32+1))%LevelSetup.currentLevelTable.getColumnCount())){
+      //Checks whether or not player is touching ground, determines if player can jump
+        if (blockInstances[i]!=null){ //Checks if the curent blockinstance exists in the table
         if(frontEndPosX + playerWidth > blockInstances[i].posX && //player right edge past ground left-side
-        frontEndPosX < blockInstances[i].posX + 32){ //player left edge past ground right-side'
+          frontEndPosX < blockInstances[i].posX + 32){ //player left edge past ground right-side'
           if (big){
             if(frontEndPosY+playerHeight-32 == blockInstances[i].posY)
-            jumpPossible = true;
-          } else if(frontEndPosY+playerHeight == blockInstances[i].posY){
-            jumpPossible = true;
+              jumpPossible = true;
+            } else if(frontEndPosY+playerHeight == blockInstances[i].posY){
+              jumpPossible = true;
+            }
           }
         }
-      }
-    }  
-    
+      }  
+    }
     //UP-DOWN MOVEMENT ------------------------------------------------------
     //Jump
     if((spacePressed||upPressed) && jumpPossible){ //Jump when space is pressed and player is on ground.
