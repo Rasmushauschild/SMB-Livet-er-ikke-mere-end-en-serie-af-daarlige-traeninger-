@@ -74,17 +74,11 @@ class Block{
         
         case 6: //Item Block with coin
         case 7: //Item block with mushroom
-        if (!empty){
-          if (animationInProgress && round(posY+pow(frameCountSinceBeingHit,2)-10*frameCountSinceBeingHit-1)>=posY){ //Stop animation after 30 frames
-            animationInProgress = false;
-            frameCountSinceBeingHit =0;
-          } else if (animationInProgress){
-            image(itemSprite, posX, round(posY+pow(frameCountSinceBeingHit,2)-10*frameCountSinceBeingHit-1));
-            frameCountSinceBeingHit = frameCount - frameCountWhenHit;
+          if (!empty){
+              image(itemSprite, posX, posY);
           } else {
-            image(itemSprite, posX, posY);
+          image(itemSpriteEmpty, posX, posY);
           }
-        } else image(itemSpriteEmpty, posX, posY);
         break;
         
         case 8: //StoneBlock
@@ -94,7 +88,7 @@ class Block{
         case 10:
         image(flagPole, posX, posY-130);
         
-        if(Player.posX > posX -10 && Player.posX < posX && !Player.flagPoleAction){
+        if(Player.posX > posX -10 && Player.posX < posX && !Player.flagPoleAction){ //If player is past the X-position of the flag, run the flag animation.
           flagPoleSound.play();
           Player.animMode = 5;
           Player.flagPoleStartX = posX;
@@ -202,49 +196,49 @@ class Block{
         break;
         
         case 4: //Brick block with coin
-        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 18);
-        collectibleInstances[collectibleIdentifier].spawnedFromBlock = true;
-        collectibleInstances[collectibleIdentifier].spawnFrame = frameCount;
-        animationInProgress = true;
-        frameCountWhenHit = frameCount;
-        collectibleIdentifier++;
-        coins++; //Add 1 coin to the amount of coins the player has collected.
-        coin.play();
-        empty = true;
+          collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 18);
+          collectibleInstances[collectibleIdentifier].spawnedFromBlock = true;
+          collectibleInstances[collectibleIdentifier].spawnFrame = frameCount;
+          animationInProgress = true;
+          frameCountWhenHit = frameCount;
+          collectibleIdentifier++;
+          coins++; //Add 1 coin to the amount of coins the player has collected.
+          coin.play();
+          empty = true;
         break;  
         
         case 5: //Brick block with mushroom
-        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 19);
-        animationInProgress = true;
-        frameCountWhenHit = frameCount;
-        collectibleIdentifier++;
-        mushroomAppears.play();
-        empty = true;
+          collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 19);
+          animationInProgress = true;
+          frameCountWhenHit = frameCount;
+          collectibleIdentifier++;
+          mushroomAppears.play();
+          empty = true;
         break;  
         
         case 6: //Item block with coin
-        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 18);
-        collectibleInstances[collectibleIdentifier].spawnedFromBlock = true;
-        collectibleInstances[collectibleIdentifier].spawnFrame = frameCount;
-        animationInProgress = true;
-        frameCountWhenHit = frameCount;
-        collectibleIdentifier++;
-        coins++; //Add 1 coin to the amount of coins the player has collected.
-        coin.play();
-        empty = true;
+          collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 18);
+          collectibleInstances[collectibleIdentifier].spawnedFromBlock = true;
+          collectibleInstances[collectibleIdentifier].spawnFrame = frameCount;
+          animationInProgress = true;
+          frameCountWhenHit = frameCount;
+          collectibleIdentifier++;
+          coins++; //Add 1 coin to the amount of coins the player has collected.
+          coin.play();
+          empty = true;
         break;     
       
         case 7: //Item block with mushroom
-        collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 19);
-        animationInProgress = true;
-        frameCountWhenHit = frameCount;
-        collectibleIdentifier++;
-        mushroomAppears.play();
-        empty = true;
+          collectibleInstances[collectibleIdentifier] = new Collectible(posX, posY-32, 19);
+          animationInProgress = true;
+          frameCountWhenHit = frameCount;
+          collectibleIdentifier++;
+          mushroomAppears.play();
+          empty = true;
         break;   
+        }
       }
     }
-  }
     
     void ActivatedVerticalPipe(){ //Player has activated a block by clicking right/left or up/down in it its direction while directly touching it
       if (identifier == 95 || identifier == 96 || identifier == 101 || identifier == 102){ //Makes sure the activated block is a pipe with a vertical orientation
@@ -253,7 +247,7 @@ class Block{
           if (currentPipeID == localPipeIdentifier && i%2==0){ //If the activated pipe is in the pipeData for this level, and the pipe is an entry pipe
             int destinationPipeID = pipeTable.getInt(0,i+1); //Find the pipeID of the pipe Mario has to travel to by using the pipeData.csv file
             int destinationPipetvalue = pipeArray[destinationPipeID]; //Find the tvalue for for the destination pipe
-            int destinationPipeIdentifier = blockInstances[destinationPipetvalue].identifier;
+            int destinationPipeIdentifier = blockInstances[destinationPipetvalue].identifier; //Identifier for the destination pipe.
             
             if (identifier == 95 || identifier == 96){ //If the entry pipe is pointing upwards, the entry pipe movement should be downwards
               Player.entryPipeMovement = 0;
@@ -274,11 +268,11 @@ class Block{
               Player.exitPipeMovement = 1;
             }
             pauseMusic();
-            pipe.play();
-            Player.pipeDestinationY = blockInstances[destinationPipetvalue].posY;
-            Player.pipeDestinationScrollAmount = scrollAmount + (blockInstances[destinationPipetvalue].posX-blockInstances[tvalue].posX);
-            Player.pipeAction = 1;
-            Player.pipeStartX = Player.posX;
+            pipe.play(); 
+            Player.pipeDestinationY = blockInstances[destinationPipetvalue].posY; //Tell the player object where it has to go Y-wise.
+            Player.pipeDestinationScrollAmount = scrollAmount + (blockInstances[destinationPipetvalue].posX-blockInstances[tvalue].posX); //Tell the player object where it has to go X-wise.
+            Player.pipeAction = 1; //1 is for entering pipe
+            Player.pipeStartX = Player.posX; //Tell player where the player started when the pipe was activated
             Player.pipeStartY = Player.posY;
           }
         }
@@ -292,7 +286,7 @@ class Block{
           if (currentPipeID == localPipeIdentifier && i%2==0){ //If the activated pipe is in the pipeData for this level, and the pipe is an entry pipe
             int destinationPipeID = pipeTable.getInt(0,i+1); //Find the pipeID of the pipe Mario has to travel to by using the pipeData.csv file
             int destinationPipetvalue = pipeArray[destinationPipeID]; //Find the tvalue for for the destination pipe
-            int destinationPipeIdentifier = blockInstances[destinationPipetvalue].identifier;
+            int destinationPipeIdentifier = blockInstances[destinationPipetvalue].identifier; //Identifier for the destination pipe.
             
             if (identifier == 97 || identifier == 98){ //If the entry pipe points leftwards, the entry pipe movement should be rightwards
               Player.entryPipeMovement = 1;
@@ -300,7 +294,6 @@ class Block{
               Player.entryPipeMovement = 3;
             }
             
-            println("destinationPipeID: " + destinationPipeID);
             if (destinationPipeIdentifier == 95 || destinationPipeIdentifier == 96){ //If the destination pipe points upwards, the exit pipe movement should be upwards
               Player.exitPipeMovement = 2;
             } else if (destinationPipeIdentifier == 101 || destinationPipeIdentifier == 102){ //If the destination pipe points downwards, the exit pipe movement should be downwards
@@ -312,11 +305,11 @@ class Block{
               Player.exitPipeMovement = 1;
             }
             pauseMusic();
-            pipe.play();
-            Player.pipeDestinationY = blockInstances[destinationPipetvalue].posY;
-            Player.pipeDestinationScrollAmount = scrollAmount + (blockInstances[destinationPipetvalue].posX-blockInstances[tvalue].posX);
-            Player.pipeAction = 1;
-            Player.pipeStartX = Player.posX;
+            pipe.play(); 
+            Player.pipeDestinationY = blockInstances[destinationPipetvalue].posY; //Tell the player object where it has to go Y-wise.
+            Player.pipeDestinationScrollAmount = scrollAmount + (blockInstances[destinationPipetvalue].posX-blockInstances[tvalue].posX); //Tell the player object where it has to go X-wise.
+            Player.pipeAction = 1; //1 is for entering pipe
+            Player.pipeStartX = Player.posX; //Tell player where the player started when the pipe was activated
             Player.pipeStartY = Player.posY;
           }
         }
