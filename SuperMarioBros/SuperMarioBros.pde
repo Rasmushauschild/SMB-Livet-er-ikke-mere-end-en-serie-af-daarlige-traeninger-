@@ -46,7 +46,7 @@ Background[] backgroundInstances; //Create a array with name backgroundInstances
 PFont mainFont; //Declare mainFont used for the game. 
 float scrollAmount; //Declare scrollAmount. Used for tracking how much the current scene/level has been scrolled
 float frameCountWhenLoadingStarted;
-int gameState; //Responsible for the state of the game - 0: Main menu, 1: Level Loading Screen, 2: Gameplay 3
+int gameState; //Responsible for the state of the game - 0: Main menu, 1: Level Loading Screen, 2: Gameplay 
 int collectibleIdentifier = 0; //For creating collectibles with seperate names
 int publicPipeIdentifier = 0; //For creating ID for pipes which can be used by Mario. 
 int[] pipeArray = new int[100]; //Initiliasizes array and sets length to 100 - setting a max of 50 pipes per level. Is used to keep track of pipes.
@@ -165,7 +165,7 @@ void draw(){
     break;
     
     
-    case 2:
+    case 2: //Gameplay
       if (timeLeft > 0) //If there is time left, subtract time accordingly from the timer.
         timeLeft = 400 - (millis()-millisAtStartOfLevel)/1000;
       else { //If there is no time left, kill the player
@@ -173,12 +173,12 @@ void draw(){
       }      
       background(backgroundColor);
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){if(backgroundInstances[i]!=null) backgroundInstances[i].Display();}
+      Player.PlayerActive();
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Display blocks, Goombas and collectibles. 
         if(blockInstances[i]!=null) blockInstances[i].Display();
         if(goombaInstances[i]!=null) goombaInstances[i].Alive();
         if(collectibleInstances[i]!=null) collectibleInstances[i].Alive(); 
       }
-            Player.PlayerActive();
       for (int i = 0; i<LevelSetup.currentTableCellCount;i++){ //Display menu (HUD). Has to be last and in its own loop to make sure it's displayed on top of everything else.
         if(menuInstances[i]!=null) menuInstances[i].Active();
       }
